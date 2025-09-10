@@ -1,0 +1,112 @@
+.header_style {
+    display: flex;
+    height: 8vh;
+}
+
+/*#region logo_search_bar*/
+
+
+
+.logo_search_bar {
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+
+
+.container_logo {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-left: .5rem;
+}
+
+.search_bar_container {
+    height: 60%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    border-top-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: #f4f4f4;
+    border-color: #f4f4f4;
+}
+
+
+.input_search_bar {
+    height: 90%;
+    width: 100%;
+    border: none;
+    background-color: #f4f4f4;
+
+    border-top-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    font-size: medium;
+    font-weight: 600;
+    color: #6ECF71;
+    text-align: center;
+}
+
+.input_search_bar::placeholder {
+    font-size: medium;
+    font-weight: 600;
+    color: gray;
+    text-align: center;
+}
+
+.search_icon {
+    height: 100%;
+}
+
+.search_icon:hover {
+    cursor: pointer;
+}
+
+.input_search_bar:focus {
+    outline: none;
+}
+
+/*#endregion logo_search_bar*/
+
+/*#region login_logout*/
+
+.login_logout {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.login_logout {
+    display: flex;
+    align-items: center;
+}
+
+.button_container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    button {
+        height: 50%;
+        width: 150px;
+        margin-right: .5rem;
+        border-top-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        color: white;
+        font-weight: bold;
+        background-color: #bebebe;
+        border-color: #bebebe;
+    }
+
+    button:hover {
+        cursor: pointer;
+    }
+}
+
+.store_map {
+    height: 50%;
+    margin-right: .5rem;
+}
+
+/*#endregion login_logout*/
