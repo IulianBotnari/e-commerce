@@ -8,6 +8,7 @@ export default function HeaderLayout() {
 
 
 
+
     return <>
         <header className={style.header_style}>
             <div id="logo_search_bar" className={style.logo_search_bar}>

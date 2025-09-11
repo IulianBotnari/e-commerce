@@ -1,0 +1,144 @@
+.footer_container {
+    display: flex;
+    flex-direction: column;
+    background-color: #bebebe;
+
+    :last-child {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+/*#region site information row*/
+
+
+.site_information_row {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1rem;
+    padding-bottom: 2rem;
+    text-align: center;
+    border-bottom: 1px solid white;
+
+
+    div {
+        display: flex;
+        flex-direction: column;
+
+        a {
+            color: gray;
+            font-size: larger;
+            text-decoration: none;
+            margin-bottom: 1rem;
+        }
+
+        a:hover {
+            color: black;
+        }
+    }
+
+
+
+}
+
+
+/*#endregion information row*/
+
+/*#region payment row*/
+
+.payment_row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2rem 1rem;
+    border-bottom: 1px solid white;
+
+
+    div {
+        display: flex;
+        flex-direction: column;
+
+    }
+
+    div:first-child {
+        border-right: 1px solid white;
+    }
+
+    div:last-child {
+        border-left: 1px solid white;
+    }
+}
+
+/*#endregion payment row*/
+
+
+/*#region buisness_information_row*/
+
+.buisness_information_row {
+
+    display: flex;
+    justify-content: space-around;
+    padding: 2rem 1rem;
+    text-align: center;
+
+
+    div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex: 1 1 0;
+    }
+
+    div:last-child {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        p {
+            margin: .5rem 0rem;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+
+        }
+
+        p>a {
+            margin: 0rem .4rem;
+            color: rgb(104, 167, 10);
+            font-size: small;
+            text-decoration: none;
+
+        }
+
+        :nth-child(2) {
+
+            a:last-child {
+                background-color: white;
+                color: black;
+                padding: 0rem .2rem;
+            }
+        }
+
+        :nth-child(3) {
+
+            a {
+                background-color: white;
+                color: black;
+                padding: 0rem .2rem;
+            }
+        }
+
+
+    }
+
+    span {
+        margin: .2rem 0rem;
+        font-size: small;
+    }
+
+}
+
+/*#endregion buisness_information_row*/

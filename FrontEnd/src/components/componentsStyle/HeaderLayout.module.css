@@ -20,6 +20,10 @@
     align-items: center;
     justify-content: start;
     padding-left: .5rem;
+
+    img {
+        cursor: pointer;
+    }
 }
 
 .search_bar_container {
@@ -46,6 +50,8 @@
     font-weight: 600;
     color: #6ECF71;
     text-align: center;
+
+
 }
 
 .input_search_bar::placeholder {
@@ -101,12 +107,16 @@
 
     button:hover {
         cursor: pointer;
+        background-color: #6ECF71;
+        color: black;
+        transition: 500ms;
     }
 }
 
 .store_map {
     height: 50%;
     margin-right: .5rem;
+    cursor: pointer;
 }
 
 /*#endregion login_logout*/
