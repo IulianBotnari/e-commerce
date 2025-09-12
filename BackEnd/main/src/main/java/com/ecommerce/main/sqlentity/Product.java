@@ -4,7 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
-public class Products{
+public class Product{
 
     @Id
     private int id;
@@ -14,11 +14,11 @@ public class Products{
     private String description;
     private double price;
 
-    public Products(){
+    public Product(){
 
     }
 
-    public Products(int id, String category, String brand, String name, String description, double price) {
+    public Product(int id, String category, String brand, String name, String description, double price) {
         this.id = id;
         this.category = category;
         this.brand = brand;
@@ -77,7 +77,7 @@ public class Products{
 
     @Override
     public String toString() {
-        return "Products [id=" + id + ", category=" + category + ", brand=" + brand + ", name=" + name
+        return "Product [id=" + id + ", category=" + category + ", brand=" + brand + ", name=" + name
                 + ", description=" + description + ", price=" + price + "]";
     }
 
@@ -104,7 +104,7 @@ public class Products{
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Products other = (Products) obj;
+        Product other = (Product) obj;
         if (id != other.id)
             return false;
         if (category == null) {

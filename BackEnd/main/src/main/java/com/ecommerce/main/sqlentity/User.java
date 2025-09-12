@@ -21,7 +21,6 @@ public class User {
     private String name;
     private String surname;
     private String email;
-
     private LocalDate dateofbirth;
     private String codefiscale;
     private HashSet<String> paymentmethods;
@@ -49,7 +48,7 @@ public class User {
     public void setId(int id) {
         this.id = id;
     }
-
+    
     public String getName() {
         return name;
     }
