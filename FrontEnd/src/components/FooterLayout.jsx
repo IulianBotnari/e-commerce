@@ -1,7 +1,7 @@
 import finanziamenti from '../assets/finanziamenti-agos-finanziamentionline-pagodil.png'
 import pagamenti from '../assets/pagamento-unicredit-visa-mastercard.png'
 import pagamentiPrep from '../assets/pagamenti-postepay-paypal-satispay.png'
-import style from './componentsStyle/FooterLayout.module.css'
+import style from './componentsStyle/FooterLayout.module.scss'
 import { Link } from 'react-router-dom'
 
 

@@ -1,7 +1,7 @@
 import logo from '../assets/NextLogo.png'
 import negoziNextMappa from '../assets/negozi-next-mappa.jpg'
 import searchIcon from '../assets/search-icon.png'
-import style from './componentsStyle/HeaderLayout.module.css'
+import style from './componentsStyle/HeaderLayout.module.scss'
 
 
 export default function HeaderLayout() {

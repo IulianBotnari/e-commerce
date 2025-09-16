@@ -1,5 +1,6 @@
-import style from './componentsStyle/NavBar.module.css'
+import style from './componentsStyle/NavBar.module.scss'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 
 export default function NavBar() {
@@ -26,25 +27,25 @@ export default function NavBar() {
         <div id='popup_computer_tablet_notebook' className={style.popup_computer_tablet_notebook} style={{ opacity: PopUpComputerTabletNoteBook }} onMouseOver={() => setPopUpComputerTabletNoteBook("1")} onMouseLeave={() => setPopUpComputerTabletNoteBook("0")}>
             <div id='popup_options' className={style.popup_options}>
                 <h2 id='popup_title'>Computer Tablet NoteBook</h2>
-                <div id='popup_links'>
-                    <div id='popup_col1'>
-                        <a>Accessori Apple</a>
-                        <a>Accessori Tablet</a>
-                        <a>Computer</a>
-                        <a>NoteBook Rigenerati</a>
-                        <a>WorkStation e Server</a>
+                <div id='popup_links' className={style.popup_links}>
+                    <div id='popup_col1' className={style.popup_col1}>
+                        <Link to="/">Accessori Apple</Link>
+                        <Link>Accessori Tablet</Link>
+                        <Link>Computer</Link>
+                        <Link>NoteBook Rigenerati</Link>
+                        <Link>WorkStation e Server</Link>
                     </div>
                     <div id='popup_col2'>
-                        <a>Accessori Desktop</a>
-                        <a>App</a>
-                        <a>Microsoft Surface</a>
-                        <a>Tablet</a>
+                        <Link>Accessori Desktop</Link>
+                        <Link>App</Link>
+                        <Link>Microsoft Surface</Link>
+                        <Link>Tablet</Link>
                     </div>
                     <div id='popup_col3'>
-                        <a>Accessori NoteBook</a>
-                        <a>Borse, Zaini, etc</a>
-                        <a>NoteBook</a>
-                        <a>WorkStation/Server</a>
+                        <Link>Accessori NoteBook</Link>
+                        <Link>Borse, Zaini, etc</Link>
+                        <Link>NoteBook</Link>
+                        <Link>WorkStation/Server</Link>
                     </div>
                 </div>
             </div>
