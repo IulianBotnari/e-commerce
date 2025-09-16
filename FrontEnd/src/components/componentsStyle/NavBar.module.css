@@ -33,11 +33,24 @@
 .popup_monitor_stampanti_periferiche,
 .popup_telefonia_werabile,
 .popup_giochi {
-    display: none;
+
+    display: flex;
+    opacity: 0;
     position: absolute;
     border: 1px solid black;
-    width: 100%;
+    width: 99%;
     height: 200px;
     z-index: 5;
     background-color: white;
+    transition: opacity .5s ease-in;
+
+    .popup_options {
+        width: calc((100%/3)*2);
+        border: 2px solid black;
+    }
+
+    .popup_adv {
+        width: calc((100%/3));
+        border: 2px solid black;
+    }
 }
