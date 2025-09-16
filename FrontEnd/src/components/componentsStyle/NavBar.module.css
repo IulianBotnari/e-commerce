@@ -27,7 +27,12 @@
     }
 }
 
-.nav_bar_popup {
+.popup_computer_tablet_notebook,
+.popup_consumabile_accessori,
+.popup_hardware_software,
+.popup_monitor_stampanti_periferiche,
+.popup_telefonia_werabile,
+.popup_giochi {
     display: none;
     position: absolute;
     border: 1px solid black;
