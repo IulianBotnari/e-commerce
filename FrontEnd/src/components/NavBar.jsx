@@ -29,7 +29,7 @@ export default function NavBar() {
                 <h2 id='popup_title'>Computer Tablet NoteBook</h2>
                 <div id='popup_links' className={style.popup_links}>
                     <div id='popup_col1' className={style.popup_col1}>
-                        <Link to="/">Accessori Apple</Link>
+                        <Link>Accessori Apple</Link>
                         <Link>Accessori Tablet</Link>
                         <Link>Computer</Link>
                         <Link>NoteBook Rigenerati</Link>
@@ -47,6 +47,12 @@ export default function NavBar() {
                         <Link>NoteBook</Link>
                         <Link>WorkStation/Server</Link>
                     </div>
+                </div>
+                <div id='popup_button_option' className={style.popup_button_option}>
+                    <button>PC ASSEMBLATI</button>
+                    <button>CONFIGURATORE PC</button>
+                    <button>GAMING</button>
+                    <button>REFURBISHING</button>
                 </div>
             </div>
 
