@@ -9,7 +9,7 @@
     display: flex;
     width: 100% !important;
     position: relative;
-    height: 8vh;
+    height: 6vh;
 
     .categories {
         width: 100%;
@@ -19,12 +19,14 @@
         div {
 
             width: calc(100% / 6);
-            background-color: lightgray;
-            padding: .8rem 0rem 2rem 0rem;
+            padding: 1rem 0rem 0rem 0rem;
             color: rgb(78, 78, 78);
             font-weight: bold;
             margin-right: .1rem;
             text-align: center;
+            background: linear-gradient(to bottom, rgb(224, 224, 224), rgb(255, 255, 255));
+            transition: opacity 1s ease;
+            cursor: pointer;
 
         }
 
@@ -33,9 +35,7 @@
         }
 
         div:hover {
-            transition: 200ms;
-            background-color: white;
-            cursor: pointer;
+            background: linear-gradient(to bottom, white, white);
         }
 
     }
@@ -58,7 +58,7 @@
     padding: 1rem;
     background-color: white;
     transition: opacity .5s ease-in;
-    top: 8vh;
+    top: 6vh;
 
     .popup_options {
         display: flex;
@@ -68,6 +68,13 @@
 
     .popup_adv {
         width: calc((100%/3));
+        border-left: 1px solid gray;
+        cursor: pointer;
+        padding: 0rem 1rem;
+
+        img {
+            height: 100%;
+        }
     }
 
     .popup_links {
@@ -102,6 +109,7 @@
         display: flex;
         margin-top: 1rem;
         z-index: 1;
+        width: 100%;
 
 
         button {
@@ -137,4 +145,9 @@
     100% {
         background-position: 0% 50%;
     }
+}
+
+.menu_configuratore_batterie {
+    width: 50%;
+    cursor: pointer;
 }

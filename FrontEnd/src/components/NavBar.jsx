@@ -1,7 +1,13 @@
 import style from './componentsStyle/NavBar.module.scss'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import navbarcomputeradv from '../assets/navbarcomputeradv.jpg'
+import navBarComputerAdv from '../assets/navbarcomputeradv.jpg'
+import menuConfiguratoreBatterie from '../assets/menu-configuratore-batterie.png'
+import navBarConsumbiliAdv from '../assets/navbarconsumabiliadv.jpg'
+import navBarHardwareAdv from '../assets/navbarhardwareadv.jpg'
+import navBarMonitorAdv from '../assets/navbarmonitoradv.jpg'
+import navBarTelefoniaAdv from '../assets/navbartelefoniaadv.jpg'
+import navBarGiochiAdv from '../assets/navbargiochiadv.jpg'
 import { use } from 'react'
 
 
@@ -139,7 +145,7 @@ export default function NavBar() {
                     </div>
 
                     <div id='popup_adv' className={style.popup_adv}>
-                        <img src={navbarcomputeradv}></img>
+                        <img src={navBarComputerAdv}></img>
                     </div>
                 </div>
                 <div id='popup_consumabile_accessori' className={style.popup_consumabile_accessori} style={{ opacity: PopUpConsumabileAccessori }} >
@@ -147,35 +153,34 @@ export default function NavBar() {
                         <h2 id='popup_title'>Computer Tablet NoteBook</h2>
                         <div id='popup_links' className={style.popup_links}>
                             <div id='popup_col1' className={style.popup_col1}>
-                                <Link>Accessori Apple</Link>
-                                <Link>Accessori Tablet</Link>
-                                <Link>Computer</Link>
-                                <Link>NoteBook Rigenerati</Link>
-                                <Link>WorkStation e Server</Link>
+                                <Link>Cavi</Link>
+                                <Link>Power Bank</Link>
+                                <Link>Accesori iPhone</Link>
+                                <Link>Accessori Samsung</Link>
+                                <Link>Pendrive USB</Link>
                             </div>
                             <div id='popup_col2'>
-                                <Link>Accessori Desktop</Link>
-                                <Link>App</Link>
-                                <Link>Microsoft Surface</Link>
-                                <Link>Tablet</Link>
+                                <Link>Consumabile</Link>
+                                <Link>Accessori Apple</Link>
+                                <Link>Accessori Mobile</Link>
+                                <Link>Accessori Tablet</Link>
+                                <Link>Sedie Gaming</Link>
+
                             </div>
                             <div id='popup_col3'>
+                                <Link>Multiprese</Link>
+                                <Link>Accessori Asus</Link>
                                 <Link>Accessori NoteBook</Link>
-                                <Link>Borse, Zaini, etc</Link>
-                                <Link>NoteBook</Link>
-                                <Link>WorkStation/Server</Link>
+                                <Link>Case Accesori</Link>
                             </div>
                         </div>
                         <div id='popup_button_option' className={style.popup_button_option}>
-                            <button>PC ASSEMBLATI</button>
-                            <button>CONFIGURATORE PC</button>
-                            <button>GAMING</button>
-                            <button>REFURBISHED</button>
+                            <img id='menu_configuratore_batterie' className={style.menu_configuratore_batterie} src={menuConfiguratoreBatterie}></img>
                         </div>
                     </div>
 
                     <div id='popup_adv' className={style.popup_adv}>
-                        {/* <img src={navbarcomputeradv}></img> */}
+                        <img src={navBarConsumbiliAdv}></img>
                     </div>
                 </div>
                 <div id='popup_hardware_software' className={style.popup_computer_tablet_notebook} style={{ opacity: PopUpHardwareAccessori }}>
@@ -183,35 +188,44 @@ export default function NavBar() {
                         <h2 id='popup_title'>Computer Tablet NoteBook</h2>
                         <div id='popup_links' className={style.popup_links}>
                             <div id='popup_col1' className={style.popup_col1}>
-                                <Link>Accessori Apple</Link>
-                                <Link>Accessori Tablet</Link>
-                                <Link>Computer</Link>
-                                <Link>NoteBook Rigenerati</Link>
-                                <Link>WorkStation e Server</Link>
+                                <Link>Alimentatori</Link>
+                                <Link>Case Accesori</Link>
+                                <Link>Dissipatori Cpu</Link>
+                                <Link>Masterizzatori</Link>
+                                <Link>Rack Case</Link>
+                                <Link>Software Antivirus</Link>
+                                <Link>Networiking</Link>
+                                <Link>Webcam</Link>
                             </div>
                             <div id='popup_col2'>
-                                <Link>Accessori Desktop</Link>
-                                <Link>App</Link>
-                                <Link>Microsoft Surface</Link>
-                                <Link>Tablet</Link>
+                                <Link>Card Reader, Hub</Link>
+                                <Link>Controller Raid</Link>
+                                <Link>Hard Disk e SSD</Link>
+                                <Link>Memorie Flash</Link>
+                                <Link>Schede I/O</Link>
+                                <Link>Water Cooling</Link>
+                                <Link>Router</Link>
                             </div>
                             <div id='popup_col3'>
-                                <Link>Accessori NoteBook</Link>
-                                <Link>Borse, Zaini, etc</Link>
-                                <Link>NoteBook</Link>
-                                <Link>WorkStation/Server</Link>
+                                <Link>Case</Link>
+                                <Link>Cpu</Link>
+                                <Link>MainBoard</Link>
+                                <Link>Memorie Ram</Link>
+                                <Link>Schede Video</Link>
+                                <Link>Windows e Office</Link>
+                                <Link>Ups</Link>
                             </div>
                         </div>
-                        <div id='popup_button_option' className={style.popup_button_option}>
+                        {/* <div id='popup_button_option' className={style.popup_button_option}>
                             <button>PC ASSEMBLATI</button>
                             <button>CONFIGURATORE PC</button>
                             <button>GAMING</button>
                             <button>REFURBISHED</button>
-                        </div>
+                        </div> */}
                     </div>
 
                     <div id='popup_adv' className={style.popup_adv}>
-                        <img src={navbarcomputeradv}></img>
+                        <img src={navBarHardwareAdv}></img>
                     </div>
                 </div>
                 <div id='popup_monitor_stampanti_periferiche' className={style.popup_computer_tablet_notebook} style={{ opacity: PopUpMonitorStampantiPeriferiche }}>
@@ -219,35 +233,36 @@ export default function NavBar() {
                         <h2 id='popup_title'>Computer Tablet NoteBook</h2>
                         <div id='popup_links' className={style.popup_links}>
                             <div id='popup_col1' className={style.popup_col1}>
-                                <Link>Accessori Apple</Link>
-                                <Link>Accessori Tablet</Link>
-                                <Link>Computer</Link>
-                                <Link>NoteBook Rigenerati</Link>
-                                <Link>WorkStation e Server</Link>
+                                <Link>Caming Chair</Link>
+                                <Link>NAS</Link>
+                                <Link>Stampanti/Scanner</Link>
+                                <Link>Ufficio</Link>
+                                <Link>Cuffie</Link>
                             </div>
                             <div id='popup_col2'>
-                                <Link>Accessori Desktop</Link>
-                                <Link>App</Link>
-                                <Link>Microsoft Surface</Link>
-                                <Link>Tablet</Link>
+                                <Link>Monitor</Link>
+                                <Link>Networiking</Link>
+                                <Link>Tastiere</Link>
+                                <Link>Ups</Link>
+                                <Link>Videosorveglianza</Link>
                             </div>
                             <div id='popup_col3'>
-                                <Link>Accessori NoteBook</Link>
-                                <Link>Borse, Zaini, etc</Link>
-                                <Link>NoteBook</Link>
-                                <Link>WorkStation/Server</Link>
+                                <Link>Mouse</Link>
+                                <Link>Periferiche Gaming</Link>
+                                <Link>Tavoletta Grafica</Link>
+                                <Link>Webcam</Link>
                             </div>
                         </div>
-                        <div id='popup_button_option' className={style.popup_button_option}>
+                        {/* <div id='popup_button_option' className={style.popup_button_option}>
                             <button>PC ASSEMBLATI</button>
                             <button>CONFIGURATORE PC</button>
                             <button>GAMING</button>
                             <button>REFURBISHED</button>
-                        </div>
+                        </div> */}
                     </div>
 
                     <div id='popup_adv' className={style.popup_adv}>
-                        <img src={navbarcomputeradv}></img>
+                        <img src={navBarMonitorAdv}></img>
                     </div>
                 </div>
                 <div id='popup_telefonia_werabile' className={style.popup_computer_tablet_notebook} style={{ opacity: PopUpTelefoniaWrable }} >
@@ -255,35 +270,31 @@ export default function NavBar() {
                         <h2 id='popup_title'>Computer Tablet NoteBook</h2>
                         <div id='popup_links' className={style.popup_links}>
                             <div id='popup_col1' className={style.popup_col1}>
-                                <Link>Accessori Apple</Link>
-                                <Link>Accessori Tablet</Link>
-                                <Link>Computer</Link>
-                                <Link>NoteBook Rigenerati</Link>
-                                <Link>WorkStation e Server</Link>
+                                <Link>Accessori Asus</Link>
+                                <Link>Caricatori</Link>
+                                <Link>Watch</Link>
                             </div>
                             <div id='popup_col2'>
-                                <Link>Accessori Desktop</Link>
-                                <Link>App</Link>
-                                <Link>Microsoft Surface</Link>
+                                <Link>Accessori iPhone</Link>
+                                <Link>iPhone</Link>
                                 <Link>Tablet</Link>
                             </div>
                             <div id='popup_col3'>
-                                <Link>Accessori NoteBook</Link>
-                                <Link>Borse, Zaini, etc</Link>
-                                <Link>NoteBook</Link>
-                                <Link>WorkStation/Server</Link>
+                                <Link>Accesori Mobile</Link>
+                                <Link>Smartphone</Link>
+                                <Link>Visore VR</Link>
                             </div>
                         </div>
-                        <div id='popup_button_option' className={style.popup_button_option}>
+                        {/* <div id='popup_button_option' className={style.popup_button_option}>
                             <button>PC ASSEMBLATI</button>
                             <button>CONFIGURATORE PC</button>
                             <button>GAMING</button>
                             <button>REFURBISHED</button>
-                        </div>
+                        </div> */}
                     </div>
 
                     <div id='popup_adv' className={style.popup_adv}>
-                        <img src={navbarcomputeradv}></img>
+                        <img src={navBarTelefoniaAdv}></img>
                     </div>
                 </div>
                 <div id='popup_giochi' className={style.popup_computer_tablet_notebook} style={{ opacity: PopUpGiochi }}>
@@ -291,35 +302,36 @@ export default function NavBar() {
                         <h2 id='popup_title'>Computer Tablet NoteBook</h2>
                         <div id='popup_links' className={style.popup_links}>
                             <div id='popup_col1' className={style.popup_col1}>
-                                <Link>Accessori Apple</Link>
-                                <Link>Accessori Tablet</Link>
-                                <Link>Computer</Link>
-                                <Link>NoteBook Rigenerati</Link>
-                                <Link>WorkStation e Server</Link>
+                                <Link>Benessere</Link>
+                                <Link>Elettrodomestici</Link>
+                                <Link>Speakers</Link>
+                                <Link>Videoproiettori</Link>
+                                <Link>Soundbar</Link>
                             </div>
                             <div id='popup_col2'>
-                                <Link>Accessori Desktop</Link>
-                                <Link>App</Link>
-                                <Link>Microsoft Surface</Link>
-                                <Link>Tablet</Link>
+                                <Link>Console</Link>
+                                <Link>Giochi Viedogiochi</Link>
+                                <Link>Streaming</Link>
+                                <Link>Videosorveglianza</Link>
+                                <Link>Webcam</Link>
                             </div>
                             <div id='popup_col3'>
-                                <Link>Accessori NoteBook</Link>
-                                <Link>Borse, Zaini, etc</Link>
-                                <Link>NoteBook</Link>
-                                <Link>WorkStation/Server</Link>
+                                <Link>Cuffie</Link>
+                                <Link>Smart Home</Link>
+                                <Link>TV</Link>
+                                <Link>LEGO</Link>
                             </div>
                         </div>
-                        <div id='popup_button_option' className={style.popup_button_option}>
+                        {/* <div id='popup_button_option' className={style.popup_button_option}>
                             <button>PC ASSEMBLATI</button>
                             <button>CONFIGURATORE PC</button>
                             <button>GAMING</button>
                             <button>REFURBISHED</button>
-                        </div>
+                        </div> */}
                     </div>
 
                     <div id='popup_adv' className={style.popup_adv}>
-                        <img src={navbarcomputeradv}></img>
+                        <img src={navBarGiochiAdv}></img>
                     </div></div>
             </div>
 
