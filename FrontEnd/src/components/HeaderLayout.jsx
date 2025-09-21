@@ -1,6 +1,6 @@
-import logo from '../assets/NextLogo.png'
-import negoziNextMappa from '../assets/negozi-next-mappa.jpg'
-import searchIcon from '../assets/search-icon.png'
+import logo from '../assets/headerassets/NextLogo.png'
+import negoziNextMappa from '../assets/headerassets/negozi-next-mappa.jpg'
+import searchIcon from '../assets/headerassets/search-icon.png'
 import style from './componentsStyle/HeaderLayout.module.scss'
 
 
