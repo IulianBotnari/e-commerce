@@ -9,60 +9,58 @@ import rtxBackToSchoolHomeAdv from '../../assets/homeadv/rtxbacktoschoolhomeadv.
 import rtx5060homeAdv from '../../assets/homeadv/rtx5060homeadv.jpg'
 import style from './HomePage.module.scss'
 import { useEffect, useState, useRef } from "react"
+
 let carouselStart = true
 
 export default function HomePage() {
-    const [homeAdvImg, setHomeAdvImg] = useState('')
-    const [contatore, setContatore] = useState(1)
     const advArray = [msiHomeAdv, asusHomeAdv, rtxBackToSchoolHomeAdv, rtx50HomeAdv, rtx5060homeAdv, gigaByteHomeAdv]
+    const colorArray = ["rgb(0, 0, 0)", "rgb(235, 35, 35)", "rgb(35, 88, 235)", "rgb(82, 235, 35)", "rgb(35, 151, 0)", "rgb(188, 35, 235)"]
+
+    const [homeAdvImg, setHomeAdvImg] = useState(advArray[0])
+    const [backgroundButtonColor, setBackgroundButtonColor] = useState(colorArray[0])
+    const [activeIndex, setActiveIndex] = useState(0)
     const timerRef = useRef(null)
 
-
-    function handleButtonClick(id) {
+    function handleButtonClick(index) {
         carouselStart = false
-        setHomeAdvImg(advArray[id])
+        setHomeAdvImg(advArray[index])
+        setBackgroundButtonColor(colorArray[index])
+        setActiveIndex(index)
         clearTimeout(timerRef.current)
     }
 
     useEffect(() => {
-
-        if (carouselStart == true) {
-
+        if (carouselStart) {
             timerRef.current = setTimeout(() => {
-                setHomeAdvImg(advArray[contatore])
-                if (contatore == advArray.length - 1) {
-                    setContatore(0);
-                } else {
-                    setContatore(contatore + 1);
-                }
-            }, 1000)
+                const nextIndex = activeIndex === advArray.length - 1 ? 0 : activeIndex + 1
+                setHomeAdvImg(advArray[nextIndex])
+                setBackgroundButtonColor(colorArray[nextIndex])
+                setActiveIndex(nextIndex)
+            }, 5000)
         }
-    }, [homeAdvImg])
+        return () => clearTimeout(timerRef.current)
+    }, [activeIndex])
 
+    return (
+        <>
+            <HeaderLayout />
+            <NavBar />
 
-    return <>
-        <HeaderLayout />
-        <NavBar />
-
-        <main>
-            <div id="home_adv" className={style.home_adv}>
-                <img key={homeAdvImg} className={style.image} src={homeAdvImg ? homeAdvImg : advArray[0]}></img>
-                <div id="home_adv_button_container" className={style.home_adv_button_container}>
-                    <button id="0" onFocus={(e) => handleButtonClick(e.target.id)}>MSI a 100$ di steam code</button>
-                    <button id="1" onFocus={(e) => handleButtonClick(e.target.id)}>ASUS Back to School</button>
-                    <button id="2" onFocus={(e) => handleButtonClick(e.target.id)}>Back to School con RTX serie 50</button>
-                    <button id="3" onFocus={(e) => handleButtonClick(e.target.id)}>Geforce RTX 50</button>
-                    <button id="4" onFocus={(e) => handleButtonClick(e.target.id)}>Geforce-RTX-5060</button>
-                    <button id="5" onFocus={(e) => handleButtonClick(e.target.id)}>GIGABYTE game bundle</button>
+            <main>
+                <div id="home_adv" className={style.home_adv}>
+                    <img key={homeAdvImg} className={style.image} src={homeAdvImg} alt="adv" />
+                    <div id="home_adv_button_container" className={style.home_adv_button_container} style={{ backgroundColor: backgroundButtonColor }}  >
+                        {["MSI a 100$ di steam code", "ASUS Back to School", "Back to School con RTX serie 50", "Geforce RTX 50", "Geforce-RTX-5060", "GIGABYTE game bundle"
+                        ].map((label, i) => (
+                            <button key={i} onClick={() => handleButtonClick(i)} className={activeIndex === i ? style.active : ""} style={{ backgroundColor: backgroundButtonColor }}>
+                                {label}
+                            </button>
+                        ))}
+                    </div>
                 </div>
-            </div>
+            </main>
 
-        </main>
-
-        <FooterLayout />
-
-
-
-
-    </>
+            <FooterLayout />
+        </>
+    )
 }
