@@ -3,8 +3,7 @@ main {
     flex-direction: column;
 }
 
-.home_adv {}
-
+/*#region adv banner*/
 .image {
     display: block;
     width: 100%;
@@ -32,7 +31,7 @@ main {
     background-color: black;
     display: flex;
     padding: 0 3rem;
-    transition: 200ms;
+    transition: 500ms;
 
     button {
         border: 1px solid rgba(0, 0, 0, 0);
@@ -42,6 +41,7 @@ main {
         color: white;
         font-weight: bold;
         cursor: pointer;
+        transition: 500ms;
 
         &.active {
             border: 1px solid white;
@@ -52,3 +52,132 @@ main {
         }
     }
 }
+
+
+/*#endregion adv banner*/
+
+
+/*#region offerte del giorno*/
+
+
+.offerte_del_giorno {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: auto;
+}
+
+.offerte_del_giorno_cards {
+    display: flex;
+
+}
+
+.card {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding: 1rem;
+    border: 1px solid gray;
+    margin: 0 1px;
+    border-radius: 5px;
+
+    span {
+        position: absolute;
+        left: 1rem;
+        font-size: large;
+        color: white;
+        background-color: rgb(18, 138, 28);
+        padding: .5rem 1.5rem;
+        border-bottom-right-radius: 10px;
+        border-top-left-radius: 10px;
+
+    }
+
+    img {
+        width: 30%;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .short_description {
+        font-size: small;
+        margin-bottom: 4rem;
+    }
+
+    .original_price {
+        font-size: x-large;
+        font-weight: bold;
+        color: gray;
+        text-decoration: line-through;
+
+    }
+
+    .price {
+        font-size: large;
+        font-weight: bolder;
+        color: red;
+
+    }
+
+    .separator {
+        width: 50%;
+        height: 2px;
+        background-color: gray;
+        margin-bottom: 1rem;
+    }
+
+
+    button {
+        margin-top: 1rem;
+        font-size: small;
+        font-weight: bold;
+        color: white;
+        background-color: black;
+        padding: .5rem 1rem;
+        border-bottom-right-radius: 10px;
+        border-top-left-radius: 10px;
+    }
+}
+
+
+
+
+/*#endregion offerte del giorno*/
+
+
+/*#region logoc carousel*/
+
+.brand_list_logo {
+    display: flex;
+    width: 80%;
+    margin: auto;
+    margin-top: 2rem;
+
+
+}
+
+.img_logo {
+    flex-grow: 1;
+    padding: 0 .5rem;
+    filter: grayscale(100%);
+    transition: filter 0.1s ease;
+
+    &:hover {
+        filter: grayscale(0%);
+    }
+}
+
+.back_arrow {
+    rotate: -180deg;
+    width: 20px;
+    cursor: pointer;
+}
+
+.forward_arrow {
+    width: 20px;
+    cursor: pointer;
+}
+
+/*#endregion logoc carousel*/
