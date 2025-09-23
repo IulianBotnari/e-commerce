@@ -46,6 +46,11 @@ import { useEffect, useState, useRef } from "react"
 import { Link } from 'react-router-dom'
 
 let carouselStart = true
+const tempShortDescriprionMsi = "MSI GeForce RTX 5060 OC 8GB GDDR7 DLSS"
+const tempShortDescriprionFujitsu = "FSP Fortron Vita BD 750W 80+Bronze PFC Attivo ATX 3.1"
+const tempShortDescriprionSsd = "Digital WD Black SN7100 SSD 2TB M.2 NVMe PCIe 4.0 7250/6900 MB/s"
+const tempShortDescriprionCpu = "Intel Core Ultra 7 265F 20 Core 2,4 GHz 30MB sk1851 Box"
+const NUMBER_ELMENTS_BRAND_CAROUSEL = 13
 
 export default function HomePage() {
     const advArray = [msiHomeAdv, asusHomeAdv, rtxBackToSchoolHomeAdv, rtx50HomeAdv, rtx5060homeAdv, gigaByteHomeAdv]
@@ -56,11 +61,14 @@ export default function HomePage() {
     const [backgroundButtonColor, setBackgroundButtonColor] = useState(colorArray[0])
     const [activeIndex, setActiveIndex] = useState(0)
     const timerRef = useRef(null)
-    const tempShortDescriprionMsi = "MSI GeForce RTX 5060 OC 8GB GDDR7 DLSS"
-    const tempShortDescriprionFujitsu = "FSP Fortron Vita BD 750W 80+Bronze PFC Attivo ATX 3.1"
-    const tempShortDescriprionSsd = "Digital WD Black SN7100 SSD 2TB M.2 NVMe PCIe 4.0 7250/6900 MB/s"
-    const tempShortDescriprionCpu = "Intel Core Ultra 7 265F 20 Core 2,4 GHz 30MB sk1851 Box"
     const [logoCarouselIndex, setLogoCarouselIndex] = useState(0)
+
+    const [initialIndex, setInitialIndex] = useState(0)
+    const [endIndex, setEndIndex] = useState(13)
+    console.log("inital index = " + initialIndex);
+    console.log("end index = " + endIndex);
+
+
 
     function handleAdvCarousel(index) {
         carouselStart = false
@@ -70,10 +78,56 @@ export default function HomePage() {
         clearTimeout(timerRef.current)
     }
 
-    function handleLogoCarousel() {
-        let logoArrayLenght = logoArray.length
+
+
+
+    function handleLogoCarousel(logo, index) {
+
+        if (
+            (initialIndex <= endIndex && index >= initialIndex && index <= endIndex) ||
+            (initialIndex > endIndex && (index >= initialIndex || index <= endIndex))
+        ) {
+            return <img key={index} className={style.img_logo} src={logo} />;
+        }
+
+        return null
+    }
+    function handleBackArrow() {
+        if (initialIndex - 1 < 0) {
+            setInitialIndex((logoArray.length - 1) - NUMBER_ELMENTS_BRAND_CAROUSEL)
+            setEndIndex(logoArray.length - 1)
+            return
+        } else {
+            setInitialIndex(initialIndex - 1)
+        }
+        if (endIndex - 1 < 0) {
+            setInitialIndex((logoArray.length - 1) - NUMBER_ELMENTS_BRAND_CAROUSEL)
+            setEndIndex(logoArray.length - 1)
+            return
+        } else {
+            setEndIndex(endIndex - 1)
+        }
+
+
 
     }
+    function handleForwardArrow() {
+        if (endIndex + 1 >= logoArray.length) {
+            setInitialIndex(0)
+            setEndIndex(NUMBER_ELMENTS_BRAND_CAROUSEL)
+            return
+        } else {
+            setEndIndex(endIndex + 1)
+        }
+        if (initialIndex + 1 >= logoArray.length) {
+            setInitialIndex(0)
+            setEndIndex(NUMBER_ELMENTS_BRAND_CAROUSEL)
+            return
+        } else {
+            setInitialIndex(initialIndex + 1)
+        }
+    }
+
 
     function handleStringLength(string) {
         let stringLength = string.length
@@ -168,13 +222,16 @@ export default function HomePage() {
                     </div>
                 </div>
 
+                <hr style={{ height: "2px", backgroundColor: "lightgray", width: "80%", margin: "auto", marginTop: "2rem" }}></hr>
+
                 <div id='brand_list_logo' className={style.brand_list_logo}>
-                    <img id='back_arrow' className={style.back_arrow} src={arrowIcon} onClick={(e) => setLogoCarouselIndex(logoCarouselIndex - 1)}></img>
+                    <img id='back_arrow' className={style.back_arrow} src={arrowIcon} onClick={(e) => handleBackArrow()}></img>
                     {logoArray.map((logo, index) => {
-                        if (index < 14 + logoCarouselIndex && index >= logoCarouselIndex)
-                            return <img key={index} className={style.img_logo} src={logo}></img>
+
+                        return handleLogoCarousel(logo, index)
+
                     })}
-                    <img id='forward_arrow' className={style.forward_arrow} src={arrowIcon} onClick={(e) => setLogoCarouselIndex(logoCarouselIndex + 1)}></img>
+                    <img id='forward_arrow' className={style.forward_arrow} src={arrowIcon} onClick={(e) => handleForwardArrow()}></img>
                 </div>
             </main>
 

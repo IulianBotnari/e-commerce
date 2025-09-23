@@ -154,6 +154,7 @@ main {
     width: 80%;
     margin: auto;
     margin-top: 2rem;
+    margin-bottom: 2rem;
 
 
 }
@@ -161,11 +162,16 @@ main {
 .img_logo {
     flex-grow: 1;
     padding: 0 .5rem;
-    filter: grayscale(100%);
+    filter: grayscale(130%);
+    opacity: .5;
+    cursor: pointer;
+
     transition: filter 0.1s ease;
 
     &:hover {
         filter: grayscale(0%);
+        opacity: 1;
+
     }
 }
 
