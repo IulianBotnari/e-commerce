@@ -60,14 +60,16 @@ main {
 /*#region offerte del giorno*/
 
 
-.offerte_del_giorno {
+.offerte_del_giorno,
+.novita {
     display: flex;
     flex-direction: column;
     width: 80%;
     margin: auto;
 }
 
-.offerte_del_giorno_cards {
+.offerte_del_giorno_cards,
+.novita_cards {
     display: flex;
 
 }
@@ -97,6 +99,7 @@ main {
 
     img {
         width: 30%;
+        height: 30%;
         margin-top: 2rem;
         margin-bottom: 2rem;
     }
@@ -138,6 +141,12 @@ main {
         padding: .5rem 1rem;
         border-bottom-right-radius: 10px;
         border-top-left-radius: 10px;
+        cursor: pointer;
+
+
+        &:hover {
+            background-color: rgb(54, 54, 54);
+        }
     }
 }
 
@@ -165,8 +174,8 @@ main {
     filter: grayscale(130%);
     opacity: .5;
     cursor: pointer;
-
     transition: filter 0.1s ease;
+    transition: opacity 0.5s ease;
 
     &:hover {
         filter: grayscale(0%);
@@ -187,3 +196,63 @@ main {
 }
 
 /*#endregion logoc carousel*/
+
+.discount_adv {
+    width: 80%;
+    margin: auto;
+
+    img {
+        width: 100%;
+        cursor: pointer;
+    }
+}
+
+
+.news_price {
+    color: black;
+    font-weight: bolder;
+}
+
+
+/*#region assistenza*/
+.assistenza {
+    display: flex;
+    width: 80%;
+    margin: auto;
+    justify-content: space-between;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+
+}
+
+.assistenza_clienti {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    border: 2px solid green;
+    border-radius: 10px;
+    padding: 1rem 2rem;
+}
+
+.shop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    border: 2px solid green;
+    border-radius: 10px;
+    padding: 1rem 2rem;
+}
+
+.volantino {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+
+
+}
+
+
+/*#end region assistenza*/

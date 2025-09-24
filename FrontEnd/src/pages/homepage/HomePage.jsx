@@ -1,5 +1,6 @@
 /*#region assets import */
 import asusHomeAdv from '../../assets/homeadv/asushomeadv.jpg'
+import discountAdv from '../../assets/homeadv/bannerino-hp-offerte.jpg'
 import gigaByteHomeAdv from '../../assets/homeadv/gigabytehomeadv.jpg'
 import msiHomeAdv from '../../assets/homeadv/msihomeadv.jpg'
 import rtx50HomeAdv from '../../assets/homeadv/rtx50homeadv.jpg'
@@ -7,6 +8,15 @@ import rtxBackToSchoolHomeAdv from '../../assets/homeadv/rtxbacktoschoolhomeadv.
 import rtx5060homeAdv from '../../assets/homeadv/rtx5060homeadv.jpg'
 import plusIcon from '../../assets/icons/plus-icon.png'
 import arrowIcon from '../../assets/icons/icons8-freccia-100.png'
+
+import faceBook from '../../assets/assistenza/facebook.png'
+import youTube from '../../assets/assistenza/youTube.png'
+import instagram from '../../assets/assistenza/instagram.png'
+import tikTok from '../../assets/assistenza/tiktok.png'
+import linkedin from '../../assets/assistenza/linkedin.png'
+import contattaci from '../../assets/assistenza/contattaci.png'
+import volantino from '../../assets/assistenza/volantino.png'
+
 import msiGeForce5080 from '../../assets/productimages/MSI GeForce RTX 5060 8g.jpg'
 import fujitsuEsprimo from '../../assets/productimages/FujitsuEsprimo E956 Intel Core i5-6500.jpg'
 import samsung980SSD from '../../assets/productimages/Samsung 980 SSD 1TB M.2.jpg'
@@ -61,12 +71,8 @@ export default function HomePage() {
     const [backgroundButtonColor, setBackgroundButtonColor] = useState(colorArray[0])
     const [activeIndex, setActiveIndex] = useState(0)
     const timerRef = useRef(null)
-    const [logoCarouselIndex, setLogoCarouselIndex] = useState(0)
-
     const [initialIndex, setInitialIndex] = useState(0)
     const [endIndex, setEndIndex] = useState(13)
-    console.log("inital index = " + initialIndex);
-    console.log("end index = " + endIndex);
 
 
 
@@ -99,14 +105,9 @@ export default function HomePage() {
             return
         } else {
             setInitialIndex(initialIndex - 1)
-        }
-        if (endIndex - 1 < 0) {
-            setInitialIndex((logoArray.length - 1) - NUMBER_ELMENTS_BRAND_CAROUSEL)
-            setEndIndex(logoArray.length - 1)
-            return
-        } else {
             setEndIndex(endIndex - 1)
         }
+
 
 
 
@@ -117,15 +118,10 @@ export default function HomePage() {
             setEndIndex(NUMBER_ELMENTS_BRAND_CAROUSEL)
             return
         } else {
+            setInitialIndex(initialIndex + 1)
             setEndIndex(endIndex + 1)
         }
-        if (initialIndex + 1 >= logoArray.length) {
-            setInitialIndex(0)
-            setEndIndex(NUMBER_ELMENTS_BRAND_CAROUSEL)
-            return
-        } else {
-            setInitialIndex(initialIndex + 1)
-        }
+
     }
 
 
@@ -174,48 +170,48 @@ export default function HomePage() {
                 <div id="offerte_del_giorno" className={style.offerte_del_giorno}>
                     <h3>Offerte del giorno <Link><img src={plusIcon}></img></Link></h3>
                     <div id="offerte_del_giorno_cards" className={style.offerte_del_giorno_cards}>
-                        <div id="card" className={style.card}>
-                            <span id="discount">-3%</span>
-                            <img id="product_img" src={msiGeForce5080}></img>
-                            <p id="short_description" className={style.short_description}>{handleStringLength(tempShortDescriprionMsi)}</p>
-                            <p id="original_price" className={style.original_price}> € 385,00</p>
-                            <p id="price" className={style.price}>€ 375,00</p>
-                            <div id="separator" className={style.separator}></div>
-                            <p id="scorte">Fino a esaurimento scorte</p>
-                            <button id="product_details">Scopri di più</button>
+                        <div className={style.card}>
+                            <span>-3%</span>
+                            <img src={msiGeForce5080}></img>
+                            <p className={style.short_description}>{handleStringLength(tempShortDescriprionMsi)}</p>
+                            <p className={style.original_price}> € 385,00</p>
+                            <p className={style.price}>€ 375,00</p>
+                            <div className={style.separator}></div>
+                            <p >Fino a esaurimento scorte</p>
+                            <button >Scopri di più</button>
 
                         </div>
-                        <div id="card" className={style.card}>
-                            <span id="discount">-3%</span>
-                            <img id="product_img" src={fujitsuEsprimo}></img>
-                            <p id="short_description" className={style.short_description}>{handleStringLength(tempShortDescriprionFujitsu)}</p>
-                            <p id="original_price" className={style.original_price}> € 109,00</p>
-                            <p id="price" className={style.price}>€ 98,00</p>
-                            <div id="separator" className={style.separator}></div>
-                            <p id="scorte">Fino a esaurimento scorte</p>
-                            <button id="product_details">Scopri di più</button>
+                        <div className={style.card}>
+                            <span>-3%</span>
+                            <img src={fujitsuEsprimo}></img>
+                            <p className={style.short_description}>{handleStringLength(tempShortDescriprionFujitsu)}</p>
+                            <p className={style.original_price}> € 109,00</p>
+                            <p className={style.price}>€ 98,00</p>
+                            <div className={style.separator}></div>
+                            <p >Fino a esaurimento scorte</p>
+                            <button >Scopri di più</button>
 
                         </div>
-                        <div id="card" className={style.card}>
-                            <span id="discount">-3%</span>
-                            <img id="product_img" src={samsung980SSD}></img>
-                            <p id="short_description" className={style.short_description}>{handleStringLength(tempShortDescriprionSsd)}</p>
-                            <p id="original_price" className={style.original_price}> € 156,00</p>
-                            <p id="price" className={style.price}>€ 126,00</p>
-                            <div id="separator" className={style.separator}></div>
-                            <p id="scorte">Fino a esaurimento scorte</p>
-                            <button id="product_details">Scopri di più</button>
+                        <div className={style.card}>
+                            <span>-3%</span>
+                            <img src={samsung980SSD}></img>
+                            <p className={style.short_description}>{handleStringLength(tempShortDescriprionSsd)}</p>
+                            <p className={style.original_price}> € 156,00</p>
+                            <p className={style.price}>€ 126,00</p>
+                            <div className={style.separator}></div>
+                            <p >Fino a esaurimento scorte</p>
+                            <button >Scopri di più</button>
 
                         </div>
-                        <div id="card" className={style.card}>
-                            <span id="discount">-3%</span>
-                            <img id="product_img" src={dellProIntel}></img>
-                            <p id="short_description" className={style.short_description}>{handleStringLength(tempShortDescriprionCpu)}</p>
-                            <p id="original_price" className={style.original_price}> € 380,00</p>
-                            <p id="price" className={style.price}>€ 298,00</p>
-                            <div id="separator" className={style.separator}></div>
-                            <p id="scorte">Fino a esaurimento scorte</p>
-                            <button id="product_details">Scopri di più</button>
+                        <div className={style.card}>
+                            <span>-3%</span>
+                            <img src={dellProIntel}></img>
+                            <p className={style.short_description}>{handleStringLength(tempShortDescriprionCpu)}</p>
+                            <p className={style.original_price}> € 380,00</p>
+                            <p className={style.price}>€ 298,00</p>
+                            <div className={style.separator}></div>
+                            <p >Fino a esaurimento scorte</p>
+                            <button >Scopri di più</button>
 
                         </div>
 
@@ -232,6 +228,90 @@ export default function HomePage() {
 
                     })}
                     <img id='forward_arrow' className={style.forward_arrow} src={arrowIcon} onClick={(e) => handleForwardArrow()}></img>
+                </div>
+
+
+                <div id="discount_adv" className={style.discount_adv}>
+                    <img src={discountAdv}></img>
+                </div>
+
+
+                <div id="novita" className={style.novita}>
+                    <h3>Novita <Link><img src={plusIcon}></img></Link></h3>
+                    <div id="novita_cards" className={style.novita_cards}>
+                        <div className={style.card}>
+                            <img src={msiGeForce5080}></img>
+                            <p className={style.short_description}>{handleStringLength(tempShortDescriprionMsi)}</p>
+                            <p className={style.news_price}>€ 375,00</p>
+                            <p >Fino a esaurimento scorte</p>
+                            <button >Scopri di più</button>
+
+                        </div>
+                        <div className={style.card}>
+                            <img src={fujitsuEsprimo}></img>
+                            <p className={style.short_description}>{handleStringLength(tempShortDescriprionFujitsu)}</p>
+                            <p className={style.news_price}>€ 98,00</p>
+                            <p >Fino a esaurimento scorte</p>
+                            <button >Scopri di più</button>
+
+                        </div>
+                        <div className={style.card}>
+                            <img src={samsung980SSD}></img>
+                            <p className={style.short_description}>{handleStringLength(tempShortDescriprionSsd)}</p>
+                            <p className={style.news_price}>€ 126,00</p>
+                            <p >Fino a esaurimento scorte</p>
+                            <button >Scopri di più</button>
+
+                        </div>
+                        <div className={style.card}>
+                            <img src={dellProIntel}></img>
+                            <p className={style.short_description}>{handleStringLength(tempShortDescriprionCpu)}</p>
+                            <p className={style.news_price}>€ 298,00</p>
+                            <p >Fino a esaurimento scorte</p>
+                            <button >Scopri di più</button>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div id='assistenza' className={style.assistenza}>
+                    <div id='assistenza_clienti' className={style.assistenza_clienti}>
+                        <p><Link>ASSITENZA CLIENTI</Link></p>
+                        <p id='tel'>03621791804</p>
+                        <p><Link>serivizioclienti@next.it</Link></p>
+                        <div id='contacts'><span>CONTATTI</span><img src={contattaci}></img></div>
+                        <div id='social_links'>
+                            <img src={faceBook}></img>
+                            <img src={youTube}></img>
+                            <img src={instagram}></img>
+                            <img src={tikTok}></img>
+                            <img src={linkedin}></img>
+                        </div>
+                    </div>
+
+                    <div id='volantino' className={style.volantino}>
+                        <img src={volantino}></img>
+                    </div>
+
+                    <div id='shop' className={style.shop}>
+                        <p>COMPRA ONLINE O RITIRA GRATUITAMENTE IN NEGOZIO</p>
+                        <p>Scopri il punto vendita più vicino a te:</p>
+                        <img></img>
+                        <p>
+                            <Link>Cantù</Link>
+                            <Link>Como</Link>
+                            <Link>Seregno</Link>
+                            <Link>Limbiate</Link>
+                        </p>
+                        <p>
+                            <Link>Milano Procaccini</Link>
+                            <Link>Milano Vitruvio</Link>
+                            <Link>Monza</Link>
+                        </p>
+                    </div>
+
                 </div>
             </main>
 
