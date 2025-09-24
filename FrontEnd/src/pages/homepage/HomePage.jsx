@@ -281,8 +281,8 @@ export default function HomePage() {
                         <p><Link>ASSITENZA CLIENTI</Link></p>
                         <p id='tel'>03621791804</p>
                         <p><Link>serivizioclienti@next.it</Link></p>
-                        <div id='contacts'><span>CONTATTI</span><img src={contattaci}></img></div>
-                        <div id='social_links'>
+                        <div id='contacts' className={style.contacts}><span>CONTATTI</span><img src={contattaci}></img></div>
+                        <div id='social_links' className={style.social_links}>
                             <img src={faceBook}></img>
                             <img src={youTube}></img>
                             <img src={instagram}></img>

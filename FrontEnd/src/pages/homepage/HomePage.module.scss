@@ -233,6 +233,83 @@ main {
     border: 2px solid green;
     border-radius: 10px;
     padding: 1rem 2rem;
+
+    p:nth-child(1) {
+        margin-bottom: 1rem;
+        cursor: pointer;
+
+        a {
+            color: rgb(56, 150, 53);
+            text-decoration: none;
+            font-size: larger;
+            font-weight: bolder;
+        }
+
+        &:hover {
+            color: rgb(18, 88, 168);
+            text-decoration: underline;
+        }
+
+    }
+
+    p:nth-child(2) {
+        font-size: large;
+        font-weight: bolder;
+    }
+
+
+    p:nth-child(3) {
+        margin: 1rem 0rem;
+        cursor: pointer;
+
+        a {
+            color: rgb(56, 150, 53);
+        }
+
+        &:hover {
+            color: rgb(18, 88, 168);
+            text-decoration: underline;
+        }
+    }
+}
+
+.contacts {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    opacity: .5;
+    filter: grayscale(100%);
+    margin-bottom: 2rem;
+
+    span {
+        margin-right: .5rem;
+        font-weight: bold;
+    }
+
+    img {
+        width: 50%;
+    }
+
+    &:hover {
+        filter: grayscale(0);
+        opacity: 1;
+
+        span {
+            text-decoration: underline;
+        }
+    }
+}
+
+
+.social_links {
+    display: flex;
+    align-items: center;
+
+    img {
+        cursor: pointer;
+    }
+
 }
 
 .shop {
@@ -245,6 +322,8 @@ main {
     padding: 1rem 2rem;
 }
 
+
+
 .volantino {
     flex: 1;
     display: flex;
@@ -253,6 +332,7 @@ main {
 
 
 }
+
 
 
 /*#end region assistenza*/
