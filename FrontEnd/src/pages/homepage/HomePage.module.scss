@@ -62,10 +62,18 @@ main {
 
 .offerte_del_giorno,
 .novita {
+    padding-top: 1rem;
     display: flex;
     flex-direction: column;
     width: 80%;
     margin: auto;
+
+    a:first-child {
+
+        img:nth-child(1) {
+            width: 20px;
+        }
+    }
 }
 
 .offerte_del_giorno_cards,
@@ -281,6 +289,7 @@ main {
     opacity: .5;
     filter: grayscale(100%);
     margin-bottom: 2rem;
+    cursor: pointer;
 
     span {
         margin-right: .5rem;
@@ -320,6 +329,46 @@ main {
     border: 2px solid green;
     border-radius: 10px;
     padding: 1rem 2rem;
+
+    p:nth-child(1) {
+        color: rgb(56, 150, 53);
+        font-size: 20px;
+        font-weight: bolder;
+        text-align: center;
+
+    }
+
+    p {
+        margin-bottom: 1rem;
+    }
+
+
+    p:nth-child(2) {
+        color: rgb(56, 150, 53);
+        font-size: 20px;
+        font-weight: bolder;
+    }
+
+    img {
+        margin: 1rem 0;
+        cursor: pointer;
+    }
+
+    a {
+        color: rgb(56, 150, 53);
+        text-decoration: none;
+        margin: 0 .5rem;
+        cursor: pointer;
+        padding: .2rem;
+
+        &:hover {
+            color: black;
+            border: 1px solid gray;
+
+        }
+    }
+
+
 }
 
 
@@ -330,9 +379,12 @@ main {
     justify-content: center;
     padding: 1rem;
 
+    img {
+        cursor: pointer;
+    }
 
 }
 
 
 
-/*#end region assistenza*/
+/*#endregion assistenza*/

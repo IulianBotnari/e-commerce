@@ -8,6 +8,7 @@ import rtxBackToSchoolHomeAdv from '../../assets/homeadv/rtxbacktoschoolhomeadv.
 import rtx5060homeAdv from '../../assets/homeadv/rtx5060homeadv.jpg'
 import plusIcon from '../../assets/icons/plus-icon.png'
 import arrowIcon from '../../assets/icons/icons8-freccia-100.png'
+import logoShop from '../../assets/headerassets/negozi-next-mappa.jpg'
 
 import faceBook from '../../assets/assistenza/facebook.png'
 import youTube from '../../assets/assistenza/youTube.png'
@@ -298,7 +299,7 @@ export default function HomePage() {
                     <div id='shop' className={style.shop}>
                         <p>COMPRA ONLINE O RITIRA GRATUITAMENTE IN NEGOZIO</p>
                         <p>Scopri il punto vendita più vicino a te:</p>
-                        <img></img>
+                        <img src={logoShop}></img>
                         <p>
                             <Link>Cantù</Link>
                             <Link>Como</Link>
