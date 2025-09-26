@@ -1,3 +1,8 @@
+import HeaderLayout from '../../components/HeaderLayout'
+import FooterLayout from '../../components/FooterLayout'
+import trustPilotStar from '../../assets/icons/trustpilotstar.png'
+import NavBar from '../../components/NavBar'
+import style from '../login/LoginPage.module.scss'
 
 
 
@@ -5,8 +10,60 @@ export default function LoginPage() {
 
 
 
-    return
-    <>
+    return <>
+        <HeaderLayout />
+        <NavBar />
+        <main>
+            <div id='login_signin' className={style.login_signin}>
+                <div id='login' className={style.login}>
+                    <h3>Login utente</h3>
+                    <p className={style.gia_registrato}>Gia registrato? <span>Accedi</span></p>
+                    <hr></hr>
+                    <p>Effettua il login per scegliere i dettagli della spedizione o del ritiro ed effettuare il pagamento</p>
+                    <form>
+                        <div>
+                            <label htmlFor='email'>Email: </label>
+                            <input type='email' id='email' placeholder='La tua email'></input>
+                        </div>
+
+                        <div>
+                            <label htmlFor='password'>Password: </label>
+                            <input type='password' id='password' placeholder='Password'></input>
+                        </div>
+                        <div id='button_div' className={style.button_div}>
+                            <button type='submit' className={style.submit_button}>Login</button>
+                            <button className={style.password_dimenticata_button}>Password dimentidcata ?</button>
+                        </div>
+                    </form>
+                </div>
+                <div id='signin' className={style.signin}>
+                    <h3>Nuovo cliente?</h3>
+                    <p className={style.effettua_registrazione}>Effettua la <span>Registrazione</span></p>
+                    <p>Registrati per ottimizzare la tua esperienza di acquisto</p>
+                    <ul>
+                        <li>Procedimento di <strong>acquisto</strong> più rapido</li>
+                        <li>Archivio dei tuoi <strong>Ordini</strong> e <strong>Fatture</strong></li>
+                        <li><strong>Tracciabilità</strong> dei tuoi acquisti</li>
+                        <li>Gestione dei tuoi <strong>Indirizzi</strong></li>
+                        <li><strong>Salvataggio</strong>Salvataggio dei carrelli / preventivi</li>
+                        <li>Gestione dei resi o rientri per assistenza <strong>RMA</strong></li>
+                    </ul>
+                    <div style={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
+                        <button>Nuovo utente</button>
+                    </div>
+                    <p>Avere un Profilo Utente significa accedere ad un Area Personale dove inserire e modificare i propri dati, gli indirizzi di spedizione e fatturazione, gestire la privacy, la scelta di iscriversi alla nostra newsletter per essere sempre informato con notizie e promozioni, associare la tessera NEXT CARD per accumulare punti con gli acquisti e trasformarli in successivi sconti.</p>
+                </div>
+            </div>
+
+            <div className={style.newsletter}>
+                <p>Ricevi le ultime novità e promozioni</p>
+                <p>Iscriviti alla newsletter   </p>
+                <p>Scrivi una recensione si di noi <img src={trustPilotStar} style={{ width: "20px" }}></img></p>
+            </div>
+
+        </main>
+
+        <FooterLayout />
 
     </>
 }

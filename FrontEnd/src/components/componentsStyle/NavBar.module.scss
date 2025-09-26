@@ -26,7 +26,7 @@
             margin-right: .1rem;
             text-align: center;
             background: linear-gradient(to bottom, rgb(224, 224, 224), rgb(255, 255, 255));
-            transition: opacity 1s ease;
+
             cursor: pointer;
 
         }
@@ -50,16 +50,18 @@
 .popup_monitor_stampanti_periferiche,
 .popup_telefonia_werabile,
 .popup_giochi {
-
     display: flex;
-    opacity: 0;
+    visibility: hidden;
     position: absolute;
-    width: 99%;
+    filter: brightness(50%);
+    width: 100%;
     max-height: 350px;
     padding: 1rem;
     background-color: white;
-    transition: opacity .5s ease-in;
+    transition: filter .7s ease-out;
     top: 6vh;
+
+
 
     .popup_options {
         display: flex;
@@ -80,7 +82,6 @@
 
     .popup_links {
         display: flex;
-        z-index: 1;
 
         div {
             display: flex;
@@ -95,13 +96,12 @@
                 text-decoration: none;
                 display: inline-block;
                 background-size: 300% 300%;
-                transition: all .3s ease;
             }
 
             a:hover {
+                transition: .3s ease;
                 color: #000;
                 background: linear-gradient(to right, #b1b0b0, #ffffff);
-                animation: gradient 15s ease infinite;
             }
         }
     }
@@ -109,7 +109,6 @@
     .popup_button_option {
         display: flex;
         margin-top: 1rem;
-        z-index: 1;
         width: 100%;
 
 

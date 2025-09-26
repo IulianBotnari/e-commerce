@@ -12,84 +12,121 @@ import { use } from 'react'
 
 
 export default function NavBar() {
-    const [PopUpComputerTabletNoteBook, setPopUpComputerTabletNoteBook] = useState()
-    const [PopUpConsumabileAccessori, setPopUpConsumabileAccessori] = useState()
-    const [PopUpHardwareAccessori, setPopUpHardwareAccessori] = useState()
-    const [PopUpMonitorStampantiPeriferiche, setPopUpMonitorStampantiPeriferiche] = useState()
-    const [PopUpTelefoniaWrable, setPopUpTelefoniaWrable] = useState()
-    const [PopUpGiochi, setPopUpGiochi] = useState()
+    const [PopUpComputerTabletNoteBook, setPopUpComputerTabletNoteBook] = useState({
+        visibility: "",
+        filter: "brightness(0%)"
+    })
+    const [PopUpConsumabileAccessori, setPopUpConsumabileAccessori] = useState({
+        visibility: "",
+        filter: "brightness(0%)"
+    })
+    const [PopUpHardwareAccessori, setPopUpHardwareAccessori] = useState({
+        visibility: "",
+        filter: "brightness(0%)"
+    })
+    const [PopUpMonitorStampantiPeriferiche, setPopUpMonitorStampantiPeriferiche] = useState({
+        visibility: "",
+        filter: "brightness(0%)"
+    })
+    const [PopUpTelefoniaWrable, setPopUpTelefoniaWrable] = useState({
+        visibility: "",
+        filter: "brightness(0%)"
+    })
+    const [PopUpGiochi, setPopUpGiochi] = useState({
+        visibility: "",
+        filter: "brightness(0%)"
+    })
     const [popUpCase, setpopUpCase] = useState()
 
     useEffect(() => {
         switch (popUpCase) {
             case "computer_tablet_notebook":
                 setpopUpCase("")
-                setPopUpComputerTabletNoteBook(1)
-                setPopUpConsumabileAccessori("")
-                setPopUpHardwareAccessori("")
-                setPopUpMonitorStampantiPeriferiche("")
-                setPopUpTelefoniaWrable("")
-                setPopUpGiochi("")
+                setPopUpComputerTabletNoteBook({
+                    visibility: "visible",
+                    filter: "brightness(100%)"
+                })
+                setPopUpConsumabileAccessori({
+                })
+                setPopUpHardwareAccessori({})
+                setPopUpMonitorStampantiPeriferiche({})
+                setPopUpTelefoniaWrable({})
+                setPopUpGiochi({})
 
                 break;
             case "consumabile_accessori":
                 setpopUpCase("")
-                setPopUpComputerTabletNoteBook("")
-                setPopUpConsumabileAccessori(1)
-                setPopUpHardwareAccessori("")
-                setPopUpMonitorStampantiPeriferiche("")
-                setPopUpTelefoniaWrable("")
-                setPopUpGiochi("")
+                setPopUpComputerTabletNoteBook({})
+                setPopUpConsumabileAccessori({
+                    visibility: "visible",
+                    filter: "brightness(100%)"
+                })
+                setPopUpHardwareAccessori({})
+                setPopUpMonitorStampantiPeriferiche({})
+                setPopUpTelefoniaWrable({})
+                setPopUpGiochi({})
 
                 break;
             case "hardware_software":
                 setpopUpCase("")
-                setPopUpComputerTabletNoteBook("")
-                setPopUpConsumabileAccessori("")
-                setPopUpHardwareAccessori(1)
-                setPopUpMonitorStampantiPeriferiche("")
-                setPopUpTelefoniaWrable("")
-                setPopUpGiochi("")
+                setPopUpComputerTabletNoteBook({})
+                setPopUpConsumabileAccessori({})
+                setPopUpHardwareAccessori({
+                    visibility: "visible",
+                    filter: "brightness(100%)"
+                })
+                setPopUpMonitorStampantiPeriferiche({})
+                setPopUpTelefoniaWrable({})
+                setPopUpGiochi({})
 
                 break;
             case "monitor_stampanti_periferiche":
                 setpopUpCase("")
-                setPopUpComputerTabletNoteBook("")
-                setPopUpConsumabileAccessori("")
-                setPopUpHardwareAccessori("")
-                setPopUpMonitorStampantiPeriferiche(1)
-                setPopUpTelefoniaWrable("")
-                setPopUpGiochi("")
+                setPopUpComputerTabletNoteBook({})
+                setPopUpConsumabileAccessori({})
+                setPopUpHardwareAccessori({})
+                setPopUpMonitorStampantiPeriferiche({
+                    visibility: "visible",
+                    filter: "brightness(100%)"
+                })
+                setPopUpTelefoniaWrable({})
+                setPopUpGiochi({})
 
                 break;
             case "telefonia_werabile":
                 setpopUpCase("")
-                setPopUpComputerTabletNoteBook("")
-                setPopUpConsumabileAccessori("")
-                setPopUpHardwareAccessori("")
-                setPopUpMonitorStampantiPeriferiche("")
-                setPopUpTelefoniaWrable(1)
-                setPopUpGiochi("")
+                setPopUpComputerTabletNoteBook({})
+                setPopUpConsumabileAccessori({})
+                setPopUpHardwareAccessori({})
+                setPopUpMonitorStampantiPeriferiche({})
+                setPopUpTelefoniaWrable({
+                    visibility: "visible",
+                    filter: "brightness(100%)"
+                })
+                setPopUpGiochi({})
 
                 break;
             case "giochi":
                 setpopUpCase("")
-                setPopUpComputerTabletNoteBook("")
-                setPopUpConsumabileAccessori("")
-                setPopUpHardwareAccessori("")
-                setPopUpMonitorStampantiPeriferiche("")
-                setPopUpTelefoniaWrable("")
-                setPopUpGiochi(1)
+                setPopUpComputerTabletNoteBook({})
+                setPopUpConsumabileAccessori({})
+                setPopUpHardwareAccessori({})
+                setPopUpMonitorStampantiPeriferiche({})
+                setPopUpTelefoniaWrable({})
+                setPopUpGiochi({
+                    visibility: "visible",
+                    filter: "brightness(100%)"
+                })
 
                 break;
-            case "null":
+            case "none":
                 setpopUpCase("")
-                setPopUpComputerTabletNoteBook("")
-                setPopUpConsumabileAccessori("")
-                setPopUpHardwareAccessori("")
-                setPopUpMonitorStampantiPeriferiche("")
-                setPopUpTelefoniaWrable("")
-                setPopUpGiochi("")
+                setPopUpComputerTabletNoteBook({})
+                setPopUpConsumabileAccessori({})
+                setPopUpHardwareAccessori({})
+                setPopUpMonitorStampantiPeriferiche({})
+                setPopUpTelefoniaWrable({})
+                setPopUpGiochi({})
 
                 break;
 
@@ -102,7 +139,7 @@ export default function NavBar() {
 
     return <>
 
-        <nav id="nav_bar" className={style.nav_bar} onMouseLeave={() => setpopUpCase("null")}>
+        <nav id="nav_bar" className={style.nav_bar} onMouseLeave={() => setpopUpCase("none")}>
             <div id='nav_bar_category' className={style.nav_bar_category}>
                 <div id='categories' className={style.categories}>
                     <div id="computer_tablet_notebook" onMouseOver={(e) => setpopUpCase(e.target.id)}>COMPUTER TABLET NOTEBOOK</div>
@@ -112,7 +149,7 @@ export default function NavBar() {
                     <div id="telefonia_werabile" onMouseOver={(e) => setpopUpCase(e.target.id)}>TELEFONIA WEARABLE</div>
                     <div id="giochi" onMouseOver={(e) => setpopUpCase(e.target.id)}>GIOCHI</div>
                 </div>
-                <div id='popup_computer_tablet_notebook' className={style.popup_computer_tablet_notebook} style={{ opacity: PopUpComputerTabletNoteBook }}>
+                <div id='popup_computer_tablet_notebook' className={style.popup_computer_tablet_notebook} style={{ visibility: PopUpComputerTabletNoteBook.visibility, filter: PopUpComputerTabletNoteBook.filter }}>
                     <div id='popup_options' className={style.popup_options}>
                         <h2 id='popup_title'>Computer Tablet NoteBook</h2>
                         <div id='popup_links' className={style.popup_links}>
@@ -148,7 +185,7 @@ export default function NavBar() {
                         <img src={navBarComputerAdv}></img>
                     </div>
                 </div>
-                <div id='popup_consumabile_accessori' className={style.popup_consumabile_accessori} style={{ opacity: PopUpConsumabileAccessori }} >
+                <div id='popup_consumabile_accessori' className={style.popup_consumabile_accessori} style={{ visibility: PopUpConsumabileAccessori.visibility, filter: PopUpConsumabileAccessori.filter }} >
                     <div id='popup_options' className={style.popup_options}>
                         <h2 id='popup_title'>Computer Tablet NoteBook</h2>
                         <div id='popup_links' className={style.popup_links}>
@@ -183,7 +220,7 @@ export default function NavBar() {
                         <img src={navBarConsumbiliAdv}></img>
                     </div>
                 </div>
-                <div id='popup_hardware_software' className={style.popup_computer_tablet_notebook} style={{ opacity: PopUpHardwareAccessori }}>
+                <div id='popup_hardware_software' className={style.popup_computer_tablet_notebook} style={{ visibility: PopUpHardwareAccessori.visibility, filter: PopUpHardwareAccessori.filter }}>
                     <div id='popup_options' className={style.popup_options}>
                         <h2 id='popup_title'>Computer Tablet NoteBook</h2>
                         <div id='popup_links' className={style.popup_links}>
@@ -228,7 +265,7 @@ export default function NavBar() {
                         <img src={navBarHardwareAdv}></img>
                     </div>
                 </div>
-                <div id='popup_monitor_stampanti_periferiche' className={style.popup_computer_tablet_notebook} style={{ opacity: PopUpMonitorStampantiPeriferiche }}>
+                <div id='popup_monitor_stampanti_periferiche' className={style.popup_computer_tablet_notebook} style={{ visibility: PopUpMonitorStampantiPeriferiche.visibility, filter: PopUpMonitorStampantiPeriferiche.filter }}>
                     <div id='popup_options' className={style.popup_options}>
                         <h2 id='popup_title'>Computer Tablet NoteBook</h2>
                         <div id='popup_links' className={style.popup_links}>
@@ -265,7 +302,7 @@ export default function NavBar() {
                         <img src={navBarMonitorAdv}></img>
                     </div>
                 </div>
-                <div id='popup_telefonia_werabile' className={style.popup_computer_tablet_notebook} style={{ opacity: PopUpTelefoniaWrable }} >
+                <div id='popup_telefonia_werabile' className={style.popup_computer_tablet_notebook} style={{ visibility: PopUpTelefoniaWrable.visibility, filter: PopUpTelefoniaWrable.filter }} >
                     <div id='popup_options' className={style.popup_options}>
                         <h2 id='popup_title'>Computer Tablet NoteBook</h2>
                         <div id='popup_links' className={style.popup_links}>
@@ -297,7 +334,7 @@ export default function NavBar() {
                         <img src={navBarTelefoniaAdv}></img>
                     </div>
                 </div>
-                <div id='popup_giochi' className={style.popup_computer_tablet_notebook} style={{ opacity: PopUpGiochi }}>
+                <div id='popup_giochi' className={style.popup_computer_tablet_notebook} style={{ visibility: PopUpGiochi.visibility, filter: PopUpGiochi.filter }}>
                     <div id='popup_options' className={style.popup_options}>
                         <h2 id='popup_title'>Computer Tablet NoteBook</h2>
                         <div id='popup_links' className={style.popup_links}>

@@ -2,9 +2,12 @@ import logo from '../assets/headerassets/NextLogo.png'
 import negoziNextMappa from '../assets/headerassets/negozi-next-mappa.jpg'
 import searchIcon from '../assets/headerassets/search-icon.png'
 import style from './componentsStyle/HeaderLayout.module.scss'
+import { useNavigate } from 'react-router-dom'
 
 
 export default function HeaderLayout() {
+
+    const navigateTo = useNavigate()
 
 
 
@@ -23,7 +26,7 @@ export default function HeaderLayout() {
 
             <div id="login_logout" className={style.login_logout}>
                 <div id='button_container' className={style.button_container}>
-                    <button id="login">Accedi</button>
+                    <button id="login" onClick={() => navigateTo('user/login')}>Accedi</button>
                     <button id="chart">Carrello</button>
                 </div>
                 <img id="store_map" src={negoziNextMappa} className={style.store_map} alt='vai a negozi'></img>

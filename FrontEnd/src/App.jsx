@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import HeaderLayout from './components/HeaderLayout'
-import HomePage from './pages/homepage/HomePage'
+import HomePage from './pages/homepage/HomePage.jsx'
+import LoginPage from './pages/login/LoginPage.jsx'
 function App() {
 
 
@@ -10,6 +10,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route index element={<HomePage />} />
+          <Route path={'user/login'} element=<LoginPage /> />
 
         </Routes>
       </BrowserRouter>
