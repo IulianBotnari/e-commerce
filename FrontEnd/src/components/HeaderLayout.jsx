@@ -26,7 +26,7 @@ export default function HeaderLayout() {
 
             <div id="login_logout" className={style.login_logout}>
                 <div id='button_container' className={style.button_container}>
-                    <button id="login" onClick={() => navigateTo('user/login')}>Accedi</button>
+                    <button id="login" onClick={() => navigateTo('/user/login')}>Accedi</button>
                     <button id="chart">Carrello</button>
                 </div>
                 <img id="store_map" src={negoziNextMappa} className={style.store_map} alt='vai a negozi'></img>

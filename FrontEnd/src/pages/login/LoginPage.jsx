@@ -3,10 +3,12 @@ import FooterLayout from '../../components/FooterLayout'
 import trustPilotStar from '../../assets/icons/trustpilotstar.png'
 import NavBar from '../../components/NavBar'
 import style from '../login/LoginPage.module.scss'
+import { useNavigate } from 'react-router-dom'
 
 
 
 export default function LoginPage() {
+    const navigateToSignIn = useNavigate()
 
 
 
@@ -49,7 +51,7 @@ export default function LoginPage() {
                         <li>Gestione dei resi o rientri per assistenza <strong>RMA</strong></li>
                     </ul>
                     <div style={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
-                        <button>Nuovo utente</button>
+                        <button onClick={(e) => navigateToSignIn("/user/signin")}>Nuovo utente</button>
                     </div>
                     <p>Avere un Profilo Utente significa accedere ad un Area Personale dove inserire e modificare i propri dati, gli indirizzi di spedizione e fatturazione, gestire la privacy, la scelta di iscriversi alla nostra newsletter per essere sempre informato con notizie e promozioni, associare la tessera NEXT CARD per accumulare punti con gli acquisti e trasformarli in successivi sconti.</p>
                 </div>
