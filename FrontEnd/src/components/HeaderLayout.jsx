@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 export default function HeaderLayout() {
 
     const navigateTo = useNavigate()
+    const navigateToHome = useNavigate()
 
 
 
@@ -16,7 +17,7 @@ export default function HeaderLayout() {
         <header className={style.header_style}>
             <div id="logo_search_bar" className={style.logo_search_bar}>
                 <div id='container_logo' className={style.container_logo}>
-                    <img id="logo" src={logo} alt='logo'></img>
+                    <img id="logo" src={logo} alt='logo' onClick={() => navigateToHome("/")}></img>
                 </div>
                 <div id='search_bar_container' className={style.search_bar_container}>
                     <input id='input_search_bar' className={style.input_search_bar} type='text' placeholder='Cerca prodotti o marca'></input>

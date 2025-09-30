@@ -54,7 +54,7 @@ import FooterLayout from "../../components/FooterLayout"
 import NavBar from "../../components/NavBar"
 import style from './HomePage.module.scss'
 import { useEffect, useState, useRef } from "react"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 let carouselStart = true
 const tempShortDescriprionMsi = "MSI GeForce RTX 5060 OC 8GB GDDR7 DLSS"
@@ -74,6 +74,8 @@ export default function HomePage() {
     const timerRef = useRef(null)
     const [initialIndex, setInitialIndex] = useState(0)
     const [endIndex, setEndIndex] = useState(13)
+
+
 
 
 

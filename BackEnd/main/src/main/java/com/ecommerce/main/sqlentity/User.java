@@ -1,12 +1,9 @@
 package com.ecommerce.main.sqlentity;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,24 +18,36 @@ public class User {
     private String name;
     private String surname;
     private String email;
-    private LocalDate dateofbirth;
     private String codefiscale;
-    private HashSet<String> paymentmethods;
+    private String password;
+    private String telefono;
+    private String indirizzo;
+    private String nazione;
+    private byte is_indirizzo_same_spedizione;
+    private String spedizione;
     private LocalDateTime lastaccess;
+    private HashSet<String> paymentmethods;
 
     public User() {
     }
 
-    public User(int id, String name, String surname, String email, LocalDate dateofbirth, String codefiscale,
-            HashSet<String> paymentmethods, LocalDateTime lastaccess) {
+    public User(int id, String name, String surname, String email,String codefiscale, String password, String telefono, 
+           LocalDateTime lastaccess, HashSet<String> paymentmethods,String indirizzo,String nazione, byte is_indirizzo_same_spedizione, String spedizione) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.email = email;
-        this.dateofbirth = dateofbirth;
         this.codefiscale = codefiscale;
-        this.paymentmethods = paymentmethods;
+        this.password = password;
+        this.telefono = telefono;
         this.lastaccess = lastaccess;
+        this.paymentmethods = paymentmethods;
+        this.indirizzo = indirizzo;
+        this.nazione = nazione;
+        this.is_indirizzo_same_spedizione = is_indirizzo_same_spedizione;
+        if(is_indirizzo_same_spedizione == 1){
+            this.spedizione = indirizzo; 
+        }
     }
 
     public int getId() {
@@ -73,14 +82,12 @@ public class User {
         this.email = email;
     }
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    @Column(nullable = false)
-    public LocalDate getDateofbirth() {
-        return dateofbirth;
+    public String getPassword() {
+        return password;
     }
 
-    public void setDateofbirth(LocalDate dateofbirth) {
-        this.dateofbirth = dateofbirth;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getCodefiscale() {
@@ -110,76 +117,134 @@ public class User {
         this.lastaccess = lastaccess;
     }
 
+
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getIndirizzo() {
+        return indirizzo;
+    }
+
+    public void setIndirizzo(String indirizzo) {
+        this.indirizzo = indirizzo;
+    }
+
+    public String getNazione() {
+        return nazione;
+    }
+
+    public void setNazione(String nazione) {
+        this.nazione = nazione;
+    }
+
+    public byte getIs_indirizzo_same_spedizione() {
+        return is_indirizzo_same_spedizione;
+    }
+
+    public void setIs_indirizzo_same_spedizione(byte is_indirizzo_same_spedizione) {
+        this.is_indirizzo_same_spedizione = is_indirizzo_same_spedizione;
+    }
+
+    public String getSpedizione() {
+        return spedizione;
+    }
+
+    public void setSpedizione(String spedizione) {
+        this.spedizione = spedizione;
+    }
+
     @Override
     public String toString() {
-        return "User [id=" + id + ", name=" + name + ", surname=" + surname + ", email=" + email + ", date="
-                + dateofbirth
-                + ", codefiscale=" + codefiscale + ", paymentmethods=" + paymentmethods + ", lastaccess=" + lastaccess
+        return "User [id=" + id + ", name=" + name + ", surname=" + surname + ", email=" + email + ", codefiscale="
+                + codefiscale + ", password=" + password + ", telefono=" + telefono + ", indirizzo=" + indirizzo
+                + ", nazione=" + nazione + ", is_indirizzo_same_spedizione=" + is_indirizzo_same_spedizione
+                + ", spedizione=" + spedizione + ", lastaccess=" + lastaccess + ", paymentmethods=" + paymentmethods
                 + "]";
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User other = (User) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (this.is_indirizzo_same_spedizione != other.is_indirizzo_same_spedizione) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.surname, other.surname)) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        if (!Objects.equals(this.codefiscale, other.codefiscale)) {
+            return false;
+        }
+        if (!Objects.equals(this.password, other.password)) {
+            return false;
+        }
+        if (!Objects.equals(this.telefono, other.telefono)) {
+            return false;
+        }
+        if (!Objects.equals(this.indirizzo, other.indirizzo)) {
+            return false;
+        }
+        if (!Objects.equals(this.nazione, other.nazione)) {
+            return false;
+        }
+        if (!Objects.equals(this.spedizione, other.spedizione)) {
+            return false;
+        }
+        if (!Objects.equals(this.lastaccess, other.lastaccess)) {
+            return false;
+        }
+        return Objects.equals(this.paymentmethods, other.paymentmethods);
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + id;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((surname == null) ? 0 : surname.hashCode());
-        result = prime * result + ((email == null) ? 0 : email.hashCode());
-        result = prime * result + ((dateofbirth == null) ? 0 : dateofbirth.hashCode());
-        result = prime * result + ((codefiscale == null) ? 0 : codefiscale.hashCode());
-        result = prime * result + ((paymentmethods == null) ? 0 : paymentmethods.hashCode());
-        result = prime * result + ((lastaccess == null) ? 0 : lastaccess.hashCode());
-        return result;
+        int hash = 5;
+        hash = 67 * hash + this.id;
+        hash = 67 * hash + Objects.hashCode(this.name);
+        hash = 67 * hash + Objects.hashCode(this.surname);
+        hash = 67 * hash + Objects.hashCode(this.email);
+        hash = 67 * hash + Objects.hashCode(this.codefiscale);
+        hash = 67 * hash + Objects.hashCode(this.password);
+        hash = 67 * hash + Objects.hashCode(this.telefono);
+        hash = 67 * hash + Objects.hashCode(this.indirizzo);
+        hash = 67 * hash + Objects.hashCode(this.nazione);
+        hash = 67 * hash + Objects.hashCode(this.is_indirizzo_same_spedizione);
+        hash = 67 * hash + Objects.hashCode(this.spedizione);
+        hash = 67 * hash + Objects.hashCode(this.lastaccess);
+        hash = 67 * hash + Objects.hashCode(this.paymentmethods);
+        return hash;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        User other = (User) obj;
-        if (id != other.id)
-            return false;
-        if (name == null) {
-            if (other.name != null)
-                return false;
-        } else if (!name.equals(other.name))
-            return false;
-        if (surname == null) {
-            if (other.surname != null)
-                return false;
-        } else if (!surname.equals(other.surname))
-            return false;
-        if (email == null) {
-            if (other.email != null)
-                return false;
-        } else if (!email.equals(other.email))
-            return false;
-        if (dateofbirth == null) {
-            if (other.dateofbirth != null)
-                return false;
-        } else if (!dateofbirth.equals(other.dateofbirth))
-            return false;
-        if (codefiscale == null) {
-            if (other.codefiscale != null)
-                return false;
-        } else if (!codefiscale.equals(other.codefiscale))
-            return false;
-        if (paymentmethods == null) {
-            if (other.paymentmethods != null)
-                return false;
-        } else if (!paymentmethods.equals(other.paymentmethods))
-            return false;
-        if (lastaccess == null) {
-            if (other.lastaccess != null)
-                return false;
-        } else if (!lastaccess.equals(other.lastaccess))
-            return false;
-        return true;
-    }
+    
+    
+
+    
+
+
+
 
 }
