@@ -17,9 +17,9 @@ export default function SingIn() {
     const handleChange = (e) => {
         let { name, value } = e.target;
         if (value === "on") {
-            value = 1
+            value = true
         } else if (value === "off") {
-            value = 0
+            value = false
         }
 
         console.log(value);
@@ -118,8 +118,8 @@ export default function SingIn() {
                         <div>
                             <div className={style.row}>
                                 <div className={style.col}>
-                                    <label htmlFor="nazioni">Nazione: </label>
-                                    <select name="nazioni" id="nazioni" onChange={handleChange}>
+                                    <label htmlFor="nazione">Nazione: </label>
+                                    <select id="nazione" name="nazione" onChange={handleChange}>
                                         <option value="">-- Seleziona una nazione --</option>
                                         <option value="Italia">Italia</option>
                                         <option value="Francia">Francia</option>

@@ -4,11 +4,47 @@ import trustPilotStar from '../../assets/icons/trustpilotstar.png'
 import NavBar from '../../components/NavBar'
 import style from '../login/LoginPage.module.scss'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { useState } from 'react'
+import { useAuthContext } from '../../contexts/AuthContext'
 
 
 
 export default function LoginPage() {
     const navigateToSignIn = useNavigate()
+    const [formData, setFormData] = useState()
+    const { accessToken, setAccessToken, authApi } = useAuthContext()
+
+    console.log(formData);
+
+
+    function handleFormData(e) {
+        const { name, value } = e.target;
+
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+            [password]: value
+
+        }))
+    }
+
+
+    async function handleFormSubmit(e) {
+        e.preventDefault()
+
+        try {
+            const response = await authApi.post("/users/login", formData)
+            if (response.data) {
+                console.log(response.data);
+                setAccessToken(response.data)
+            }
+        } catch (error) {
+
+        }
+
+    }
+
 
 
 
@@ -22,15 +58,15 @@ export default function LoginPage() {
                     <p className={style.gia_registrato}>Gia registrato? <span>Accedi</span></p>
                     <hr></hr>
                     <p>Effettua il login per scegliere i dettagli della spedizione o del ritiro ed effettuare il pagamento</p>
-                    <form>
+                    <form onSubmit={handleFormSubmit}>
                         <div>
                             <label htmlFor='email'>Email: </label>
-                            <input type='email' id='email' placeholder='La tua email'></input>
+                            <input type='email' id='email' placeholder='La tua email' name='email' onChange={handleFormData}></input>
                         </div>
 
                         <div>
                             <label htmlFor='password'>Password: </label>
-                            <input type='password' id='password' placeholder='Password'></input>
+                            <input type='password' id='password' placeholder='Password' name='password' onChange={handleFormData}></input>
                         </div>
                         <div id='button_div' className={style.button_div}>
                             <button type='submit' className={style.submit_button}>Login</button>

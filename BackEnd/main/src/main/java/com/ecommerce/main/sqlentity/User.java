@@ -23,7 +23,7 @@ public class User {
     private String telefono;
     private String indirizzo;
     private String nazione;
-    private byte is_indirizzo_same_spedizione;
+    private Boolean is_indirizzo_same_spedizione;
     private String spedizione;
     private LocalDateTime lastaccess;
     private HashSet<String> paymentmethods;
@@ -32,7 +32,7 @@ public class User {
     }
 
     public User(int id, String name, String surname, String email,String codefiscale, String password, String telefono, 
-           LocalDateTime lastaccess, HashSet<String> paymentmethods,String indirizzo,String nazione, byte is_indirizzo_same_spedizione, String spedizione) {
+           LocalDateTime lastaccess, HashSet<String> paymentmethods,String indirizzo,String nazione, Boolean is_indirizzo_same_spedizione, String spedizione) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -45,9 +45,7 @@ public class User {
         this.indirizzo = indirizzo;
         this.nazione = nazione;
         this.is_indirizzo_same_spedizione = is_indirizzo_same_spedizione;
-        if(is_indirizzo_same_spedizione == 1){
-            this.spedizione = indirizzo; 
-        }
+
     }
 
     public int getId() {
@@ -143,11 +141,11 @@ public class User {
         this.nazione = nazione;
     }
 
-    public byte getIs_indirizzo_same_spedizione() {
+    public Boolean getIs_indirizzo_same_spedizione() {
         return is_indirizzo_same_spedizione;
     }
 
-    public void setIs_indirizzo_same_spedizione(byte is_indirizzo_same_spedizione) {
+    public void setIs_indirizzo_same_spedizione(Boolean is_indirizzo_same_spedizione) {
         this.is_indirizzo_same_spedizione = is_indirizzo_same_spedizione;
     }
 
