@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.ecommerce.main.dto.UserLoginResponse;
 import com.ecommerce.main.jsonwebtoken.JwtUtility;
 import com.ecommerce.main.repository.UserRepository;
 import com.ecommerce.main.sqlentity.User;
@@ -61,6 +63,30 @@ public class UserController {
 
     }
 
+    @GetMapping("/logged-user-data")
+    public ResponseEntity<?> getLoggedUserData(Authentication authentication) {
+        String email = authentication.getName();
+        UserLoginResponse response = new UserLoginResponse();
+
+        Optional<User> userDataFromDb = userRepository.findByEmail(email);
+        if (userDataFromDb.isPresent()) {
+
+            response.setId(userDataFromDb.get().getId());
+            response.setCodefiscale(userDataFromDb.get().getCodefiscale());
+            response.setName(userDataFromDb.get().getName());
+            response.setNazione(userDataFromDb.get().getNazione());
+            response.setIndirizzo(userDataFromDb.get().getIndirizzo());
+            response.setSpedizione(userDataFromDb.get().getSpedizione());
+            response.setSurname(userDataFromDb.get().getSurname());
+            response.setUserEmail(userDataFromDb.get().getEmail());
+            response.setTelefono(userDataFromDb.get().getTelefono());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
+
+        return ResponseEntity.ok(response);
+    }
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User entity, HttpServletResponse response) {
 
@@ -70,8 +96,8 @@ public class UserController {
             throw new RuntimeException("Credenziali non valide");
         }
 
-        String accessToken = jwtUtility.generateToken(entity.getEmail());
-        String refreshToken = jwtUtility.generateRefreshToken(entity.getEmail());
+        String accessToken = jwtUtility.generateToken(userByEmail.get().getEmail());
+        String refreshToken = jwtUtility.generateRefreshToken(userByEmail.get().getEmail());
 
         ResponseCookie cookie = ResponseCookie.from("refreshToken", refreshToken)
                 .httpOnly(true)
@@ -82,7 +108,7 @@ public class UserController {
 
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
 
-        return ResponseEntity.ok(Map.of("accessToken", accessToken));
+        return ResponseEntity.ok(Map.entry("accessToken", accessToken));
     }
 
     @PostMapping("/refresh")
@@ -94,7 +120,7 @@ public class UserController {
         String username = jwtUtility.extractUsername(refreshToken);
         String newAccessToken = jwtUtility.generateToken(username);
 
-        return ResponseEntity.ok(Map.of("accessToken", newAccessToken));
+        return ResponseEntity.ok(Map.entry("accessToken", newAccessToken));
     }
 
     @PostMapping("/logout")

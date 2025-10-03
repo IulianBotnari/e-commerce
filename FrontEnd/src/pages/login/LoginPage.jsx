@@ -4,7 +4,6 @@ import trustPilotStar from '../../assets/icons/trustpilotstar.png'
 import NavBar from '../../components/NavBar'
 import style from '../login/LoginPage.module.scss'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
 import { useState } from 'react'
 import { useAuthContext } from '../../contexts/AuthContext'
 
@@ -12,11 +11,9 @@ import { useAuthContext } from '../../contexts/AuthContext'
 
 export default function LoginPage() {
     const navigateToSignIn = useNavigate()
+    const navigateToUserAccountPage = useNavigate()
     const [formData, setFormData] = useState()
     const { accessToken, setAccessToken, authApi } = useAuthContext()
-
-    console.log(formData);
-
 
     function handleFormData(e) {
         const { name, value } = e.target;
@@ -29,7 +26,6 @@ export default function LoginPage() {
         }))
     }
 
-
     async function handleFormSubmit(e) {
         e.preventDefault()
 
@@ -37,7 +33,9 @@ export default function LoginPage() {
             const response = await authApi.post("/users/login", formData)
             if (response.data) {
                 console.log(response.data);
-                setAccessToken(response.data)
+                setAccessToken(response.data.accessToken)
+
+                navigateToUserAccountPage('/user/user-account')
             }
         } catch (error) {
 
@@ -45,12 +43,10 @@ export default function LoginPage() {
 
     }
 
-
-
-
     return <>
         <HeaderLayout />
         <NavBar />
+
         <main>
             <div id='login_signin' className={style.login_signin}>
                 <div id='login' className={style.login}>
@@ -100,6 +96,9 @@ export default function LoginPage() {
             </div>
 
         </main>
+
+
+
 
         <FooterLayout />
 

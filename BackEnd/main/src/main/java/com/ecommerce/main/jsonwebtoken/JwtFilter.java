@@ -30,7 +30,7 @@ public class JwtFilter extends OncePerRequestFilter{
         String email = null;
 
         if(header != null && header.startsWith("Bearer ")){
-            token = header.substring(7);
+            token = header.substring(7).trim();
             email = jwtUtility.extractUsername(token);
     
         }

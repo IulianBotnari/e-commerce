@@ -8,6 +8,7 @@ const context = createContext()
 export function AuthContext({ children }) {
 
     const [accessToken, setAccessToken] = useState()
+    const [userName, setUserName] = useState()
 
     const authApi = axios.create({
         baseURL: "http://localhost:8080",
@@ -43,7 +44,7 @@ export function AuthContext({ children }) {
 
 
 
-    const values = { accessToken, setAccessToken, authApi }
+    const values = { accessToken, setAccessToken, authApi, setUserName, userName }
 
     return (
         <context.Provider value={values}>
