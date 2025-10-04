@@ -1,6 +1,5 @@
 package com.ecommerce.main.controllers;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -12,12 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.ecommerce.main.dto.UserLoginResponse;
 import com.ecommerce.main.jsonwebtoken.JwtUtility;
@@ -39,27 +36,15 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
-
-    @GetMapping("/{id}")
-    public User getUser(@PathVariable("id") int id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
-
-    }
-
     @PostMapping("/postuser")
-    public ResponseEntity<User> postUser(@RequestBody User entity) {
+    public ResponseEntity<?> postUser(@RequestBody User entity) {
         if (entity.getIs_indirizzo_same_spedizione().equals(true)) {
             entity.setSpedizione(entity.getIndirizzo());
         }
 
-        User savedUser = userRepository.save(entity);
+        userRepository.save(entity);
 
-        return ResponseEntity.ok(savedUser);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body("Utente registrato con successo");
 
     }
 

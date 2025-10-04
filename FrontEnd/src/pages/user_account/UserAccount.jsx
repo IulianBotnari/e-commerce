@@ -15,6 +15,7 @@ export default function userAccount() {
     const { accessToken, authApi, setUserName } = useAuthContext()
     const [userData, setUserData] = useState()
     const navigateToHome = useNavigate()
+    const navigateToEditUser = useNavigate()
 
     async function getUserData() {
         try {
@@ -57,7 +58,7 @@ export default function userAccount() {
                         <span></span><p>Esci (LogOut)</p>
                     </div>
 
-                    <div>
+                    <div onClick={() => navigateToEditUser('/user/user-account/edit-user')}>
                         <span></span><p>Modifica dati di fatturazione</p>
                     </div>
                     <div>
