@@ -87,6 +87,25 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
+
+
+    @PostMapping("/edit-user-data")
+    public ResponseEntity<?> editUserData(@RequestBody User body, Authentication authentication) {
+        String email = authentication.getName();
+        
+        Optional<User> updatedUser = userRepository.findByEmail(email);
+
+        updatedUser.get().setName(body.getName());
+        updatedUser.get().setSurname(body.getSurname());
+        updatedUser.get().setTelefono(body.getTelefono());
+        updatedUser.get().setIndirizzo(body.getIndirizzo());
+        updatedUser.get().setNazione(body.getNazione());
+
+        userRepository.save(updatedUser.get());
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body("Utente modificato con successo");
+    }
+    
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User entity, HttpServletResponse response) {
 

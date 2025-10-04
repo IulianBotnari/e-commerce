@@ -16,7 +16,6 @@ export default function HeaderLayout() {
 
     function handleAccessButton() {
         const value = buttonRef.current.innerText
-        console.log(value);
 
 
         if (value === "Accedi") {

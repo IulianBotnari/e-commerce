@@ -11,9 +11,6 @@ import { useState } from 'react'
 export default function SingIn() {
 
     const [userBody, setUserBody] = useState()
-
-    console.log(userBody);
-
     const handleChange = (e) => {
         let { name, value } = e.target;
         if (value === "on") {
@@ -21,8 +18,6 @@ export default function SingIn() {
         } else if (value === "off") {
             value = false
         }
-
-        console.log(value);
 
         setUserBody((prev) => ({
             ...prev,

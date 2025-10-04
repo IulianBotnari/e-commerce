@@ -18,12 +18,7 @@ export default function userAccount() {
 
     async function getUserData() {
         try {
-            const response = await authApi.get('/users/logged-user-data', {
-                headers: {
-                    "Authorization": `Bearer ${accessToken}`
-                }
-            })
-
+            const response = await authApi.get('/users/logged-user-data')
             setUserData(response.data)
             setUserName(response.data.name)
 
@@ -145,11 +140,11 @@ export default function userAccount() {
                         </div>
 
                         <div>
-                            <p>Nome: </p>
-                            <p>Nome: </p>
-                            <p>Nome: </p>
-                            <p>Nome: </p>
-                            <p>Nome: </p>
+                            <p>{userData ? userData.name : "Nome non disponibile"}</p>
+                            <p>{userData ? userData.surname : "Congnome non disponibile"}</p>
+                            <p>No</p>
+                            <p>{userData ? userData.indirizzo : "Indirizzo non disponibile"}</p>
+                            <p>{userData ? userData.telefono : "Telefono non disponibile"}</p>
 
                         </div>
                     </div>

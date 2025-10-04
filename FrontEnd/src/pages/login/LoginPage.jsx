@@ -32,7 +32,6 @@ export default function LoginPage() {
         try {
             const response = await authApi.post("/users/login", formData)
             if (response.data) {
-                console.log(response.data);
                 setAccessToken(response.data.accessToken)
 
                 navigateToUserAccountPage('/user/user-account')

@@ -23,7 +23,6 @@ export function AuthContext({ children }) {
         return config
     })
 
-
     authApi.interceptors.response.use((response) => response,
         async (error) => {
             if (error.response && error.response.status === 401) {
