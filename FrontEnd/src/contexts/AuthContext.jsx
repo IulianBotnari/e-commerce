@@ -9,6 +9,8 @@ export function AuthContext({ children }) {
 
     const [accessToken, setAccessToken] = useState()
     const [userName, setUserName] = useState()
+    console.log(accessToken);
+
 
     const authApi = axios.create({
         baseURL: "http://localhost:8080",
@@ -23,23 +25,27 @@ export function AuthContext({ children }) {
         return config
     })
 
-    authApi.interceptors.response.use((response) => response,
+    authApi.interceptors.response.use(
+        (response) => response,
         async (error) => {
+            const originalRequest = error.config;
+
+
             if (error.response && error.response.status === 401) {
                 try {
-                    const response = await authApi.post("/users/refresh", {})
-                    setAccessToken(response.data.accessToken)
-                    error.config.headers.Authorization = `Bearer ${response.data.accessToken}`
-                    return authApi.request(error.config)
+                    const response = await authApi.post("/users/refresh", {});
+                    setAccessToken(response.data.accessToken);
+                    originalRequest.headers.Authorization = `Bearer ${response.data.accessToken}`;
+                    return authApi.request(originalRequest);
                 } catch (e) {
-                    console.error("Refresj scaduto");
-
+                    console.error("Refresh fallito, logout necessario");
+                    // Qui logout / redirect
                 }
             }
 
-            return Promise.reject(error)
+            return Promise.reject(error);
         }
-    )
+    );
 
 
 

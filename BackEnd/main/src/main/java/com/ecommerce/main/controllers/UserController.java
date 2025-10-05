@@ -12,11 +12,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ecommerce.main.dto.UserLoginResponse;
+import com.ecommerce.main.dto.inBoundDTO.UpdateUserDataRequest;
+import com.ecommerce.main.dto.outBoundDTO.UserLoginResponse;
 import com.ecommerce.main.jsonwebtoken.JwtUtility;
 import com.ecommerce.main.repository.UserRepository;
 import com.ecommerce.main.sqlentity.User;
@@ -72,24 +74,24 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
+    @PutMapping("/edit-user-data")
+    public ResponseEntity<?> editUserData(@RequestBody UpdateUserDataRequest body, Authentication authentication) {
 
-
-    @PostMapping("/edit-user-data")
-    public ResponseEntity<?> editUserData(@RequestBody User body, Authentication authentication) {
+        if (authentication == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token scaduto o non valido");
+        }
         String email = authentication.getName();
-        
+
         Optional<User> updatedUser = userRepository.findByEmail(email);
 
         updatedUser.get().setName(body.getName());
         updatedUser.get().setSurname(body.getSurname());
         updatedUser.get().setTelefono(body.getTelefono());
         updatedUser.get().setIndirizzo(body.getIndirizzo());
-        updatedUser.get().setNazione(body.getNazione());
 
         userRepository.save(updatedUser.get());
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("Utente modificato con successo");
     }
-    
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User entity, HttpServletResponse response) {
@@ -106,7 +108,7 @@ public class UserController {
         ResponseCookie cookie = ResponseCookie.from("refreshToken", refreshToken)
                 .httpOnly(true)
                 .secure(true)
-                .path("/users/refresh")
+                .path("/")
                 .maxAge(7 * 24 * 60 * 60)
                 .build();
 
@@ -132,7 +134,7 @@ public class UserController {
         ResponseCookie cookie = ResponseCookie.from("refreshToken", "")
                 .httpOnly(true)
                 .secure(true)
-                .path("/users/refresh")
+                .path("/")
                 .maxAge(0)
                 .sameSite("Strict")
                 .build();

@@ -13,15 +13,41 @@ export default function EditUserPage() {
 
     const { authApi } = useAuthContext()
     const [userData, setUserData] = useState()
+    const [userDataUpdate, setUserDataUpdate] = useState()
+
+    function handleUserDataUpdate(e) {
+        const { value, name } = e.target
+
+        setUserDataUpdate((prev) => ({
+            ...prev,
+            [name]: value
+        }))
+
+    }
+
+    console.log(userDataUpdate);
+
 
     async function getUserData() {
         try {
-            const response = await authApi.get('/logged-user-data')
+            const response = await authApi.get('/users/logged-user-data')
             setUserData(response.data)
             console.log(response.data);
 
         } catch (error) {
             console.error("Errore nel recuper dei dati utente", error);
+
+        }
+    }
+
+    async function updateUserData(e) {
+        e.preventDefault()
+
+        try {
+            const response = await authApi.put('/users/edit-user-data', userDataUpdate)
+
+        } catch (error) {
+            console.error("Aggiornamento utente non riuscito", error);
 
         }
     }
@@ -42,43 +68,43 @@ export default function EditUserPage() {
                 </div>
 
 
-                <form className={style.edit_user_page_form}>
+                <form onSubmit={updateUserData} className={style.edit_user_page_form}>
                     <div className={style.col}>
                         <div className={style.row}>
-                            <label>Nome: </label>
-                            <input type='text' />
+                            <label forhtml='name'>Nome: </label>
+                            <input type='text' name='name' onChange={(e) => handleUserDataUpdate(e)} />
                         </div>
 
                         <div className={`${style.row}`}>
                             <label>Codice Fiscale: </label>
-                            <input type='text' className={style.input_blocked} placeholder='Mariangelki' disabled />
+                            <input type='text' className={style.input_blocked} placeholder={userData ? userData.codefiscale : "No data"} disabled />
                         </div>
 
                         <div className={`${style.row}`}>
-                            <label>Telefono: </label>
-                            <input type='text' />
+                            <label forhtml='telefono'>Telefono: </label>
+                            <input type='text' name='telefono' onChange={(e) => handleUserDataUpdate(e)} />
                         </div>
 
                         <div className={style.row}>
                             <label>Nazione: </label>
-                            <input type='text' className={style.input_blocked} placeholder='Mariangelki' disabled />
+                            <input type='text' className={style.input_blocked} placeholder={userData ? userData.nazione : "No data"} disabled />
                         </div>
                     </div>
 
                     <div className={style.col}>
                         <div className={style.row}>
-                            <label>Cognome: </label>
-                            <input type='text' />
+                            <label forhtml='surname'>Cognome: </label>
+                            <input type='text' name='surname' onChange={(e) => handleUserDataUpdate(e)} />
                         </div>
 
                         <div className={style.row}>
                             <label>Email: </label>
-                            <input type='text' className={style.input_blocked} placeholder='Mariangelki' disabled />
+                            <input type='text' className={style.input_blocked} placeholder={userData ? userData.userEmail : "No data"} disabled />
                         </div>
 
                         <div className={style.row}>
-                            <label>Via: </label>
-                            <input type='text' />
+                            <label forhtml='indirizzo'>indirizzo: </label>
+                            <input type='text' name='indirizzo' onChange={(e) => handleUserDataUpdate(e)} />
                         </div>
 
                         <div className={style.row}>

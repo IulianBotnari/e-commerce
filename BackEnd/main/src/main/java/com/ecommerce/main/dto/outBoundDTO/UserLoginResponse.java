@@ -1,4 +1,4 @@
-package com.ecommerce.main.dto;
+package com.ecommerce.main.dto.outBoundDTO;
 
 public class UserLoginResponse {
 
