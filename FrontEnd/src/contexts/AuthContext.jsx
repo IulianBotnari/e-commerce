@@ -1,6 +1,7 @@
 
 import { useContext, createContext, useState } from "react";
 import axios from "axios";
+import { use } from "react";
 
 const context = createContext()
 
@@ -9,7 +10,7 @@ export function AuthContext({ children }) {
 
     const [accessToken, setAccessToken] = useState()
     const [userName, setUserName] = useState()
-    console.log(accessToken);
+    const [infoPageMessage, setInfoPageMessage] = useState()
 
 
     const authApi = axios.create({
@@ -30,16 +31,24 @@ export function AuthContext({ children }) {
         async (error) => {
             const originalRequest = error.config;
 
+            if (
+                error.response &&
+                error.response.status === 401 &&
+                !originalRequest._retry &&
+                originalRequest.url !== "/users/refresh"
+            ) {
+                originalRequest._retry = true;
 
-            if (error.response && error.response.status === 401) {
                 try {
                     const response = await authApi.post("/users/refresh", {});
                     setAccessToken(response.data.accessToken);
+
                     originalRequest.headers.Authorization = `Bearer ${response.data.accessToken}`;
+
                     return authApi.request(originalRequest);
                 } catch (e) {
-                    console.error("Refresh fallito, logout necessario");
-                    // Qui logout / redirect
+                    console.error("Refresj fallito, logout necessario");
+                    return Promise.reject(e);
                 }
             }
 
@@ -49,7 +58,7 @@ export function AuthContext({ children }) {
 
 
 
-    const values = { accessToken, setAccessToken, authApi, setUserName, userName }
+    const values = { accessToken, setAccessToken, authApi, setUserName, userName, setInfoPageMessage, infoPageMessage }
 
     return (
         <context.Provider value={values}>

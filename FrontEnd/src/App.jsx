@@ -3,9 +3,11 @@ import LoginPage from './pages/login/LoginPage.jsx'
 import SingIn from './pages/signin/SignIn.jsx'
 import UserAccount from './pages/user_account/UserAccount.jsx'
 import EditUserPage from './pages/edit_user/EditUserPage.jsx'
-
+import Infopage from './pages/info_pages/Infopage.jsx'
+import ProtectedRoute from './components/ProtectedRoute.jsx'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { AuthContext } from './contexts/AuthContext.jsx'
+
 function App() {
 
 
@@ -18,8 +20,9 @@ function App() {
             <Route index element={<HomePage />} />
             <Route path={'user/login'} element=<LoginPage /> />
             <Route path={'user/signin'} element=<SingIn /> />
-            <Route path={'user/user-account'} element=<UserAccount /> />
-            <Route path={'user/user-account/edit-user'} element=<EditUserPage /> />
+            <Route path={'user/user-account'} element=<ProtectedRoute><UserAccount /></ProtectedRoute> />
+            <Route path={'user/user-account/edit-user'} element=<ProtectedRoute><EditUserPage /></ProtectedRoute> />
+            <Route path={'infopage'} element=<Infopage /> />
           </Routes>
 
         </AuthContext>

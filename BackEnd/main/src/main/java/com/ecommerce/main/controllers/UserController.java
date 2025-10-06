@@ -44,6 +44,8 @@ public class UserController {
             entity.setSpedizione(entity.getIndirizzo());
         }
 
+        entity.setRole("user");
+
         userRepository.save(entity);
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("Utente registrato con successo");
@@ -76,6 +78,7 @@ public class UserController {
 
     @PutMapping("/edit-user-data")
     public ResponseEntity<?> editUserData(@RequestBody UpdateUserDataRequest body, Authentication authentication) {
+        System.out.println(authentication.toString());
 
         if (authentication == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token scaduto o non valido");
@@ -93,17 +96,31 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("Utente modificato con successo");
     }
 
+    @GetMapping("/verify-credentials")
+    public ResponseEntity<?> verifyCredentials(Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            System.out.println(ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenziali non valide oppure scadute"));
+
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenziali non valide oppure scadute");
+        } else {
+            System.out.println(ResponseEntity.status(HttpStatus.ACCEPTED).body("Credenziali valide"));
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Credenziali valide");
+        }
+
+    }
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User entity, HttpServletResponse response) {
 
         Optional<User> userByEmail = userRepository.findByEmail(entity.getEmail());
 
         if (userByEmail.isEmpty() || !userByEmail.get().getPassword().equals(entity.getPassword())) {
-            throw new RuntimeException("Credenziali non valide");
+            System.out.println(ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenziali non valide"));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenziali non valide");
         }
 
-        String accessToken = jwtUtility.generateToken(userByEmail.get().getEmail());
-        String refreshToken = jwtUtility.generateRefreshToken(userByEmail.get().getEmail());
+        String accessToken = jwtUtility.generateToken(userByEmail.get().getEmail(), userByEmail.get().getRole());
+        String refreshToken = jwtUtility.generateRefreshToken(userByEmail.get().getEmail(), userByEmail.get().getRole());
 
         ResponseCookie cookie = ResponseCookie.from("refreshToken", refreshToken)
                 .httpOnly(true)
@@ -124,7 +141,8 @@ public class UserController {
         }
 
         String username = jwtUtility.extractUsername(refreshToken);
-        String newAccessToken = jwtUtility.generateToken(username);
+        String role = jwtUtility.extractRole(refreshToken);
+        String newAccessToken = jwtUtility.generateToken(username, role);
 
         return ResponseEntity.ok(Map.entry("accessToken", newAccessToken));
     }

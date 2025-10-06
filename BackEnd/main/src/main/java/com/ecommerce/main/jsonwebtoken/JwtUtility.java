@@ -20,9 +20,10 @@ public class JwtUtility {
     private final long ACCESS_EXPIRATION = 1000 * 60 * 1;
     private final long REFRESH_EXPIRATION = 1000L * 60 * 60 * 24 * 7;
 
-    public String generateToken(String email) {
+    public String generateToken(String email, String role) {
         return Jwts.builder()
                 .subject(email)
+                .claim("role", role)
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + ACCESS_EXPIRATION))
                 .signWith(getSigninKey())
@@ -33,9 +34,10 @@ public class JwtUtility {
         return Keys.hmacShaKeyFor(secret_key.getBytes());
     }
 
-    public String generateRefreshToken(String username) {
+    public String generateRefreshToken(String username, String role) {
         return Jwts.builder()
                 .subject(username)
+                .claim("role", role)
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + REFRESH_EXPIRATION))
                 .signWith(getSigninKey())
@@ -55,6 +57,22 @@ public class JwtUtility {
     } catch (JwtException e) {
         return null; 
     }
+    }
+
+
+    public String extractRole(String token){
+        try {
+            return Jwts.parser()
+                    .verifyWith(getSigninKey())
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload()
+                    .get("role",String.class);
+        } catch (ExpiredJwtException e) {
+            return null;
+        } catch (JwtException e){
+            return null;
+        }
     }
 
     public boolean validateToken(String token) {

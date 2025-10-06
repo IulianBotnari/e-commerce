@@ -28,6 +28,8 @@ public class User {
     private LocalDateTime lastaccess;
     private HashSet<String> paymentmethods;
 
+    private String role;
+
     public User() {
     }
 
@@ -155,6 +157,15 @@ public class User {
 
     public void setSpedizione(String spedizione) {
         this.spedizione = spedizione;
+    }
+
+
+    public String getRole(){
+        return this.role;
+    }
+
+    public void setRole(String role){
+        this.role = role;
     }
 
     @Override

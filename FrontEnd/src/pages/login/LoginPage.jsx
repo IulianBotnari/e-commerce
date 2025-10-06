@@ -12,8 +12,9 @@ import { useAuthContext } from '../../contexts/AuthContext'
 export default function LoginPage() {
     const navigateToSignIn = useNavigate()
     const navigateToUserAccountPage = useNavigate()
+    const navigateToInfoPageMessage = useNavigate()
     const [formData, setFormData] = useState()
-    const { accessToken, setAccessToken, authApi } = useAuthContext()
+    const { accessToken, setAccessToken, authApi, setInfoPageMessage } = useAuthContext()
 
     function handleFormData(e) {
         const { name, value } = e.target;
@@ -33,10 +34,11 @@ export default function LoginPage() {
             const response = await authApi.post("/users/login", formData)
             if (response.data) {
                 setAccessToken(response.data.accessToken)
-
                 navigateToUserAccountPage('/user/user-account')
             }
         } catch (error) {
+            setInfoPageMessage(error.message)
+            navigateToInfoPageMessage('/infopage')
 
         }
 

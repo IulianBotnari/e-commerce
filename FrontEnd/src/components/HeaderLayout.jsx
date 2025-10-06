@@ -11,7 +11,7 @@ export default function HeaderLayout() {
 
     const navigateTo = useNavigate()
     const navigateToHome = useNavigate()
-    const { userName } = useAuthContext()
+    const { userName, authApi } = useAuthContext()
     const buttonRef = useRef()
 
     function handleAccessButton() {
@@ -21,7 +21,22 @@ export default function HeaderLayout() {
         if (value === "Accedi") {
             navigateTo('/user/login')
         } else {
-            navigateTo('/user/user-account')
+            (async () => {
+
+                try {
+                    const response = await authApi.get('/users/verify-credentials')
+                    console.log(response.status);
+
+                    if (response.status === 202) {
+
+                        navigateTo('/user/user-account')
+                    }
+                } catch (error) {
+                    console.log(error.status);
+
+
+                }
+            })()
         }
 
 

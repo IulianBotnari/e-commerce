@@ -25,14 +25,10 @@ export default function EditUserPage() {
 
     }
 
-    console.log(userDataUpdate);
-
-
     async function getUserData() {
         try {
             const response = await authApi.get('/users/logged-user-data')
             setUserData(response.data)
-            console.log(response.data);
 
         } catch (error) {
             console.error("Errore nel recuper dei dati utente", error);

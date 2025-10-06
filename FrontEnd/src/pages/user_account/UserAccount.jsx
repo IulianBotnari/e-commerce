@@ -12,10 +12,31 @@ import HeaderLayout from '../../components/HeaderLayout.jsx'
 
 export default function userAccount() {
 
-    const { accessToken, authApi, setUserName } = useAuthContext()
+    const { accessToken, authApi, setUserName, set } = useAuthContext()
     const [userData, setUserData] = useState()
     const navigateToHome = useNavigate()
     const navigateToEditUser = useNavigate()
+
+
+    async function goToEditUser() {
+
+        try {
+            const response = await authApi.get('/users/verify-credentials')
+            navigateToEditUser('/user/user-account/edit-user')
+
+        } catch (error) {
+            if (error.status == 401) {
+
+                setInfoPageMessage(error.message)
+            }
+        }
+
+    }
+
+
+    // async function goToEditUser() {
+    //     navigateToEditUser('/user/user-account/edit-user')
+    // }
 
     async function getUserData() {
         try {
@@ -58,7 +79,7 @@ export default function userAccount() {
                         <span></span><p>Esci (LogOut)</p>
                     </div>
 
-                    <div onClick={() => navigateToEditUser('/user/user-account/edit-user')}>
+                    <div onClick={(e) => goToEditUser()}>
                         <span></span><p>Modifica dati di fatturazione</p>
                     </div>
                     <div>
