@@ -60,7 +60,7 @@ export default function userAccount() {
                         <span></span><p>Esci (LogOut)</p>
                     </div>
 
-                    <div onClick={(e) => goToEditUser()}>
+                    <div onClick={() => navigateToEditUser("/user/user-account/edit-user")}>
                         <span></span><p>Modifica dati di fatturazione</p>
                     </div>
                     <div>

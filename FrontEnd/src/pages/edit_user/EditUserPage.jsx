@@ -68,7 +68,7 @@ export default function EditUserPage() {
                     <div className={style.col}>
                         <div className={style.row}>
                             <label forhtml='name'>Nome: </label>
-                            <input type='text' name='name' onChange={(e) => handleUserDataUpdate(e)} />
+                            <input type='text' name='name' onChange={(e) => handleUserDataUpdate(e)} value={userData ? userData.name : "No data"} required />
                         </div>
 
                         <div className={`${style.row}`}>
@@ -78,7 +78,7 @@ export default function EditUserPage() {
 
                         <div className={`${style.row}`}>
                             <label forhtml='telefono'>Telefono: </label>
-                            <input type='text' name='telefono' onChange={(e) => handleUserDataUpdate(e)} />
+                            <input type='text' name='telefono' onChange={(e) => handleUserDataUpdate(e)} value={userData ? userData.telefono : "No data"} required />
                         </div>
 
                         <div className={style.row}>
@@ -90,7 +90,7 @@ export default function EditUserPage() {
                     <div className={style.col}>
                         <div className={style.row}>
                             <label forhtml='surname'>Cognome: </label>
-                            <input type='text' name='surname' onChange={(e) => handleUserDataUpdate(e)} />
+                            <input type='text' name='surname' onChange={(e) => handleUserDataUpdate(e)} value={userData ? userData.surname : "No data"} required />
                         </div>
 
                         <div className={style.row}>
@@ -100,7 +100,7 @@ export default function EditUserPage() {
 
                         <div className={style.row}>
                             <label forhtml='indirizzo'>indirizzo: </label>
-                            <input type='text' name='indirizzo' onChange={(e) => handleUserDataUpdate(e)} />
+                            <input type='text' name='indirizzo' onChange={(e) => handleUserDataUpdate(e)} value={userData ? userData.indirizzo : "No data"} required />
                         </div>
 
                         <div className={style.row}>
