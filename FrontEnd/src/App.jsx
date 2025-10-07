@@ -23,6 +23,7 @@ function App() {
             <Route path={'user/user-account'} element=<ProtectedRoute><UserAccount /></ProtectedRoute> />
             <Route path={'user/user-account/edit-user'} element=<ProtectedRoute><EditUserPage /></ProtectedRoute> />
             <Route path={'infopage'} element=<Infopage /> />
+
           </Routes>
 
         </AuthContext>

@@ -1,12 +1,11 @@
 import style from './UserAccount.module.scss'
-import Header from '../../components/HeaderLayout.jsx'
+import HeaderLayout from '../../components/HeaderLayout.jsx'
 import NavBar from '../../components/NavBar.jsx'
 import Footer from '../../components/FooterLayout.jsx'
 import trustPilotStar from '../../assets/icons/trustpilotstar.png'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuthContext } from '../../contexts/AuthContext.jsx'
 import { useEffect, useState } from 'react'
-import HeaderLayout from '../../components/HeaderLayout.jsx'
 
 
 
