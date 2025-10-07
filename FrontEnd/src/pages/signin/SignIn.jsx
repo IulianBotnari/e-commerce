@@ -11,6 +11,10 @@ import { useState } from 'react'
 export default function SingIn() {
 
     const [userBody, setUserBody] = useState()
+    const [displayUserMessageErrorGeneric, setDisplayUserMessageErrorGeneric] = useState(false)
+    const [displayUserMessageError409, setDisplayUserMessageError409] = useState(false)
+    const [repeatedPassword, setRepeatedPassword] = useState()
+    const [passwordsNotEquals, setPasswordNotEquals] = useState(false)
     const handleChange = (e) => {
         let { name, value } = e.target;
         if (value === "on") {
@@ -30,21 +34,59 @@ export default function SingIn() {
     async function postUser(e) {
         e.preventDefault()
 
+        if (userBody.password != repeatedPassword) {
+            setPasswordNotEquals(true)
+            setTimeout(() => {
+                setPasswordNotEquals(false)
+            }, 5000)
+            return
+        }
+
 
         try {
+
             const response = await axios.post('http://localhost:8080/users/postuser', userBody)
 
             if (response.data) {
                 console.log("utente aggiunto con successo");
             }
 
+
+
         } catch (error) {
+            if (error.status === 409) {
+                setDisplayUserMessageError409(true)
+                setTimeout(() => {
+                    setDisplayUserMessageError409(false)
+                }, 5000)
+
+                return
+            }
+
             if (error.response) {
                 console.error("Errore dal server:", error.response.data);
+                if (displayUserMessageErrorGeneric === false) {
+                    setDisplayUserMessageErrorGeneric(true)
+                    setTimeout(() => {
+                        setDisplayUserMessageErrorGeneric(false)
+                    }, 5000)
+                }
             } else if (error.request) {
                 console.error("Nessuna risposta dal server:", error.request);
+                if (displayUserMessageErrorGeneric === false) {
+                    setDisplayUserMessageErrorGeneric(true)
+                    setTimeout(() => {
+                        setDisplayUserMessageErrorGeneric(false)
+                    }, 5000)
+                }
             } else {
                 console.error("Errore nella richiesta:", error.message);
+                if (displayUserMessageErrorGeneric === false) {
+                    setDisplayUserMessage(true)
+                    setTimeout(() => {
+                        setDisplayUserMessage(false)
+                    }, 5000)
+                }
             }
 
 
@@ -70,39 +112,39 @@ export default function SingIn() {
                         <div className={style.row}>
                             <div className={style.col}>
                                 <label htmlFor='name'>Nome: </label>
-                                <input type='text' id='name' name='name' onChange={handleChange}></input>
+                                <input type='text' id='name' name='name' onChange={handleChange} required></input>
                             </div>
                             <div className={style.col}>
 
                                 <label htmlFor='surname'>Cognome: </label>
-                                <input type='text' id='surname' name='surname' onChange={handleChange}></input>
+                                <input type='text' id='surname' name='surname' onChange={handleChange} required></input>
                             </div>
 
                         </div>
                         <div className={style.row}>
                             <div className={style.col}>
                                 <label htmlFor='codefiscale'>Codice Fiscale: </label>
-                                <input type='text' id='codefiscale' name='codefiscale' onChange={handleChange}></input></div>
+                                <input type='text' id='codefiscale' name='codefiscale' onChange={handleChange} required></input></div>
 
                             <div className={style.col}>
                                 <label htmlFor='email'>Email: </label>
-                                <input type='email' id='email' name='email' onChange={handleChange}></input></div>
+                                <input type='email' id='email' name='email' onChange={handleChange} required></input></div>
                         </div>
                         <div className={style.row}>
                             <div className={style.col}>
                                 <label htmlFor='password'>Password: </label>
-                                <input type='password' id='password' name='password' onChange={handleChange}></input></div>
+                                <input type='password' id='password' name='password' onChange={handleChange} required></input></div>
 
 
                             <div className={style.col}>
                                 <label htmlFor='ripetipassword'>Ripeti Password: </label>
-                                <input type='password' id='ripetipassword' name='ripetipassword' ></input></div>
+                                <input type='password' id='ripetipassword' name='ripetipassword' onChange={(e) => setRepeatedPassword(e.target.value)} ></input></div>
 
                         </div>
                         <div className={style.row}>
                             <div className={style.col}>
                                 <label htmlFor='telefono'>Telefono: </label>
-                                <input type='text' id='telefono' name='telefono' onChange={handleChange}></input></div>
+                                <input type='text' id='telefono' name='telefono' onChange={handleChange} required></input></div>
 
                             <div className={style.col}></div>
 
@@ -114,7 +156,7 @@ export default function SingIn() {
                             <div className={style.row}>
                                 <div className={style.col}>
                                     <label htmlFor="nazione">Nazione: </label>
-                                    <select id="nazione" name="nazione" onChange={handleChange}>
+                                    <select id="nazione" name="nazione" onChange={handleChange} required>
                                         <option value="">-- Seleziona una nazione --</option>
                                         <option value="Italia">Italia</option>
                                         <option value="Francia">Francia</option>
@@ -127,7 +169,7 @@ export default function SingIn() {
                                 <div className={style.col}>
 
                                     <label htmlFor='indirizzo'>Indirizzo: </label>
-                                    <input type='text' id='indirizzo' name='indirizzo' onChange={handleChange} ></input>
+                                    <input type='text' id='indirizzo' name='indirizzo' onChange={handleChange} required></input>
                                 </div>
 
                             </div>
@@ -138,6 +180,10 @@ export default function SingIn() {
                             <button type='submit' className={style.registrati}>Registrati</button>
                         </div>
                     </form>
+
+                    <p className={displayUserMessageErrorGeneric == false ? style.user_message_off : style.user_message_on}>Qualcosa è andato storto, riprova</p>
+                    <p className={displayUserMessageError409 == false ? style.user_message_off : style.user_message_on}>Utente già esistente</p>
+                    <p className={passwordsNotEquals == false ? style.user_message_off : style.user_message_on}>Password non coincidono</p>
                 </div>
                 <div className={style.indirizzo}>
 

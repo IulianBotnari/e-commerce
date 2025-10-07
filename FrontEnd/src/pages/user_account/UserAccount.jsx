@@ -12,31 +12,12 @@ import HeaderLayout from '../../components/HeaderLayout.jsx'
 
 export default function userAccount() {
 
-    const { accessToken, authApi, setUserName, set } = useAuthContext()
+    const { accessToken, authApi, setUserName } = useAuthContext()
     const [userData, setUserData] = useState()
     const navigateToHome = useNavigate()
     const navigateToEditUser = useNavigate()
 
 
-    async function goToEditUser() {
-
-        try {
-            const response = await authApi.get('/users/verify-credentials')
-            navigateToEditUser('/user/user-account/edit-user')
-
-        } catch (error) {
-            if (error.status == 401) {
-
-                setInfoPageMessage(error.message)
-            }
-        }
-
-    }
-
-
-    // async function goToEditUser() {
-    //     navigateToEditUser('/user/user-account/edit-user')
-    // }
 
     async function getUserData() {
         try {

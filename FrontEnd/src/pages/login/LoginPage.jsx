@@ -15,6 +15,7 @@ export default function LoginPage() {
     const navigateToInfoPageMessage = useNavigate()
     const [formData, setFormData] = useState()
     const { accessToken, setAccessToken, authApi, setInfoPageMessage } = useAuthContext()
+    const [displayUserMessage, setDisplayUserMessage] = useState(false)
 
     function handleFormData(e) {
         const { name, value } = e.target;
@@ -38,8 +39,12 @@ export default function LoginPage() {
             }
         } catch (error) {
             setInfoPageMessage(error.message)
-            navigateToInfoPageMessage('/infopage')
-
+            if (displayUserMessage === false) {
+                setDisplayUserMessage(true)
+                setTimeout(() => {
+                    setDisplayUserMessage(false)
+                }, 5000)
+            }
         }
 
     }
@@ -58,18 +63,19 @@ export default function LoginPage() {
                     <form onSubmit={handleFormSubmit}>
                         <div>
                             <label htmlFor='email'>Email: </label>
-                            <input type='email' id='email' placeholder='La tua email' name='email' onChange={handleFormData}></input>
+                            <input type='email' id='email' placeholder='La tua email' name='email' onChange={handleFormData} required></input>
                         </div>
 
                         <div>
                             <label htmlFor='password'>Password: </label>
-                            <input type='password' id='password' placeholder='Password' name='password' onChange={handleFormData}></input>
+                            <input type='password' id='password' placeholder='Password' name='password' onChange={handleFormData} required></input>
                         </div>
                         <div id='button_div' className={style.button_div}>
                             <button type='submit' className={style.submit_button}>Login</button>
                             <button className={style.password_dimenticata_button}>Password dimentidcata ?</button>
                         </div>
                     </form>
+                    <p className={displayUserMessage == false ? style.user_message_off : style.user_message_on}>Email e/o Password errata</p>
                 </div>
                 <div id='signin' className={style.signin}>
                     <h3>Nuovo cliente?</h3>

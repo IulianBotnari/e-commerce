@@ -40,6 +40,15 @@ public class UserController {
 
     @PostMapping("/postuser")
     public ResponseEntity<?> postUser(@RequestBody User entity) {
+        Optional<User> entityEmail = userRepository.findByEmail(entity.getEmail());
+        Optional<User> entityCodFiscale = userRepository.findByCodefiscale(entity.getCodefiscale());
+
+        if (entityEmail != null || entityCodFiscale != null ) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Utente già esistente");
+            
+        }
+
+    
         if (entity.getIs_indirizzo_same_spedizione().equals(true)) {
             entity.setSpedizione(entity.getIndirizzo());
         }

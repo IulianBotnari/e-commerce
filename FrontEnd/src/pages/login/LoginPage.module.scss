@@ -140,6 +140,26 @@
 
 }
 
+.user_message_on {
+    width: 100%;
+    text-align: center;
+    padding: .5rem;
+    background-color: rgba(250, 6, 6, 0.473);
+    border-radius: 10px;
+    border: 1px solid red;
+}
+
+.user_message_off {
+    display: none;
+    width: 100%;
+    text-align: center;
+    padding: .5rem;
+    background-color: rgba(250, 6, 6, 0.473);
+    border-radius: 10px;
+    border: 1px solid red;
+
+}
+
 
 /*#endregion login*/
 
