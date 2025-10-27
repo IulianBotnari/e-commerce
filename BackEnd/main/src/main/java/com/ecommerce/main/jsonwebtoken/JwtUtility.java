@@ -17,7 +17,7 @@ public class JwtUtility {
 
     @Value("${jwt.secret_key}")
     private String secret_key;
-    private final long ACCESS_EXPIRATION = 1000 * 60 * 1;
+    private final long ACCESS_EXPIRATION = 1000 * 60 * 60;
     private final long REFRESH_EXPIRATION = 1000L * 60 * 60 * 24 * 7;
 
     public String generateToken(String email, String role) {

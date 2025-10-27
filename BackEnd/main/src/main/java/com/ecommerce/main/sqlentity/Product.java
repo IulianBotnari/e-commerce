@@ -13,18 +13,20 @@ public class Product{
     private String name;
     private String description;
     private double price;
+    private String image;
 
     public Product(){
 
     }
 
-    public Product(int id, String category, String brand, String name, String description, double price) {
+    public Product(int id, String category, String brand, String name, String description, double price, String image) {
         this.id = id;
         this.category = category;
         this.brand = brand;
         this.name = name;
         this.description = description;
         this.price = price;
+        this.image = image;
     }
 
     public int getId() {
@@ -75,10 +77,27 @@ public class Product{
         this.price = price;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
-        return "Product [id=" + id + ", category=" + category + ", brand=" + brand + ", name=" + name
-                + ", description=" + description + ", price=" + price + "]";
+        StringBuilder sb = new StringBuilder();
+        sb.append("Product{");
+        sb.append("id=").append(id);
+        sb.append(", category=").append(category);
+        sb.append(", brand=").append(brand);
+        sb.append(", name=").append(name);
+        sb.append(", description=").append(description);
+        sb.append(", price=").append(price);
+        sb.append(", image=").append(image);
+        sb.append('}');
+        return sb.toString();
     }
 
     @Override
@@ -93,6 +112,7 @@ public class Product{
         long temp;
         temp = Double.doubleToLongBits(price);
         result = prime * result + (int) (temp ^ (temp >>> 32));
+        result = prime * result + ((image == null) ? 0 : image.hashCode());
         return result;
     }
 
@@ -129,13 +149,15 @@ public class Product{
             return false;
         if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price))
             return false;
+        if (image == null) {
+            if (other.image != null)
+                return false;
+        } else if (!image.equals(other.image))
+            return false;
         return true;
     }
-
     
 
-
     
-
 
 }
