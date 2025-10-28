@@ -70,6 +70,7 @@ public class UserController {
             response.setSurname(userDataFromDb.get().getSurname());
             response.setUserEmail(userDataFromDb.get().getEmail());
             response.setTelefono(userDataFromDb.get().getTelefono());
+            response.setRole(userDataFromDb.get().getRole());
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
@@ -119,7 +120,7 @@ public class UserController {
                 .maxAge(7 * 24 * 60 * 60)
                 .build();
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
-        return ResponseEntity.ok(Map.entry("accessToken", accessToken));
+        return ResponseEntity.ok(Map.of("accessToken", accessToken, "role", userByEmail.get().getRole()));
     }
 
     @PostMapping("/refresh")

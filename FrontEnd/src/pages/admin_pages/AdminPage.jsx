@@ -1,14 +1,48 @@
 import adminStyle from '../admin_pages/AdminPage.module.scss'
-
+import { useAuthContext } from '../../contexts/AuthContext'
+import { useState } from 'react'
 
 export default function AdminPage() {
+
+    const { authApi } = useAuthContext()
+
+    const [porductData, setProductData] = useState({})
+    console.log(porductData);
+
+
+    function handleProductData(e) {
+        const { name, value } = e.target
+
+        setProductData((prev) => ({
+            ...prev,
+            [name]: value
+        })
+        )
+    }
+
+    async function registerProduct(e) {
+        e.preventDefault()
+        try {
+            const response = await authApi.post('/products/postproduct', porductData)
+            console.log(response);
+
+
+        } catch (e) {
+            console.error(e.getMessage);
+
+
+        }
+
+
+    }
+
 
 
     return <>
         <h1>Admin Page</h1>
-        <form>
-            <label>Categoria</label>
-            <select name={"Seleziona categoria"}>
+        <form onSubmit={registerProduct}>
+            <label>Categoria: </label>
+            <select name={"category"} onChange={(e) => handleProductData(e)} >
                 <option>Seleziona</option>
                 <optgroup label={'Computer Tablet NoteBook'}>
                     <option>Accessori Apple</option>
@@ -79,8 +113,29 @@ export default function AdminPage() {
                     <option>Tavoletta Grafica</option>
                     <option>Webcam</option>
                 </optgroup>
-
+                <optgroup label={'Telefonia wearable'}>
+                    <option>Accessori Asus</option>
+                    <option>Caricatori</option>
+                    <option>Watch</option>
+                    <option>Accessori iPhone</option>
+                    <option>iPhone</option>
+                    <option>Tablet</option>
+                    <option>Accessori Mobile</option>
+                    <option>Smartphone</option>
+                    <option>Visore VR</option>
+                </optgroup>
             </select>
+            <label htmlFor='brand'>Brand: </label>
+            <input type='text' name='brand' placeholder='Inserisci il brand del prodotto' onChange={(e) => handleProductData(e)} required></input>
+            <label htmlFor='name'>Nome: </label>
+            <input type='text' name='name' placeholder='Inserisci il nome del prodotto' onChange={(e) => handleProductData(e)} required></input>
+            <label htmlFor='description'>Descrizione: </label>
+            <input type='text' name='description' placeholder='Inserisci la descrizione del prodotto' onChange={(e) => handleProductData(e)} required></input>
+            <label htmlFor='price'>Prezzo: </label>
+            <input type='number' name='price' onChange={(e) => handleProductData(e)} required></input>
+            <label htmlFor='image'>Immagine: </label>
+            <input type='file' name='image' onChange={(e) => handleProductData(e)} ></input>
+            <button type='submit'>Aggiungi prodotto</button>
         </form>
 
     </>

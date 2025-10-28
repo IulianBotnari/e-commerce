@@ -27,7 +27,7 @@ public class SecurityConfig {
                 .cors(cors -> {
                 })
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/users/login", "/users/refresh", "/users/postuser", "/users/verify-credentials").permitAll()
+                        .requestMatchers("/users/login", "/users/refresh", "/users/postuser", "/users/verify-credentials", "/products/**").permitAll()
                         .requestMatchers("/user/**").hasRole("user") 
                         .anyRequest().authenticated())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

@@ -12,6 +12,7 @@ import { useAuthContext } from '../../contexts/AuthContext'
 export default function LoginPage() {
     const navigateToSignIn = useNavigate()
     const navigateToUserAccountPage = useNavigate()
+    const navigateToAdminAccountPage = useNavigate()
     const navigateToInfoPageMessage = useNavigate()
     const [formData, setFormData] = useState()
     const { accessToken, setAccessToken, authApi, setInfoPageMessage } = useAuthContext()
@@ -35,7 +36,11 @@ export default function LoginPage() {
             const response = await authApi.post("/users/login", formData)
             if (response.data) {
                 setAccessToken(response.data.accessToken)
-                navigateToUserAccountPage('/user/user-account')
+                if (response.data.role === "admin") {
+                    navigateToAdminAccountPage('/admin-home')
+                } else {
+                    navigateToUserAccountPage('/user/user-account')
+                }
             }
         } catch (error) {
             setInfoPageMessage(error.message)

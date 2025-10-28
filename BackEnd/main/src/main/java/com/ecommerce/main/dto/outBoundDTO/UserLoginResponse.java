@@ -12,13 +12,14 @@ public class UserLoginResponse {
     private String spedizione;
     private String nazione;
     private String telefono;
+    private String role;
 
 
     public UserLoginResponse(){
         
     }
 
-    public UserLoginResponse(String accessToken, int id, String codefiscale, String indirizzo, String nazione, String spedizione, String surname, String userEmail, String name, String telefono) {
+    public UserLoginResponse(String accessToken, int id, String codefiscale, String indirizzo, String nazione, String spedizione, String surname, String userEmail, String name, String telefono, String role) {
         this.accessToken = accessToken;
         this.id = id;
         this.codefiscale = codefiscale;
@@ -29,6 +30,7 @@ public class UserLoginResponse {
         this.userEmail = userEmail;
         this.name = name;
         this.telefono = telefono;
+        this.role = role;
     }
 
     public String getAccessToken() {
@@ -109,6 +111,14 @@ public class UserLoginResponse {
 
     public void setTelefono(String telefono){
         this.telefono = telefono;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     
