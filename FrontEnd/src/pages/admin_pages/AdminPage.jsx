@@ -7,17 +7,28 @@ export default function AdminPage() {
     const { authApi } = useAuthContext()
 
     const [porductData, setProductData] = useState({})
+    const [productImage, setProductImage] = useState(null)
+    // console.log(productImage);
+
     console.log(porductData);
 
 
     function handleProductData(e) {
-        const { name, value } = e.target
+        const { name, value, files } = e.target
 
-        setProductData((prev) => ({
-            ...prev,
-            [name]: value
-        })
-        )
+        if (name === "image") {
+            const file = files[0];
+            setProductImage(file);
+            setProductData((prev) => ({
+                ...prev,
+                image: file
+            }));
+        } else {
+            setProductData((prev) => ({
+                ...prev,
+                [name]: value
+            }));
+        }
     }
 
     async function registerProduct(e) {
@@ -25,15 +36,9 @@ export default function AdminPage() {
         try {
             const response = await authApi.post('/products/postproduct', porductData)
             console.log(response);
-
-
         } catch (e) {
             console.error(e.getMessage);
-
-
         }
-
-
     }
 
 

@@ -1,5 +1,6 @@
 package com.ecommerce.main.controllers;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +36,8 @@ public class ProductController {
     }
 
     @PostMapping("/postproduct")
-    public ResponseEntity<Product> postProduct(@RequestBody Product product) {
-
+    public ResponseEntity<Product> postProduct(@RequestBody Product product) throws SQLException {
         Product response = productRepository.save(product);
-
         return ResponseEntity.ok(response);
     }
 

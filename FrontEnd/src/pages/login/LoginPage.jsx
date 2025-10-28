@@ -13,7 +13,6 @@ export default function LoginPage() {
     const navigateToSignIn = useNavigate()
     const navigateToUserAccountPage = useNavigate()
     const navigateToAdminAccountPage = useNavigate()
-    const navigateToInfoPageMessage = useNavigate()
     const [formData, setFormData] = useState()
     const { accessToken, setAccessToken, authApi, setInfoPageMessage } = useAuthContext()
     const [displayUserMessage, setDisplayUserMessage] = useState(false)
