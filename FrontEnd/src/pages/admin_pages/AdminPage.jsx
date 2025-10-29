@@ -6,38 +6,48 @@ export default function AdminPage() {
 
     const { authApi } = useAuthContext()
 
-    const [porductData, setProductData] = useState({})
-    const [productImage, setProductImage] = useState(null)
-    // console.log(productImage);
-
-    console.log(porductData);
+    const [productData, setProductData] = useState()
+    // const [productImage, setProductImage] = useState(null)
+    // // console.log(productImage);
+    const formData = new FormData()
+    console.log(productData);
 
 
     function handleProductData(e) {
         const { name, value, files } = e.target
 
-        if (name === "image") {
-            const file = files[0];
-            setProductImage(file);
-            setProductData((prev) => ({
-                ...prev,
-                image: file
-            }));
-        } else {
-            setProductData((prev) => ({
-                ...prev,
-                [name]: value
-            }));
+        setProductData((prev) => ({
+            ...prev,
+            [name]: name === "image" ? files[0] : value,
         }
+        ))
+
     }
 
     async function registerProduct(e) {
-        e.preventDefault()
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append("file", productData.image);
+        const metadata = {
+            category: productData.gategory,
+            brand: productData.brand,
+            name: productData.name,
+            description: productData.description,
+            price: productData.price,
+        };
+        formData.append("image", productData.image)
+
+        formData.append(
+            "metadata",
+            new Blob([JSON.stringify(metadata)], { type: "application/json" })
+        );
         try {
-            const response = await authApi.post('/products/postproduct', porductData)
-            console.log(response);
-        } catch (e) {
-            console.error(e.getMessage);
+            const response = await authApi.post('/products/postproduct', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            });
+            console.log(response.data);
+        } catch (error) {
+            console.error(error);
         }
     }
 

@@ -5,13 +5,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.ecommerce.main.repository.ProductRepository;
@@ -35,8 +37,9 @@ public class ProductController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Prodotto non trovato"));
     }
 
-    @PostMapping("/postproduct")
-    public ResponseEntity<Product> postProduct(@RequestBody Product product) throws SQLException {
+    @PostMapping(value = "/postproduct", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Product> postProduct(@RequestPart("metadata") Product product, @RequestPart("image") MultipartFile file ) throws SQLException {
+        System.out.println(file);
         Product response = productRepository.save(product);
         return ResponseEntity.ok(response);
     }
