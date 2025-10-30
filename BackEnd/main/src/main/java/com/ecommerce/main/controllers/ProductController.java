@@ -1,5 +1,5 @@
 package com.ecommerce.main.controllers;
-
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -38,8 +38,13 @@ public class ProductController {
     }
 
     @PostMapping(value = "/postproduct", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Product> postProduct(@RequestPart("metadata") Product product, @RequestPart("image") MultipartFile file ) throws SQLException {
-        System.out.println(file);
+    public ResponseEntity<Product> postProduct(@RequestPart("metadata") Product product,
+            @RequestPart("image") MultipartFile file) throws SQLException, IOException {
+
+        if (file != null && !file.isEmpty()) {
+            product.setImage(file.getBytes());
+        }
+
         Product response = productRepository.save(product);
         return ResponseEntity.ok(response);
     }
