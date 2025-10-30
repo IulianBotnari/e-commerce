@@ -1,20 +1,20 @@
 package com.ecommerce.main.controllers;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.ecommerce.main.repository.ProductRepository;
 import com.ecommerce.main.sqlentity.Product;
@@ -32,9 +32,9 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public Product getProduct(@PathVariable("id") int id) {
-        return productRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Prodotto non trovato"));
+    public ResponseEntity<Product> getProduct(@PathVariable("id") String code) {
+        Product product = productRepository.findByproductcode(code);
+        return ResponseEntity.ok(product);
     }
 
     @PostMapping(value = "/postproduct", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -47,6 +47,13 @@ public class ProductController {
 
         Product response = productRepository.save(product);
         return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/modify-product/{id}")
+    public ResponseEntity<Product> putMethodName(@PathVariable String code) {
+
+
+        return null;
     }
 
 }

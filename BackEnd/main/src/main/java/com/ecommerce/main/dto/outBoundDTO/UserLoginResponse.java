@@ -13,6 +13,7 @@ public class UserLoginResponse {
     private String nazione;
     private String telefono;
     private String role;
+    
 
 
     public UserLoginResponse(){
