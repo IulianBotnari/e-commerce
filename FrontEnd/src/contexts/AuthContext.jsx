@@ -9,6 +9,8 @@ const context = createContext()
 export function AuthContext({ children }) {
 
     const [accessToken, setAccessToken] = useState()
+    console.log(accessToken);
+
     const [userName, setUserName] = useState()
     const [infoPageMessage, setInfoPageMessage] = useState()
 

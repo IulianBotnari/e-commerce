@@ -89,4 +89,24 @@
         margin-top: 0;
         width: 80px;
     }
+
+}
+
+.row_button {
+    display: flex !important;
+    justify-content: space-around;
+
+    button {
+        width: 200px;
+    }
+
+    :nth-child(2) {
+        background-color: rgb(138, 21, 21) !important;
+
+    }
+
+    :nth-child(2):hover {
+        background-color: rgba(138, 21, 21, 0.719) !important;
+    }
+
 }

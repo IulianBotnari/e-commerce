@@ -1,19 +1,23 @@
 import adminStyle from '../admin_pages/AdminPage.module.scss'
 import { useAuthContext } from '../../contexts/AuthContext'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function AdminPage() {
 
     const { authApi } = useAuthContext()
-
+    const navigateToHome = useNavigate()
     const [productData, setProductData] = useState()
     const [searchBarValue, setSearchBarValue] = useState()
+    const [searchedProduct, setSearchedProduct] = useState()
     const formData = new FormData()
-    console.log(searchBarValue);
+    console.log(productData?.image);
+
 
 
     function handleProductData(e) {
         const { name, value, files } = e.target
+
 
         setProductData((prev) => ({
             ...prev,
@@ -44,7 +48,9 @@ export default function AdminPage() {
             const response = await authApi.post('/products/postproduct', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
+
             console.log(response.data);
+            setProductData(null)
         } catch (error) {
             console.error(error);
         }
@@ -53,16 +59,62 @@ export default function AdminPage() {
 
     async function findProductByCode(e, code) {
         e.preventDefault()
+
         try {
             const response = await authApi.get(`/products/${code}`)
             console.log(response.data);
+            setProductData(response.data)
+            setSearchedProduct(response.data)
 
 
         } catch (e) {
+            console.error(e.getMessage());
 
         }
 
     }
+
+    function selectCategory(productData, searchedProduct) {
+        if (productData != null) {
+            return productData.category
+        } else if (searchedProduct != null) {
+            return searchedProduct.category
+        } else {
+            return ""
+        }
+    }
+
+
+    async function updateProduct(e) {
+        e.preventDefault();
+        const formData = new FormData();
+        const metadata = {
+            category: productData.category,
+            brand: productData.brand,
+            name: productData.name,
+            description: productData.description,
+            price: productData.price,
+        };
+
+        if (productData.image) {
+            formData.append("image", productData.image);
+            console.log("image  " + productData.image);
+
+        }
+        formData.append(
+            "metadata",
+            new Blob([JSON.stringify(metadata)], { type: "application/json" })
+        );
+        try {
+            const response = await authApi.put('/products/updateproduct', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            });
+
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
+
 
 
 
@@ -72,6 +124,7 @@ export default function AdminPage() {
 
         <h1>Amministrazione</h1>
         <h2>Gestisci i tuoi prodotti</h2>
+        <button onClick={() => navigateToHome("/")}>Torna a HomePage</button>
         <form className={adminStyle.add_product_form} onSubmit={registerProduct}>
             <h3>Aggiungi prodotto</h3>
             <div className={adminStyle.row}>
@@ -195,7 +248,7 @@ export default function AdminPage() {
             </div>
             <div className={adminStyle.row}>
                 <label>Categoria: </label>
-                <select name={"category"} onChange={(e) => handleProductData(e)} >
+                <select name={"category"} value={selectCategory(productData, searchedProduct)} onChange={(e) => handleProductData(e)} >
                     <option>Seleziona</option>
                     <optgroup label={'Computer Tablet NoteBook'}>
                         <option>Accessori Apple</option>
@@ -281,29 +334,30 @@ export default function AdminPage() {
             </div>
             <div className={adminStyle.row}>
                 <label htmlFor='brand'>Brand: </label>
-                <input type='text' name='brand' placeholder='Inserisci il brand del prodotto' onChange={(e) => handleProductData(e)} required></input>
+                <input type='text' name='brand' placeholder='Inserisci il brand del prodotto' onChange={(e) => handleProductData(e)} value={searchedProduct != null ? searchedProduct.brand : ""} required></input>
             </div>
             <div className={adminStyle.row}>
                 <label htmlFor='name'>Nome: </label>
-                <input type='text' name='name' placeholder='Inserisci il nome del prodotto' onChange={(e) => handleProductData(e)} required></input>
+                <input type='text' name='name' placeholder='Inserisci il nome del prodotto' onChange={(e) => handleProductData(e)} value={searchedProduct != null ? searchedProduct.name : ""} required></input>
             </div>
             <div className={adminStyle.row}>
                 <label htmlFor='description'>Descrizione: </label>
-                <input type='text' name='description' placeholder='Inserisci la descrizione del prodotto' onChange={(e) => handleProductData(e)} required></input>
+                <input type='text' name='description' placeholder='Inserisci la descrizione del prodotto' onChange={(e) => handleProductData(e)} value={searchedProduct != null ? searchedProduct.description : ""} required></input>
             </div>
             <div className={adminStyle.row}>
                 <label htmlFor='price'>Prezzo: </label>
-                <input type='number' name='price' onChange={(e) => handleProductData(e)} required></input>
+                <input type='number' name='price' onChange={(e) => handleProductData(e)} value={searchedProduct != null ? searchedProduct.price : ""} required></input>
             </div>
             <div className={adminStyle.row}>
                 <label htmlFor='image'>Immagine: </label>
                 <input type='file' name='image' onChange={(e) => handleProductData(e)} ></input>
             </div>
-            <img src=''></img>
-            <div className={adminStyle.row}>
-                <button type='submit'>Modifica prodotto</button>
+            <img src={searchedProduct != null ? `data:image/jpeg;base64,${searchedProduct.image}` : null}></img>
+            <div className={adminStyle.row_button}>
+                <button onClick={(e) => updateProduct(e)}>Modifica prodotto</button><button>Elimina Prodotto</button>
             </div>
         </form>
+
 
     </>
 }

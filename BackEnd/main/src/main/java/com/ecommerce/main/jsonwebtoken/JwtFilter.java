@@ -39,6 +39,7 @@ public class JwtFilter extends OncePerRequestFilter {
         }
 
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            System.out.println(jwtUtility.validateToken(token));
             if (jwtUtility.validateToken(token)) {
                 role = jwtUtility.extractRole(token);
 

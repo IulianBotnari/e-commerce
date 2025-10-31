@@ -49,11 +49,20 @@ public class ProductController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/modify-product/{id}")
-    public ResponseEntity<Product> putMethodName(@PathVariable String code) {
+    @PutMapping(value = "/updateproduct", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Product> putProduct(@RequestPart("metadata") Product product,
+            @RequestPart(value = "image", required = false) MultipartFile file) throws SQLException, IOException {
+        if (file != null && !file.isEmpty()) {
+            product.setImage(file.getBytes());
+        } else {
+            Product existingProduct = productRepository.findById(product.getId()).orElse(null);
+            if (existingProduct != null) {
+                product.setImage(existingProduct.getImage());
+            }
+        }
 
-
-        return null;
+        Product response = productRepository.save(product);
+        return ResponseEntity.ok(response);
     }
 
 }
