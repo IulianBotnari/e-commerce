@@ -7,5 +7,6 @@ import com.ecommerce.main.sqlentity.Product;
 public interface  ProductRepository extends JpaRepository<Product, Integer> {
 
     Product findByproductcode(String code);
+    Product deleteByproductcode(String code);
     
 }

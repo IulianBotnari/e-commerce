@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ecommerce.main.repository.ProductRepository;
 import com.ecommerce.main.sqlentity.Product;
 
+
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -32,8 +33,13 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProduct(@PathVariable("id") String code) {
+    public ResponseEntity getProduct(@PathVariable("id") String code) {
+        System.out.println(code);
         Product product = productRepository.findByproductcode(code);
+        
+        if (product == null) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(product);
     }
 
@@ -64,5 +70,12 @@ public class ProductController {
         Product response = productRepository.save(product);
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/deleteproduct/{id}")
+    public ResponseEntity<String> getMethodName(@PathVariable("id") String param) {
+        productRepository.deleteByproductcode(param);
+        return ResponseEntity.ok("Prodotto eliminato con successo");
+    }
+    
 
 }

@@ -11,14 +11,25 @@ export default function AdminPage() {
     const [searchBarValue, setSearchBarValue] = useState()
     const [searchedProduct, setSearchedProduct] = useState()
     const formData = new FormData()
-    console.log(productData?.image);
+    console.log(productData);
+
 
 
 
     function handleProductData(e) {
         const { name, value, files } = e.target
 
+        setProductData((prev) => ({
+            ...prev,
+            [name]: name === "image" ? files[0] : value,
+        }
+        ))
 
+    }
+
+
+    function handleProductUpdateData(e) {
+        const { name, value, files } = e.target
         setProductData((prev) => ({
             ...prev,
             [name]: name === "image" ? files[0] : value,
@@ -30,13 +41,13 @@ export default function AdminPage() {
     async function registerProduct(e) {
         e.preventDefault();
         const formData = new FormData();
-        formData.append("file", productData.image);
         const metadata = {
             category: productData.category,
             brand: productData.brand,
             name: productData.name,
             description: productData.description,
             price: productData.price,
+            productcode: productData.productcode
         };
         formData.append("image", productData.image)
 
@@ -68,7 +79,7 @@ export default function AdminPage() {
 
 
         } catch (e) {
-            console.error(e.getMessage());
+            console.error(e);
 
         }
 
@@ -89,16 +100,17 @@ export default function AdminPage() {
         e.preventDefault();
         const formData = new FormData();
         const metadata = {
+            id: productData.id,
             category: productData.category,
             brand: productData.brand,
             name: productData.name,
             description: productData.description,
             price: productData.price,
+            productcode: productData.productcode
         };
 
         if (productData.image) {
             formData.append("image", productData.image);
-            console.log("image  " + productData.image);
 
         }
         formData.append(
@@ -115,11 +127,17 @@ export default function AdminPage() {
         }
     }
 
+    async function deleteProductByProductCode(code) {
+        try {
+            const response = await authApi.get(`/products/deleteproduct/${code}`)
+
+        } catch (e) {
+            console.error(e);
 
 
+        }
 
-
-
+    }
     return <>
 
         <h1>Amministrazione</h1>
@@ -227,7 +245,11 @@ export default function AdminPage() {
             </div>
             <div className={adminStyle.row}>
                 <label htmlFor='price'>Prezzo: </label>
-                <input type='number' name='price' onChange={(e) => handleProductData(e)} required></input>
+                <input type='text' name='price' onChange={(e) => handleProductData(e)} required></input>
+            </div>
+            <div className={adminStyle.row}>
+                <label htmlFor='productcode'>Codice prodotto: </label>
+                <input type='text' name='productcode' onChange={(e) => handleProductData(e)} required></input>
             </div>
             <div className={adminStyle.row}>
                 <label htmlFor='image'>Immagine: </label>
@@ -334,27 +356,31 @@ export default function AdminPage() {
             </div>
             <div className={adminStyle.row}>
                 <label htmlFor='brand'>Brand: </label>
-                <input type='text' name='brand' placeholder='Inserisci il brand del prodotto' onChange={(e) => handleProductData(e)} value={searchedProduct != null ? searchedProduct.brand : ""} required></input>
+                <input type='text' name='brand' placeholder='Inserisci il brand del prodotto' onChange={(e) => handleProductUpdateData(e)} value={productData != null ? productData.brand : ""} required></input>
             </div>
             <div className={adminStyle.row}>
                 <label htmlFor='name'>Nome: </label>
-                <input type='text' name='name' placeholder='Inserisci il nome del prodotto' onChange={(e) => handleProductData(e)} value={searchedProduct != null ? searchedProduct.name : ""} required></input>
+                <input type='text' name='name' placeholder='Inserisci il nome del prodotto' onChange={(e) => handleProductUpdateData(e)} value={productData != null ? productData.name : ""} required></input>
             </div>
             <div className={adminStyle.row}>
                 <label htmlFor='description'>Descrizione: </label>
-                <input type='text' name='description' placeholder='Inserisci la descrizione del prodotto' onChange={(e) => handleProductData(e)} value={searchedProduct != null ? searchedProduct.description : ""} required></input>
+                <input type='text' name='description' placeholder='Inserisci la descrizione del prodotto' onChange={(e) => handleProductUpdateData(e)} value={productData != null ? productData.description : ""} required></input>
             </div>
             <div className={adminStyle.row}>
                 <label htmlFor='price'>Prezzo: </label>
-                <input type='number' name='price' onChange={(e) => handleProductData(e)} value={searchedProduct != null ? searchedProduct.price : ""} required></input>
+                <input type='text' name='price' onChange={(e) => handleProductUpdateData(e)} value={productData != null ? productData.price : ""} required></input>
+            </div>
+            <div className={adminStyle.row}>
+                <label htmlFor='productcode'>Codice prodotto: </label>
+                <input type='text' name='productcode' onChange={(e) => handleProductUpdateData(e)} value={productData != null ? productData.productcode : ""} required></input>
             </div>
             <div className={adminStyle.row}>
                 <label htmlFor='image'>Immagine: </label>
-                <input type='file' name='image' onChange={(e) => handleProductData(e)} ></input>
+                <input type='file' name='image' onChange={(e) => handleProductUpdateData(e)} ></input>
             </div>
-            <img src={searchedProduct != null ? `data:image/jpeg;base64,${searchedProduct.image}` : null}></img>
+            <img style={{ width: "100px" }} src={searchedProduct != null ? `data:image/jpeg;base64,${productData.image}` : null}></img>
             <div className={adminStyle.row_button}>
-                <button onClick={(e) => updateProduct(e)}>Modifica prodotto</button><button>Elimina Prodotto</button>
+                <button onClick={(e) => updateProduct(e)}>Modifica prodotto</button><button onClick={() => deleteProductByProductCode(productData?.productcode)}>Elimina Prodotto</button>
             </div>
         </form>
 
