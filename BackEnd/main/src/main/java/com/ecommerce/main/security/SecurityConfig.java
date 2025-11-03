@@ -27,9 +27,9 @@ public class SecurityConfig {
                 .cors(cors -> {
                 })
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/users/login", "/users/refresh", "/users/postuser", "/users/verify-credentials").permitAll()
+                        .requestMatchers("/users/login", "/users/refresh", "/users/postuser", "/users/verify-credentials","/products/newproducts").permitAll()
                         .requestMatchers("/user/**").hasRole("user")
-                        .requestMatchers("/products/**").hasRole("admin") 
+                        .requestMatchers("/products/postproduct", "/products/updateproduct","/products/deleteproduct/**").hasRole("admin") 
                         .anyRequest().authenticated())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

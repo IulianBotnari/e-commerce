@@ -2,6 +2,7 @@ package com.ecommerce.main.controllers;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ecommerce.main.repository.ProductRepository;
 import com.ecommerce.main.sqlentity.Product;
 
-
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -32,11 +32,23 @@ public class ProductController {
         return productRepository.findAll();
     }
 
+    @GetMapping("/newproducts")
+    public List<Product> getDiscountProduct() {
+        List<Product> product = productRepository.findAll();
+        List<Product> firstFourNewProduct = new ArrayList();
+
+        for (int i = 0; i < 4; i++){
+            Product element = product.get(i);
+            firstFourNewProduct.add(element);
+        }
+        return firstFourNewProduct;
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity getProduct(@PathVariable("id") String code) {
         System.out.println(code);
         Product product = productRepository.findByproductcode(code);
-        
+
         if (product == null) {
             return ResponseEntity.notFound().build();
         }
@@ -76,6 +88,5 @@ public class ProductController {
         productRepository.deleteByproductcode(param);
         return ResponseEntity.ok("Prodotto eliminato con successo");
     }
-    
 
 }

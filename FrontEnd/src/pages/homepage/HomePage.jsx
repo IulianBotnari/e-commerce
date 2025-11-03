@@ -55,6 +55,8 @@ import NavBar from "../../components/NavBar"
 import style from './HomePage.module.scss'
 import { useEffect, useState, useRef } from "react"
 import { Link, useNavigate } from 'react-router-dom'
+import { useAuthContext } from '../../contexts/AuthContext'
+import { use } from 'react'
 
 let carouselStart = true
 const tempShortDescriprionMsi = "MSI GeForce RTX 5060 OC 8GB GDDR7 DLSS"
@@ -67,13 +69,14 @@ export default function HomePage() {
     const advArray = [msiHomeAdv, asusHomeAdv, rtxBackToSchoolHomeAdv, rtx50HomeAdv, rtx5060homeAdv, gigaByteHomeAdv]
     const colorArray = ["rgb(0, 0, 0)", "rgb(235, 35, 35)", "rgb(35, 88, 235)", "rgb(82, 235, 35)", "rgb(35, 151, 0)", "rgb(188, 35, 235)"]
     const logoArray = [zotacLogo, targusLogo, supermicroLogo, sapphireLogo, samsungLogo, qnapLogo, pnyLogo, nvidiaLogo, msiLogo, lenovoLogo, intelLogo, hpLogo, gigabyteLogo, acerLogo, akracingLogo, amdLogo, aocLogo, appleLogo, asusLogo, barrowLogo, canonLogo, coolerMasterLogo, corsairLogo, dLinkLogo]
-
     const [homeAdvImg, setHomeAdvImg] = useState(advArray[0])
     const [backgroundButtonColor, setBackgroundButtonColor] = useState(colorArray[0])
     const [activeIndex, setActiveIndex] = useState(0)
     const timerRef = useRef(null)
     const [initialIndex, setInitialIndex] = useState(0)
     const [endIndex, setEndIndex] = useState(13)
+    const { authApi } = useAuthContext()
+    const [offertaDelGiorno, setOffertaDelGiorno] = useState()
 
 
 
@@ -152,6 +155,23 @@ export default function HomePage() {
         return () => clearTimeout(timerRef.current)
     }, [activeIndex])
 
+    async function getProducts() {
+        try {
+            const response = await authApi.get("/products/newproducts")
+            setOffertaDelGiorno(response.data)
+
+
+        } catch (error) {
+            console.error(error);
+
+        }
+
+    }
+
+    // useEffect(() => {
+    //     getProducts()
+    // }, [])
+
     return (
         <>
             <HeaderLayout />
@@ -173,50 +193,23 @@ export default function HomePage() {
                 <div id="offerte_del_giorno" className={style.offerte_del_giorno}>
                     <h3>Offerte del giorno <Link><img src={plusIcon}></img></Link></h3>
                     <div id="offerte_del_giorno_cards" className={style.offerte_del_giorno_cards}>
-                        <div className={style.card}>
-                            <span>-3%</span>
-                            <img src={msiGeForce5080}></img>
-                            <p className={style.short_description}>{handleStringLength(tempShortDescriprionMsi)}</p>
-                            <p className={style.original_price}> € 385,00</p>
-                            <p className={style.price}>€ 375,00</p>
-                            <div className={style.separator}></div>
-                            <p >Fino a esaurimento scorte</p>
-                            <button >Scopri di più</button>
 
-                        </div>
-                        <div className={style.card}>
-                            <span>-3%</span>
-                            <img src={fujitsuEsprimo}></img>
-                            <p className={style.short_description}>{handleStringLength(tempShortDescriprionFujitsu)}</p>
-                            <p className={style.original_price}> € 109,00</p>
-                            <p className={style.price}>€ 98,00</p>
-                            <div className={style.separator}></div>
-                            <p >Fino a esaurimento scorte</p>
-                            <button >Scopri di più</button>
+                        {offertaDelGiorno?.map((element, index) => (
 
-                        </div>
-                        <div className={style.card}>
-                            <span>-3%</span>
-                            <img src={samsung980SSD}></img>
-                            <p className={style.short_description}>{handleStringLength(tempShortDescriprionSsd)}</p>
-                            <p className={style.original_price}> € 156,00</p>
-                            <p className={style.price}>€ 126,00</p>
-                            <div className={style.separator}></div>
-                            <p >Fino a esaurimento scorte</p>
-                            <button >Scopri di più</button>
+                            <>
+                                <div className={style.card} key={index} >
+                                    <span>-3%</span>
+                                    <img src={`data:image/jpeg;base64,${element.image}`}></img>
+                                    <p className={style.short_description}>{handleStringLength(element.description)}</p>
+                                    <p className={style.price}>{`${element.price} €`}</p>
+                                    <div className={`${style.separator}`}></div>
+                                    <p >Fino a esaurimento scorte</p>
+                                    <button >Scopri di più</button>
 
-                        </div>
-                        <div className={style.card}>
-                            <span>-3%</span>
-                            <img src={dellProIntel}></img>
-                            <p className={style.short_description}>{handleStringLength(tempShortDescriprionCpu)}</p>
-                            <p className={style.original_price}> € 380,00</p>
-                            <p className={style.price}>€ 298,00</p>
-                            <div className={style.separator}></div>
-                            <p >Fino a esaurimento scorte</p>
-                            <button >Scopri di più</button>
+                                </div>
+                            </>
+                        ))}
 
-                        </div>
 
                     </div>
                 </div>
@@ -316,7 +309,7 @@ export default function HomePage() {
                     </div>
 
                 </div>
-            </main>
+            </main >
 
             <FooterLayout />
         </>

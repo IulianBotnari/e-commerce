@@ -47,7 +47,9 @@ export default function AdminPage() {
             name: productData.name,
             description: productData.description,
             price: productData.price,
-            productcode: productData.productcode
+            productcode: productData.productcode,
+            discount: productData.discount,
+            discountvalue: productData.discountvalue
         };
         formData.append("image", productData.image)
 
@@ -95,6 +97,16 @@ export default function AdminPage() {
         }
     }
 
+    function selectDiscountTrue(productData, searchedProduct) {
+        if (productData != null) {
+            return productData.discount
+        } else if (searchedProduct != null) {
+            return searchedProduct.discount
+        } else {
+            return ""
+        }
+    }
+
 
     async function updateProduct(e) {
         e.preventDefault();
@@ -106,7 +118,9 @@ export default function AdminPage() {
             name: productData.name,
             description: productData.description,
             price: productData.price,
-            productcode: productData.productcode
+            productcode: productData.productcode,
+            discount: productData.discount,
+            discountvalue: productData.discountvalue
         };
 
         if (productData.image) {
@@ -248,6 +262,17 @@ export default function AdminPage() {
                 <input type='text' name='price' onChange={(e) => handleProductData(e)} required></input>
             </div>
             <div className={adminStyle.row}>
+                <label htmlFor='discount' >Prodotto scontato ? </label>
+                <select name='discount' onChange={(e) => handleProductData(e)} required>
+                    <option value={false}>No</option>
+                    <option value={true}>Si</option>
+                </select>
+            </div>
+            <div className={adminStyle.row}>
+                <label htmlFor='discountvalue'>Sconto in percentuale: </label>
+                <input type='text' name='discountvalue' onChange={(e) => handleProductData(e)} required></input>
+            </div>
+            <div className={adminStyle.row}>
                 <label htmlFor='productcode'>Codice prodotto: </label>
                 <input type='text' name='productcode' onChange={(e) => handleProductData(e)} required></input>
             </div>
@@ -369,6 +394,17 @@ export default function AdminPage() {
             <div className={adminStyle.row}>
                 <label htmlFor='price'>Prezzo: </label>
                 <input type='text' name='price' onChange={(e) => handleProductUpdateData(e)} value={productData != null ? productData.price : ""} required></input>
+            </div>
+            <div className={adminStyle.row}>
+                <label htmlFor='discount' >Prodotto scontato ? </label>
+                <select name='discount' value={selectDiscountTrue(productData, searchedProduct)} onChange={(e) => handleProductUpdateData(e)} required>
+                    <option value={false}>No</option>
+                    <option value={true}>Si</option>
+                </select>
+            </div>
+            <div className={adminStyle.row}>
+                <label htmlFor='discountvalue'>Sconto in percentuale: </label>
+                <input type='text' name='discountvalue' onChange={(e) => handleProductUpdateData(e)} value={productData != null ? productData.discountvalue : ""} required></input>
             </div>
             <div className={adminStyle.row}>
                 <label htmlFor='productcode'>Codice prodotto: </label>
