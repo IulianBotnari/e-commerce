@@ -18,10 +18,6 @@ import linkedin from '../../assets/assistenza/linkedin.png'
 import contattaci from '../../assets/assistenza/contattaci.png'
 import volantino from '../../assets/assistenza/volantino.png'
 
-import msiGeForce5080 from '../../assets/productimages/MSI GeForce RTX 5060 8g.jpg'
-import fujitsuEsprimo from '../../assets/productimages/FujitsuEsprimo E956 Intel Core i5-6500.jpg'
-import samsung980SSD from '../../assets/productimages/Samsung 980 SSD 1TB M.2.jpg'
-import dellProIntel from '../../assets/productimages/Dell Pro Intel Core Ultra 7 255U 16 GB.jpg'
 import acerLogo from '../../assets/brandLogoHomePageCarousel/acer-sm.gif'
 import akracingLogo from '../../assets/brandLogoHomePageCarousel/akracing-sm.gif'
 import amdLogo from '../../assets/brandLogoHomePageCarousel/amd-sm.gif'
@@ -59,10 +55,6 @@ import { useAuthContext } from '../../contexts/AuthContext'
 import { use } from 'react'
 
 let carouselStart = true
-const tempShortDescriprionMsi = "MSI GeForce RTX 5060 OC 8GB GDDR7 DLSS"
-const tempShortDescriprionFujitsu = "FSP Fortron Vita BD 750W 80+Bronze PFC Attivo ATX 3.1"
-const tempShortDescriprionSsd = "Digital WD Black SN7100 SSD 2TB M.2 NVMe PCIe 4.0 7250/6900 MB/s"
-const tempShortDescriprionCpu = "Intel Core Ultra 7 265F 20 Core 2,4 GHz 30MB sk1851 Box"
 const NUMBER_ELMENTS_BRAND_CAROUSEL = 13
 
 export default function HomePage() {
@@ -77,6 +69,7 @@ export default function HomePage() {
     const [endIndex, setEndIndex] = useState(13)
     const { authApi } = useAuthContext()
     const [offertaDelGiorno, setOffertaDelGiorno] = useState()
+    const [newProducts, setNewProducts] = useState()
 
 
 
@@ -155,9 +148,11 @@ export default function HomePage() {
         return () => clearTimeout(timerRef.current)
     }, [activeIndex])
 
-    async function getProducts() {
+    async function getOfferDayProducts() {
         try {
-            const response = await authApi.get("/products/newproducts")
+            const response = await authApi.get("/products/daydiscountoffer")
+            console.log(response.data);
+
             setOffertaDelGiorno(response.data)
 
 
@@ -168,9 +163,24 @@ export default function HomePage() {
 
     }
 
-    // useEffect(() => {
-    //     getProducts()
-    // }, [])
+
+    async function getNewProducts() {
+        try {
+            const response = await authApi.get("/products/newproduct")
+            console.log("Nuovi prodotti", response.data);
+
+            setNewProducts(response.data)
+        } catch (error) {
+            console.error(error);
+
+
+        }
+    }
+
+    useEffect(() => {
+        getOfferDayProducts()
+        getNewProducts()
+    }, [])
 
     return (
         <>
@@ -198,10 +208,11 @@ export default function HomePage() {
 
                             <>
                                 <div className={style.card} key={index} >
-                                    <span>-3%</span>
+                                    <span>{element.discountvalue}%</span>
                                     <img src={`data:image/jpeg;base64,${element.image}`}></img>
                                     <p className={style.short_description}>{handleStringLength(element.description)}</p>
-                                    <p className={style.price}>{`${element.price} €`}</p>
+                                    <p className={style.original_price}>{`${element.price} €`}</p>
+                                    <p className={style.price}>{`${element.price - (element.price / 100 * element.discountvalue)} €`}</p>
                                     <div className={`${style.separator}`}></div>
                                     <p >Fino a esaurimento scorte</p>
                                     <button >Scopri di più</button>
@@ -235,38 +246,17 @@ export default function HomePage() {
                 <div id="novita" className={style.novita}>
                     <h3>Novita <Link><img src={plusIcon}></img></Link></h3>
                     <div id="novita_cards" className={style.novita_cards}>
-                        <div className={style.card}>
-                            <img src={msiGeForce5080}></img>
-                            <p className={style.short_description}>{handleStringLength(tempShortDescriprionMsi)}</p>
-                            <p className={style.news_price}>€ 375,00</p>
-                            <p >Fino a esaurimento scorte</p>
-                            <button >Scopri di più</button>
-
-                        </div>
-                        <div className={style.card}>
-                            <img src={fujitsuEsprimo}></img>
-                            <p className={style.short_description}>{handleStringLength(tempShortDescriprionFujitsu)}</p>
-                            <p className={style.news_price}>€ 98,00</p>
-                            <p >Fino a esaurimento scorte</p>
-                            <button >Scopri di più</button>
-
-                        </div>
-                        <div className={style.card}>
-                            <img src={samsung980SSD}></img>
-                            <p className={style.short_description}>{handleStringLength(tempShortDescriprionSsd)}</p>
-                            <p className={style.news_price}>€ 126,00</p>
-                            <p >Fino a esaurimento scorte</p>
-                            <button >Scopri di più</button>
-
-                        </div>
-                        <div className={style.card}>
-                            <img src={dellProIntel}></img>
-                            <p className={style.short_description}>{handleStringLength(tempShortDescriprionCpu)}</p>
-                            <p className={style.news_price}>€ 298,00</p>
-                            <p >Fino a esaurimento scorte</p>
-                            <button >Scopri di più</button>
-
-                        </div>
+                        {newProducts?.map((element, index) => (
+                            <>
+                                <div className={style.card} key={index}>
+                                    <img src={`data:image/jpeg;base64,${element.image}`}></img>
+                                    <p className={style.short_description}>{handleStringLength(element.description)}</p>
+                                    <p className={style.news_price}>{`${element.price - (element.price / 100 * element.discountvalue)} €`}</p>
+                                    <p >Fino a esaurimento scorte</p>
+                                    <button >Scopri di più</button>
+                                </div>
+                            </>
+                        ))}
 
                     </div>
                 </div>
@@ -309,7 +299,7 @@ export default function HomePage() {
                     </div>
 
                 </div>
-            </main >
+            </main>
 
             <FooterLayout />
         </>

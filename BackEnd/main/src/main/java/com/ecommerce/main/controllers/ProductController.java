@@ -2,7 +2,6 @@ package com.ecommerce.main.controllers;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ecommerce.main.repository.ProductRepository;
 import com.ecommerce.main.sqlentity.Product;
 
+
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -32,17 +32,30 @@ public class ProductController {
         return productRepository.findAll();
     }
 
-    @GetMapping("/newproducts")
-    public List<Product> getDiscountProduct() {
-        List<Product> product = productRepository.findAll();
-        List<Product> firstFourNewProduct = new ArrayList();
-
-        for (int i = 0; i < 4; i++){
-            Product element = product.get(i);
-            firstFourNewProduct.add(element);
-        }
-        return firstFourNewProduct;
+    @GetMapping("/daydiscountoffer")
+    public ResponseEntity dayDiscoutOffer() {
+        List<Product> discountProductList = productRepository.dayDiscoutOffer();
+        return ResponseEntity.ok(discountProductList);
     }
+
+    @GetMapping("/newproduct")
+    public ResponseEntity getNewproduct() {
+        List<Product> newProductList = productRepository.getNewProducts();
+
+        return ResponseEntity.ok(newProductList);
+    }
+
+    @GetMapping("/productbycategory/{category}")
+    public ResponseEntity getProductByCategory(@PathVariable ("category") String category) {
+
+        List<Product> listByCategory = productRepository.getProductByCategory(category);
+        for (Product elem : listByCategory) {
+            System.out.println("-----" + elem.getBrand());
+        }
+        return  ResponseEntity.ofNullable(listByCategory);
+
+    }
+    
 
     @GetMapping("/{id}")
     public ResponseEntity getProduct(@PathVariable("id") String code) {
@@ -58,11 +71,9 @@ public class ProductController {
     @PostMapping(value = "/postproduct", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Product> postProduct(@RequestPart("metadata") Product product,
             @RequestPart("image") MultipartFile file) throws SQLException, IOException {
-
         if (file != null && !file.isEmpty()) {
             product.setImage(file.getBytes());
         }
-
         Product response = productRepository.save(product);
         return ResponseEntity.ok(response);
     }

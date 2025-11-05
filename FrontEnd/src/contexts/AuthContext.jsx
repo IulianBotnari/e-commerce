@@ -9,17 +9,12 @@ const context = createContext()
 export function AuthContext({ children }) {
 
     const [accessToken, setAccessToken] = useState()
-    console.log(accessToken);
-
     const [userName, setUserName] = useState()
     const [infoPageMessage, setInfoPageMessage] = useState()
-
-
     const authApi = axios.create({
         baseURL: "http://localhost:8080",
         withCredentials: true
     })
-
     authApi.interceptors.request.use(async (config) => {
         if (accessToken) {
             config.headers.Authorization = `Bearer ${accessToken}`
@@ -27,7 +22,6 @@ export function AuthContext({ children }) {
 
         return config
     })
-
     authApi.interceptors.response.use(
         (response) => response,
         async (error) => {
@@ -57,16 +51,11 @@ export function AuthContext({ children }) {
             return Promise.reject(error);
         }
     );
-
-
-
     const values = { accessToken, setAccessToken, authApi, setUserName, userName, setInfoPageMessage, infoPageMessage }
-
     return (
         <context.Provider value={values}>
             {children}
         </context.Provider>
     )
 }
-
 export const useAuthContext = () => useContext(context)

@@ -16,34 +16,23 @@ export default function HeaderLayout() {
 
     function handleAccessButton() {
         const value = buttonRef.current.innerText
-
-
         if (value === "Accedi") {
             navigateTo('/user/login')
         } else {
             (async () => {
-
                 try {
                     const response = await authApi.get('/users/verify-credentials')
-                    console.log(response.status);
-
                     if (response.status === 202) {
-
                         navigateTo('/user/user-account')
                     }
                 } catch (error) {
                     console.log(error.status);
-
-
                 }
             })()
         }
 
 
     }
-
-
-
 
 
     return <>

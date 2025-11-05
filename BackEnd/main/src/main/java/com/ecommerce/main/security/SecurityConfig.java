@@ -27,7 +27,7 @@ public class SecurityConfig {
                 .cors(cors -> {
                 })
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/users/login", "/users/refresh", "/users/postuser", "/users/verify-credentials","/products/newproducts").permitAll()
+                        .requestMatchers("/users/login", "/users/refresh", "/users/postuser", "/users/verify-credentials","/products/daydiscountoffer", "/products/newproduct","/products/productbycategory/**").permitAll()
                         .requestMatchers("/user/**").hasRole("user")
                         .requestMatchers("/products/postproduct", "/products/updateproduct","/products/deleteproduct/**").hasRole("admin") 
                         .anyRequest().authenticated())

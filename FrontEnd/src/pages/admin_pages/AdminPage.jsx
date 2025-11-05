@@ -11,14 +11,9 @@ export default function AdminPage() {
     const [searchBarValue, setSearchBarValue] = useState()
     const [searchedProduct, setSearchedProduct] = useState()
     const formData = new FormData()
-    console.log(productData);
-
-
-
 
     function handleProductData(e) {
         const { name, value, files } = e.target
-
         setProductData((prev) => ({
             ...prev,
             [name]: name === "image" ? files[0] : value,
@@ -27,7 +22,6 @@ export default function AdminPage() {
 
     }
 
-
     function handleProductUpdateData(e) {
         const { name, value, files } = e.target
         setProductData((prev) => ({
@@ -35,7 +29,6 @@ export default function AdminPage() {
             [name]: name === "image" ? files[0] : value,
         }
         ))
-
     }
 
     async function registerProduct(e) {
@@ -63,9 +56,11 @@ export default function AdminPage() {
             });
 
             console.log(response.data);
-            setProductData(null)
+            // setProductData(null)
+            alert("Prodotto registrato con successo!")
         } catch (error) {
             console.error(error);
+            alert("Errore durante la registrazione del prodotto!")
         }
     }
 
@@ -78,8 +73,6 @@ export default function AdminPage() {
             console.log(response.data);
             setProductData(response.data)
             setSearchedProduct(response.data)
-
-
         } catch (e) {
             console.error(e);
 
@@ -308,7 +301,7 @@ export default function AdminPage() {
                         <option>Microsoft Surface</option>
                         <option>Tablet</option>
                         <option>Accessori NoteBook</option>
-                        <option>Borse, Zaini, etc</option>
+                        <option>Borse Zaini etc</option>
                         <option>NoteBook</option>
                     </optgroup>
                     <optgroup label={'Consumabile Accessori'}>
@@ -340,7 +333,7 @@ export default function AdminPage() {
                         <option>Controller Raid</option>
                         <option>Hard Disk e SSD</option>
                         <option>Memorie Flash</option>
-                        <option>Schede I/O</option>
+                        <option>Schede IO</option>
                         <option>Water Cooling</option>
                         <option>Router</option>
                         <option>Case</option>
@@ -354,7 +347,7 @@ export default function AdminPage() {
                     <optgroup label={'Monitor Stampanti Periferiche'}>
                         <option>Gaming Chair</option>
                         <option>NAS</option>
-                        <option>Stampanti/Scanner</option>
+                        <option>Stampanti Scanner</option>
                         <option>Ufficio</option>
                         <option>Cuffie</option>
                         <option>Monitor</option>

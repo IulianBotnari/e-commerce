@@ -154,23 +154,23 @@ export default function NavBar() {
                         <h2 id='popup_title'>Computer Tablet NoteBook</h2>
                         <div id='popup_links' className={style.popup_links}>
                             <div id='popup_col1' className={style.popup_col1}>
-                                <Link>Accessori Apple</Link>
-                                <Link>Accessori Tablet</Link>
-                                <Link>Computer</Link>
-                                <Link>NoteBook Rigenerati</Link>
-                                <Link>WorkStation e Server</Link>
+                                <Link to="/product/Accessori Apple">Accessori Apple</Link>
+                                <Link to="/product/Accessori Tablet">Accessori Tablet</Link>
+                                <Link to="/product/Computer">Computer</Link>
+                                <Link to="/product/NoteBook Rigenerati">NoteBook Rigenerati</Link>
+                                <Link to="/product/NoteBook">NoteBook</Link>
                             </div>
                             <div id='popup_col2'>
-                                <Link>Accessori Desktop</Link>
-                                <Link>App</Link>
-                                <Link>Microsoft Surface</Link>
-                                <Link>Tablet</Link>
+                                <Link to="/product/Accessori Desktop">Accessori Desktop</Link>
+                                <Link to="/product/App">App</Link>
+                                <Link to="/product/Microsoft Surface">Microsoft Surface</Link>
+                                <Link to="/product/Tablet">Tablet</Link>
                             </div>
                             <div id='popup_col3'>
-                                <Link>Accessori NoteBook</Link>
-                                <Link>Borse, Zaini, etc</Link>
-                                <Link>NoteBook</Link>
-                                <Link>WorkStation/Server</Link>
+                                <Link to="/product/Accessori NoteBook">Accessori NoteBook</Link>
+                                <Link to="/product/Borse">Borse, Zaini, etc</Link>
+                                <Link to="/product/NoteBook">NoteBook</Link>
+                                <Link to="/product/WorkStation Server">WorkStation/Server</Link>
                             </div>
                         </div>
                         <div id='popup_button_option' className={style.popup_button_option}>
@@ -190,25 +190,24 @@ export default function NavBar() {
                         <h2 id='popup_title'>Computer Tablet NoteBook</h2>
                         <div id='popup_links' className={style.popup_links}>
                             <div id='popup_col1' className={style.popup_col1}>
-                                <Link>Cavi</Link>
-                                <Link>Power Bank</Link>
-                                <Link>Accesori iPhone</Link>
-                                <Link>Accessori Samsung</Link>
-                                <Link>Pendrive USB</Link>
+                                <Link to="/product/Cavi">Cavi</Link>
+                                <Link to="/product/Power Bank">Power Bank</Link>
+                                <Link to="/product/Accesori iPhone">Accesori iPhone</Link>
+                                <Link to="/product/Accessori Samsung">Accessori Samsung</Link>
+                                <Link to="/product/Pendrive USB">Pendrive USB</Link>
                             </div>
                             <div id='popup_col2'>
-                                <Link>Consumabile</Link>
-                                <Link>Accessori Apple</Link>
-                                <Link>Accessori Mobile</Link>
-                                <Link>Accessori Tablet</Link>
-                                <Link>Sedie Gaming</Link>
+                                <Link to="/product/Consumabile">Consumabile</Link>
+                                <Link to="/product/Accessori Apple">Accessori Apple</Link>
+                                <Link to="/product/Accessori Tablet">Accessori Tablet</Link>
+                                <Link to="/product/Sedie Gaming">Sedie Gaming</Link>
 
                             </div>
                             <div id='popup_col3'>
-                                <Link>Multiprese</Link>
-                                <Link>Accessori Asus</Link>
-                                <Link>Accessori NoteBook</Link>
-                                <Link>Case Accesori</Link>
+                                <Link to="/product/Multiprese">Multiprese</Link>
+                                <Link to="/product/Accessori Asus">Accessori Asus</Link>
+                                <Link to="/product/Accessori NoteBook">Accessori NoteBook</Link>
+                                <Link to="/product/Case Accesori">Case Accesori</Link>
                             </div>
                         </div>
                         <div id='popup_button_option' className={style.popup_button_option}>
@@ -225,32 +224,32 @@ export default function NavBar() {
                         <h2 id='popup_title'>Computer Tablet NoteBook</h2>
                         <div id='popup_links' className={style.popup_links}>
                             <div id='popup_col1' className={style.popup_col1}>
-                                <Link>Alimentatori</Link>
-                                <Link>Case Accesori</Link>
-                                <Link>Dissipatori Cpu</Link>
-                                <Link>Masterizzatori</Link>
-                                <Link>Rack Case</Link>
-                                <Link>Software Antivirus</Link>
-                                <Link>Networiking</Link>
-                                <Link>Webcam</Link>
+                                <Link to="/product/Alimentatori">Alimentatori</Link>
+                                <Link to="/product/Case Accesori">Case Accesori</Link>
+                                <Link to="/product/Dissipatori Cpu">Dissipatori Cpu</Link>
+                                <Link to="/product/Masterizzatori">Masterizzatori</Link>
+                                <Link to="/product/Rack Case">Rack Case</Link>
+                                <Link to="/product/Software Antivirus">Software Antivirus</Link>
+                                <Link to="/product/Networiking">Networiking</Link>
+                                <Link to="/product/Webcam">Webcam</Link>
                             </div>
                             <div id='popup_col2'>
-                                <Link>Card Reader, Hub</Link>
-                                <Link>Controller Raid</Link>
-                                <Link>Hard Disk e SSD</Link>
-                                <Link>Memorie Flash</Link>
-                                <Link>Schede I/O</Link>
-                                <Link>Water Cooling</Link>
-                                <Link>Router</Link>
+                                <Link to="/product/Card Reader">Card Reader, Hub</Link>
+                                <Link to="/product/Controller Raid">Controller Raid</Link>
+                                <Link to="/product/Hard Disk e SSD">Hard Disk e SSD</Link>
+                                <Link to="/product/Memorie Flash">Memorie Flash</Link>
+                                <Link to="/product/Schede IO">Schede I/O</Link>
+                                <Link to="/product/Water Cooling">Water Cooling</Link>
+                                <Link to="/product/Router">Router</Link>
                             </div>
                             <div id='popup_col3'>
-                                <Link>Case</Link>
-                                <Link>Cpu</Link>
-                                <Link>MainBoard</Link>
-                                <Link>Memorie Ram</Link>
-                                <Link>Schede Video</Link>
-                                <Link>Windows e Office</Link>
-                                <Link>Ups</Link>
+                                <Link to="/product/Case">Case</Link>
+                                <Link to="/product/Cpu">Cpu</Link>
+                                <Link to="/product/MainBoard">MainBoard</Link>
+                                <Link to="/product/Memorie Ram">Memorie Ram</Link>
+                                <Link to="/product/Schede Video">Schede Video</Link>
+                                <Link to="/product/Windows e Office">Windows e Office</Link>
+                                <Link to="/product/Ups">Ups</Link>
                             </div>
                         </div>
                         {/* <div id='popup_button_option' className={style.popup_button_option}>
@@ -270,24 +269,24 @@ export default function NavBar() {
                         <h2 id='popup_title'>Computer Tablet NoteBook</h2>
                         <div id='popup_links' className={style.popup_links}>
                             <div id='popup_col1' className={style.popup_col1}>
-                                <Link>Caming Chair</Link>
-                                <Link>NAS</Link>
-                                <Link>Stampanti/Scanner</Link>
-                                <Link>Ufficio</Link>
-                                <Link>Cuffie</Link>
+                                <Link to="/product/Caming Chair">Caming Chair</Link>
+                                <Link to="/product/NAS">NAS</Link>
+                                <Link to="/product/Stampanti/Scanner">Stampanti/Scanner</Link>
+                                <Link to="/product/Ufficio">Ufficio</Link>
+                                <Link to="/product/Cuffie">Cuffie</Link>
                             </div>
                             <div id='popup_col2'>
-                                <Link>Monitor</Link>
-                                <Link>Networiking</Link>
-                                <Link>Tastiere</Link>
-                                <Link>Ups</Link>
-                                <Link>Videosorveglianza</Link>
+                                <Link to="/product/Monitor">Monitor</Link>
+                                <Link to="/product/Networiking">Networiking</Link>
+                                <Link to="/product/Tastiere">Tastiere</Link>
+                                <Link to="/product/Ups">Ups</Link>
+                                <Link to="/product/Videosorveglianza">Videosorveglianza</Link>
                             </div>
                             <div id='popup_col3'>
-                                <Link>Mouse</Link>
-                                <Link>Periferiche Gaming</Link>
-                                <Link>Tavoletta Grafica</Link>
-                                <Link>Webcam</Link>
+                                <Link to="/product/Mouse">Mouse</Link>
+                                <Link to="/product/Periferiche Gaming">Periferiche Gaming</Link>
+                                <Link to="/product/Tavoletta Grafica">Tavoletta Grafica</Link>
+                                <Link to="/product/Webcam">Webcam</Link>
                             </div>
                         </div>
                         {/* <div id='popup_button_option' className={style.popup_button_option}>
@@ -307,19 +306,19 @@ export default function NavBar() {
                         <h2 id='popup_title'>Computer Tablet NoteBook</h2>
                         <div id='popup_links' className={style.popup_links}>
                             <div id='popup_col1' className={style.popup_col1}>
-                                <Link>Accessori Asus</Link>
-                                <Link>Caricatori</Link>
-                                <Link>Watch</Link>
+                                <Link to="/product/Accessori Asus">Accessori Asus</Link>
+                                <Link to="/product/Caricatori">Caricatori</Link>
+                                <Link to="/product/Watch">Watch</Link>
                             </div>
                             <div id='popup_col2'>
-                                <Link>Accessori iPhone</Link>
-                                <Link>iPhone</Link>
-                                <Link>Tablet</Link>
+                                <Link to="/product/Accessori iPhone">Accessori iPhone</Link>
+                                <Link to="/product/iPhone">iPhone</Link>
+                                <Link to="/product/Tablet">Tablet</Link>
                             </div>
                             <div id='popup_col3'>
-                                <Link>Accesori Mobile</Link>
-                                <Link>Smartphone</Link>
-                                <Link>Visore VR</Link>
+                                <Link to="/product/Accesori Mobile">Accesori Mobile</Link>
+                                <Link to="/product/Smartphone">Smartphone</Link>
+                                <Link to="/product/Visore VR">Visore VR</Link>
                             </div>
                         </div>
                         {/* <div id='popup_button_option' className={style.popup_button_option}>
@@ -339,24 +338,24 @@ export default function NavBar() {
                         <h2 id='popup_title'>Computer Tablet NoteBook</h2>
                         <div id='popup_links' className={style.popup_links}>
                             <div id='popup_col1' className={style.popup_col1}>
-                                <Link>Benessere</Link>
-                                <Link>Elettrodomestici</Link>
-                                <Link>Speakers</Link>
-                                <Link>Videoproiettori</Link>
-                                <Link>Soundbar</Link>
+                                <Link to="/product/Benessere">Benessere</Link>
+                                <Link to="/product/Elettrodomestici">Elettrodomestici</Link>
+                                <Link to="/product/Speakers">Speakers</Link>
+                                <Link to="/product/Videoproiettori">Videoproiettori</Link>
+                                <Link to="/product/Soundbar">Soundbar</Link>
                             </div>
                             <div id='popup_col2'>
-                                <Link>Console</Link>
-                                <Link>Giochi Viedogiochi</Link>
-                                <Link>Streaming</Link>
-                                <Link>Videosorveglianza</Link>
-                                <Link>Webcam</Link>
+                                <Link to="/product/Console">Console</Link>
+                                <Link to="/product/Giochi Viedogiochi">Giochi Viedogiochi</Link>
+                                <Link to="/product/Streaming">Streaming</Link>
+                                <Link to="/product/Videosorveglianza">Videosorveglianza</Link>
+                                <Link to="/product/Webcam">Webcam</Link>
                             </div>
                             <div id='popup_col3'>
-                                <Link>Cuffie</Link>
-                                <Link>Smart Home</Link>
-                                <Link>TV</Link>
-                                <Link>LEGO</Link>
+                                <Link to="/product/Cuffie">Cuffie</Link>
+                                <Link to="/product/Smart Home">Smart Home</Link>
+                                <Link to="/product/TV">TV</Link>
+                                <Link to="/product/LEGO">LEGO</Link>
                             </div>
                         </div>
                         {/* <div id='popup_button_option' className={style.popup_button_option}>
