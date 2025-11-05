@@ -271,7 +271,7 @@ export default function NavBar() {
                             <div id='popup_col1' className={style.popup_col1}>
                                 <Link to="/product/Caming Chair">Caming Chair</Link>
                                 <Link to="/product/NAS">NAS</Link>
-                                <Link to="/product/Stampanti/Scanner">Stampanti/Scanner</Link>
+                                <Link to="/product/Stampanti Scanner">Stampanti/Scanner</Link>
                                 <Link to="/product/Ufficio">Ufficio</Link>
                                 <Link to="/product/Cuffie">Cuffie</Link>
                             </div>
