@@ -1,5 +1,13 @@
 package com.ecommerce.main.dto.outBoundDTO;
-
+/**
+ * @fileoverview Data Transfer Object (DTO) utilizzato per incapsulare i dati di risposta
+ * dopo un login di successo o per trasmettere i dati del profilo dell'utente autenticato al frontend.
+ *
+ * @class
+ * Questa classe è un OutBound DTO, utilizzato per i dati che vengono inviati (in uscita)
+ * dall'applicazione verso il client. Contiene i dati essenziali del profilo utente e,
+ * in alcuni contesti (come il login), l'Access Token JWT.
+ */
 public class UserLoginResponse {
 
     private String accessToken;
@@ -19,7 +27,21 @@ public class UserLoginResponse {
     public UserLoginResponse(){
         
     }
-
+/**
+     * Costruttore completo per {@link UserLoginResponse}.
+     * Include tutti i campi relativi al profilo utente e l'Access Token.
+     * * @param accessToken Il token JWT utilizzato per l'autorizzazione successiva (Access Token).
+     * @param id L'ID univoco dell'utente.
+     * @param codefiscale Il codice fiscale dell'utente.
+     * @param indirizzo L'indirizzo di fatturazione/residenza dell'utente.
+     * @param nazione La nazione dell'utente.
+     * @param spedizione L'indirizzo di spedizione dell'utente.
+     * @param surname Il cognome dell'utente.
+     * @param userEmail L'email (username) dell'utente.
+     * @param name Il nome dell'utente.
+     * @param telefono Il numero di telefono dell'utente.
+     * @param role Il ruolo dell'utente (es. "user", "admin").
+     */
     public UserLoginResponse(String accessToken, int id, String codefiscale, String indirizzo, String nazione, String spedizione, String surname, String userEmail, String name, String telefono, String role) {
         this.accessToken = accessToken;
         this.id = id;

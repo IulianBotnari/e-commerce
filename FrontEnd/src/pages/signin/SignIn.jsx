@@ -6,7 +6,15 @@ import trustPilotStar from '../../assets/icons/trustpilotstar.png'
 import axios from 'axios'
 import { useState } from 'react'
 
-
+/**
+ * @fileoverview Componente funzionale per la pagina di Registrazione (Sign In).
+ * Raccoglie i dati necessari per la creazione di un nuovo account utente, inclusa la verifica
+ * della corrispondenza delle password. Invia i dati tramite una richiesta HTTP POST al server.
+ * Gestisce e visualizza vari messaggi di errore (generico, password non coincidenti, conflitto 409).
+ *
+ * @component
+ * @returns {JSX.Element} Il markup completo della pagina di Registrazione.
+ */
 
 export default function SingIn() {
 

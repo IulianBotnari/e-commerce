@@ -1,3 +1,16 @@
+/**
+ * @file HeaderLayout.jsx
+ * @description Componente principale per l'intestazione (Header) dell'e-commerce.
+ * Gestisce la visualizzazione del logo, la barra di ricerca e le funzionalità
+ * relative all'autenticazione utente, al carrello e alla mappa negozi.
+ * * Logica chiave:
+ * 1. Navigazione alla Home cliccando sul logo.
+ * 2. Il pulsante di accesso/account cambia testo e logica in base allo stato di autenticazione.
+ * 3. Utilizza `useAuthContext` per recuperare il nome utente e l'API di autenticazione.
+ */
+
+
+
 import logo from '../assets/headerassets/NextLogo.png'
 import negoziNextMappa from '../assets/headerassets/negozi-next-mappa.jpg'
 import searchIcon from '../assets/headerassets/search-icon.png'

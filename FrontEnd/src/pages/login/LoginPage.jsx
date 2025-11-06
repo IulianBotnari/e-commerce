@@ -7,7 +7,16 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useAuthContext } from '../../contexts/AuthContext'
 
-
+/**
+ * @fileoverview Componente funzionale per la pagina di Login (LoginPage).
+ * Gestisce l'interfaccia utente per l'accesso, la raccolta dei dati del form
+ * e la logica di autenticazione tramite l'API.
+ * In caso di successo, reindirizza l'utente alla sua area riservata
+ * (admin o utente standard). In caso di fallimento, visualizza un messaggio di errore.
+ *
+ * @component
+ * @returns {JSX.Element} Il markup completo della pagina di Login.
+ */
 
 export default function LoginPage() {
     const navigateToSignIn = useNavigate()

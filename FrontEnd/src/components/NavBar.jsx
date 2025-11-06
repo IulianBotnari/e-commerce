@@ -1,3 +1,21 @@
+/**
+ * @file NavBar.jsx
+ * @description Componente di navigazione principale (NavBar) che implementa un "Mega Menu"
+ * con funzionalità di hover/mouseover per mostrare i dettagli delle sottocategorie.
+ *
+ * Logica chiave:
+ * 1. Stato Dinamico: Utilizza un set di stati (`PopUpComputerTabletNoteBook`, etc.) per
+ * controllare la visibilità e l'aspetto di ciascun menu a comparsa.
+ * 2. `popUpCase` (Stato Attivatore): Questo stato di tipo stringa viene aggiornato su
+ * `onMouseOver` (nelle categorie) e funge da trigger per l'effetto `useEffect`.
+ * 3. `useEffect` Centralizzato: La logica di visualizzazione è centralizzata in `useEffect`
+ * che, tramite uno `switch`, imposta la visibilità del popup corretto e nasconde tutti gli altri.
+ * 4. Navigazione: I link all'interno dei popup utilizzano il componente `Link` di React Router
+ * per la navigazione senza ricaricare la pagina (`/product/[Nome Prodotto]`).
+ * 5. Chiusura: Il menu viene chiuso quando il mouse esce dall'intera barra di navigazione (`onMouseLeave`).
+ */
+
+
 import style from './componentsStyle/NavBar.module.scss'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -8,7 +26,6 @@ import navBarHardwareAdv from '../assets/navbaradv/navbarhardwareadv.jpg'
 import navBarMonitorAdv from '../assets/navbaradv/navbarmonitoradv.jpg'
 import navBarTelefoniaAdv from '../assets/navbaradv/navbartelefoniaadv.jpg'
 import navBarGiochiAdv from '../assets/navbaradv/navbargiochiadv.jpg'
-import { use } from 'react'
 
 
 export default function NavBar() {
@@ -252,12 +269,6 @@ export default function NavBar() {
                                 <Link to="/product/Ups">Ups</Link>
                             </div>
                         </div>
-                        {/* <div id='popup_button_option' className={style.popup_button_option}>
-                            <button>PC ASSEMBLATI</button>
-                            <button>CONFIGURATORE PC</button>
-                            <button>GAMING</button>
-                            <button>REFURBISHED</button>
-                        </div> */}
                     </div>
 
                     <div id='popup_adv' className={style.popup_adv}>
@@ -289,12 +300,6 @@ export default function NavBar() {
                                 <Link to="/product/Webcam">Webcam</Link>
                             </div>
                         </div>
-                        {/* <div id='popup_button_option' className={style.popup_button_option}>
-                            <button>PC ASSEMBLATI</button>
-                            <button>CONFIGURATORE PC</button>
-                            <button>GAMING</button>
-                            <button>REFURBISHED</button>
-                        </div> */}
                     </div>
 
                     <div id='popup_adv' className={style.popup_adv}>
@@ -321,12 +326,6 @@ export default function NavBar() {
                                 <Link to="/product/Visore VR">Visore VR</Link>
                             </div>
                         </div>
-                        {/* <div id='popup_button_option' className={style.popup_button_option}>
-                            <button>PC ASSEMBLATI</button>
-                            <button>CONFIGURATORE PC</button>
-                            <button>GAMING</button>
-                            <button>REFURBISHED</button>
-                        </div> */}
                     </div>
 
                     <div id='popup_adv' className={style.popup_adv}>
@@ -358,14 +357,7 @@ export default function NavBar() {
                                 <Link to="/product/LEGO">LEGO</Link>
                             </div>
                         </div>
-                        {/* <div id='popup_button_option' className={style.popup_button_option}>
-                            <button>PC ASSEMBLATI</button>
-                            <button>CONFIGURATORE PC</button>
-                            <button>GAMING</button>
-                            <button>REFURBISHED</button>
-                        </div> */}
                     </div>
-
                     <div id='popup_adv' className={style.popup_adv}>
                         <img src={navBarGiochiAdv}></img>
                     </div></div>

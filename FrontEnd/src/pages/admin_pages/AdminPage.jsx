@@ -3,25 +3,49 @@ import { useAuthContext } from '../../contexts/AuthContext'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+/**
+ * @file AdminPage.jsx
+ * @description Componente principale per la pagina di amministrazione, dedicato alla gestione CRUD 
+ * (Create, Read, Update, Delete) dei prodotti tramite chiamate API autenticate.
+ */
 export default function AdminPage() {
 
+    // Recupera l'istanza Axios pre-configurata con gli interceptor di autenticazione.
     const { authApi } = useAuthContext()
+    // Hook per la navigazione programmatica (ad esempio, dopo il logout o un'operazione riuscita).
     const navigateToHome = useNavigate()
-    const [productData, setProductData] = useState()
-    const [searchBarValue, setSearchBarValue] = useState()
-    const [searchedProduct, setSearchedProduct] = useState()
-    const formData = new FormData()
 
+    // Stato per memorizzare i dati del prodotto da creare o modificare.
+    const [productData, setProductData] = useState()
+    // Stato per il valore inserito nella barra di ricerca del codice prodotto.
+    const [searchBarValue, setSearchBarValue] = useState()
+    // Stato per memorizzare i dati del prodotto trovato dopo una ricerca.
+    const [searchedProduct, setSearchedProduct] = useState()
+
+    // L'uso di `formData` qui non è necessario, può essere rimosso o gestito all'interno delle funzioni.
+    // const formData = new FormData() 
+
+    /**
+     * @function handleProductData
+     * @description Gestisce l'input per la creazione di un nuovo prodotto.
+     * Aggiorna lo stato `productData`, gestendo separatamente il campo 'image' (file)
+     * e tutti gli altri campi (valore).
+     */
     function handleProductData(e) {
         const { name, value, files } = e.target
         setProductData((prev) => ({
             ...prev,
-            [name]: name === "image" ? files[0] : value,
+            [name]: name === "image" ? files[0] : value, // Se è 'image', salva il file, altrimenti il valore
         }
         ))
-
     }
 
+    /**
+     * @function handleProductUpdateData
+     * @description Gestisce l'input per la modifica di un prodotto esistente.
+     * La logica è identica a `handleProductData`, poiché gestisce l'aggiornamento dello stato `productData`.
+     * In un'applicazione reale, le due funzioni potrebbero essere unite o differenziate per logiche specifiche.
+     */
     function handleProductUpdateData(e) {
         const { name, value, files } = e.target
         setProductData((prev) => ({
@@ -31,9 +55,17 @@ export default function AdminPage() {
         ))
     }
 
+    /**
+     * @async
+     * @function registerProduct
+     * @description Invia i dati di un nuovo prodotto al backend.
+     * Costruisce un oggetto FormData che include l'immagine e i metadati del prodotto (in formato JSON Blob).
+     */
     async function registerProduct(e) {
         e.preventDefault();
         const formData = new FormData();
+
+        // Estrae i metadati necessari dallo stato `productData`.
         const metadata = {
             category: productData.category,
             brand: productData.brand,
@@ -44,42 +76,59 @@ export default function AdminPage() {
             discount: productData.discount,
             discountvalue: productData.discountvalue
         };
+
+        // Aggiunge l'immagine al FormData (solo se presente).
         formData.append("image", productData.image)
 
+        // Aggiunge i metadati come JSON Blob per gestire i dati strutturati e il file in un'unica richiesta.
         formData.append(
             "metadata",
             new Blob([JSON.stringify(metadata)], { type: "application/json" })
         );
+
         try {
+            // Chiamata POST all'endpoint per la creazione del prodotto.
             const response = await authApi.post('/products/postproduct', formData, {
+                // Necessario specificare l'header multipart/form-data.
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
 
-            console.log(response.data);
-            // setProductData(null)
+            console.log("Risposta registrazione prodotto:", response.data);
+            // NB: In un'app reale, sostituire `alert()` con un modale o un toast di notifica!
             alert("Prodotto registrato con successo!")
         } catch (error) {
-            console.error(error);
+            console.error("Errore durante la registrazione del prodotto:", error);
+            // NB: In un'app reale, sostituire `alert()` con un modale o un toast di notifica!
             alert("Errore durante la registrazione del prodotto!")
         }
     }
 
 
+    /**
+     * @async
+     * @function findProductByCode
+     * @description Ricerca un prodotto tramite il suo codice.
+     * Aggiorna gli stati `productData` e `searchedProduct` con i dati trovati.
+     */
     async function findProductByCode(e, code) {
         e.preventDefault()
 
         try {
+            // Chiamata GET all'endpoint di ricerca.
             const response = await authApi.get(`/products/${code}`)
-            console.log(response.data);
-            setProductData(response.data)
-            setSearchedProduct(response.data)
+            console.log("Prodotto trovato:", response.data);
+            setProductData(response.data) // Pre-popola il form di update
+            setSearchedProduct(response.data) // Stato per la visualizzazione/condizione
         } catch (e) {
-            console.error(e);
-
+            console.error("Errore durante la ricerca del prodotto:", e);
         }
-
     }
 
+    /**
+     * @function selectCategory
+     * @description Funzione helper per determinare il valore della categoria da visualizzare
+     * nel form, dando priorità ai dati in modifica (`productData`) o a quelli cercati (`searchedProduct`).
+     */
     function selectCategory(productData, searchedProduct) {
         if (productData != null) {
             return productData.category
@@ -90,6 +139,11 @@ export default function AdminPage() {
         }
     }
 
+    /**
+     * @function selectDiscountTrue
+     * @description Funzione helper per determinare lo stato dello sconto.
+     * Utile per impostare il valore di un campo input/checkbox nel form.
+     */
     function selectDiscountTrue(productData, searchedProduct) {
         if (productData != null) {
             return productData.discount
@@ -101,9 +155,18 @@ export default function AdminPage() {
     }
 
 
+    /**
+     * @async
+     * @function updateProduct
+     * @description Invia i dati di un prodotto esistente per la modifica (Update).
+     * Simile a `registerProduct`, ma utilizza l'endpoint PUT. Se l'immagine non è cambiata, 
+     * non viene inviato un nuovo file.
+     */
     async function updateProduct(e) {
         e.preventDefault();
         const formData = new FormData();
+
+        // Include l'ID del prodotto per sapere quale record aggiornare nel backend.
         const metadata = {
             id: productData.id,
             category: productData.category,
@@ -116,34 +179,45 @@ export default function AdminPage() {
             discountvalue: productData.discountvalue
         };
 
-        if (productData.image) {
+        // Controlla se è stato selezionato un nuovo file immagine prima di aggiungerlo.
+        if (productData.image instanceof File) {
             formData.append("image", productData.image);
-
         }
+
+        // Aggiunge i metadati con tutti i campi, inclusi l'ID.
         formData.append(
             "metadata",
             new Blob([JSON.stringify(metadata)], { type: "application/json" })
         );
+
         try {
+            // Chiamata PUT all'endpoint per l'aggiornamento del prodotto.
             const response = await authApi.put('/products/updateproduct', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
 
+            console.log("Prodotto aggiornato con successo:", response.data);
+            // NB: Aggiungere gestione UI per il successo/errore!
         } catch (error) {
-            console.error(error.message);
+            console.error("Errore durante l'aggiornamento del prodotto:", error.message);
         }
     }
 
+    /**
+     * @async
+     * @function deleteProductByProductCode
+     * @description Invia una richiesta per eliminare un prodotto tramite il suo codice.
+     */
     async function deleteProductByProductCode(code) {
+        // NB: Aggiungere qui una richiesta di conferma (modale) prima della cancellazione!
         try {
+            // Chiamata GET (o DELETE, a seconda della convenzione API) per l'eliminazione.
             const response = await authApi.get(`/products/deleteproduct/${code}`)
-
+            console.log("Prodotto eliminato con successo.");
+            // NB: Dopo la cancellazione, pulire gli stati e notificare l'utente.
         } catch (e) {
-            console.error(e);
-
-
+            console.error("Errore durante l'eliminazione del prodotto:", e);
         }
-
     }
     return <>
 

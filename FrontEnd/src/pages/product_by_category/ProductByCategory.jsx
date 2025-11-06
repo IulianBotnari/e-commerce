@@ -6,6 +6,16 @@ import NavBar from "../../components/NavBar";
 import FooterLayout from "../../components/FooterLayout";
 import style from "./ProductByCategory.module.scss"
 
+
+/**
+ * @fileoverview Componente funzionale che gestisce la visualizzazione dei prodotti filtrati per categoria.
+ * Recupera il parametro di categoria dall'URL tramite `useParams`, quindi effettua una chiamata API
+ * per ottenere i prodotti corrispondenti e li memorizza nello stato locale (`products`).
+ * Include anche una funzione di utilità per troncare le stringhe.
+ *
+ * @component
+ * @returns {JSX.Element} Il markup completo della pagina che mostra i prodotti filtrati.
+ */
 export default function ProductByCategory() {
 
     const { authApi } = useAuthContext()
