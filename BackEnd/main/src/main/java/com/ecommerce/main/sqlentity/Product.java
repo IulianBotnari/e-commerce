@@ -1,7 +1,8 @@
 package com.ecommerce.main.sqlentity;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Objects;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Product {
@@ -27,6 +29,8 @@ public class Product {
     private String productcode;
     private boolean discount;
     private int discountvalue;
+    @ManyToMany(mappedBy = "products")
+    private List<Cart> carts = new ArrayList<>();
 
     public Product() {
 
@@ -126,80 +130,92 @@ public class Product {
         this.discountvalue = discountvalue;
     }
 
+    public List<Cart> getCarts() {
+        return carts;
+    }
+
+    public void setCarts(List<Cart> carts) {
+        this.carts = carts;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 13 * hash + this.id;
-        hash = 13 * hash + Objects.hashCode(this.category);
-        hash = 13 * hash + Objects.hashCode(this.brand);
-        hash = 13 * hash + Objects.hashCode(this.name);
-        hash = 13 * hash + Objects.hashCode(this.description);
-        hash = 13 * hash + (int) (Double.doubleToLongBits(this.price) ^ (Double.doubleToLongBits(this.price) >>> 32));
-        hash = 13 * hash + Arrays.hashCode(this.image);
-        hash = 13 * hash + Objects.hashCode(this.productcode);
-        hash = 13 * hash + (this.discount ? 1 : 0);
-        hash = 13 * hash + this.discountvalue;
-        return hash;
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + id;
+        result = prime * result + ((category == null) ? 0 : category.hashCode());
+        result = prime * result + ((brand == null) ? 0 : brand.hashCode());
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((description == null) ? 0 : description.hashCode());
+        long temp;
+        temp = Double.doubleToLongBits(price);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        result = prime * result + Arrays.hashCode(image);
+        result = prime * result + ((productcode == null) ? 0 : productcode.hashCode());
+        result = prime * result + (discount ? 1231 : 1237);
+        result = prime * result + discountvalue;
+        result = prime * result + ((carts == null) ? 0 : carts.hashCode());
+        return result;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
+        if (this == obj)
             return true;
-        }
-        if (obj == null) {
+        if (obj == null)
             return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass())
             return false;
-        }
-        final Product other = (Product) obj;
-        if (this.id != other.id) {
+        Product other = (Product) obj;
+        if (id != other.id)
             return false;
-        }
-        if (Double.doubleToLongBits(this.price) != Double.doubleToLongBits(other.price)) {
+        if (category == null) {
+            if (other.category != null)
+                return false;
+        } else if (!category.equals(other.category))
             return false;
-        }
-        if (this.discount != other.discount) {
+        if (brand == null) {
+            if (other.brand != null)
+                return false;
+        } else if (!brand.equals(other.brand))
             return false;
-        }
-        if (this.discountvalue != other.discountvalue) {
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
             return false;
-        }
-        if (!Objects.equals(this.category, other.category)) {
+        if (description == null) {
+            if (other.description != null)
+                return false;
+        } else if (!description.equals(other.description))
             return false;
-        }
-        if (!Objects.equals(this.brand, other.brand)) {
+        if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price))
             return false;
-        }
-        if (!Objects.equals(this.name, other.name)) {
+        if (!Arrays.equals(image, other.image))
             return false;
-        }
-        if (!Objects.equals(this.description, other.description)) {
+        if (productcode == null) {
+            if (other.productcode != null)
+                return false;
+        } else if (!productcode.equals(other.productcode))
             return false;
-        }
-        if (!Objects.equals(this.productcode, other.productcode)) {
+        if (discount != other.discount)
             return false;
-        }
-        return Arrays.equals(this.image, other.image);
+        if (discountvalue != other.discountvalue)
+            return false;
+        if (carts == null) {
+            if (other.carts != null)
+                return false;
+        } else if (!carts.equals(other.carts))
+            return false;
+        return true;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Product{");
-        sb.append("id=").append(id);
-        sb.append(", category=").append(category);
-        sb.append(", brand=").append(brand);
-        sb.append(", name=").append(name);
-        sb.append(", description=").append(description);
-        sb.append(", price=").append(price);
-        sb.append(", image=").append(image);
-        sb.append(", productcode=").append(productcode);
-        sb.append(", discount=").append(discount);
-        sb.append(", discountvalue=").append(discountvalue);
-        sb.append('}');
-        return sb.toString();
+        return "Product [id=" + id + ", category=" + category + ", brand=" + brand + ", name=" + name + ", description="
+                + description + ", price=" + price + ", image=" + Arrays.toString(image) + ", productcode="
+                + productcode + ", discount=" + discount + ", discountvalue=" + discountvalue + ", carts=" + carts
+                + "]";
     }
 
 }
