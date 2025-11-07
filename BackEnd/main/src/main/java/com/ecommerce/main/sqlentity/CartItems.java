@@ -16,15 +16,15 @@ public class CartItems {
     private int id;
     @ManyToOne
     @JoinColumn(name = "cart_id", nullable =false)
-    private int cartId;
+    private Cart cartId;
     @ManyToOne
     @JoinColumn(name = "product_id", nullable =false)
-    private int productId;
+    private Product productId;
     private double quantity;
     @Column(name="total_price")
     private double totalPrice;
 
-    public CartItems(int cartId, int id, int productId, double quantity, double totalPrice) {
+    public CartItems(Cart cartId, int id, Product productId, double quantity, double totalPrice) {
         this.cartId = cartId;
         this.id = id;
         this.productId = productId;
@@ -40,19 +40,19 @@ public class CartItems {
         this.id = id;
     }
 
-    public int getCartId() {
+    public Cart getCartId() {
         return cartId;
     }
 
-    public void setCartId(int cartId) {
+    public void setCartId(Cart cartId) {
         this.cartId = cartId;
     }
 
-    public int getProductId() {
+    public Product getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(Product productId) {
         this.productId = productId;
     }
 
@@ -76,8 +76,8 @@ public class CartItems {
     public int hashCode() {
         int hash = 7;
         hash = 79 * hash + this.id;
-        hash = 79 * hash + this.cartId;
-        hash = 79 * hash + this.productId;
+        hash = 79 * hash + this.cartId.hashCode();
+        hash = 79 * hash + this.productId.hashCode();
         hash = 79 * hash + (int) (Double.doubleToLongBits(this.quantity) ^ (Double.doubleToLongBits(this.quantity) >>> 32));
         hash = 79 * hash + (int) (Double.doubleToLongBits(this.totalPrice) ^ (Double.doubleToLongBits(this.totalPrice) >>> 32));
         return hash;

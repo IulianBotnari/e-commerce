@@ -24,6 +24,7 @@ export default function HeaderLayout() {
 
     const navigateTo = useNavigate()
     const navigateToHome = useNavigate()
+    const navigateToCart = useNavigate()
     const { userName, authApi } = useAuthContext()
     const buttonRef = useRef()
 
@@ -63,7 +64,7 @@ export default function HeaderLayout() {
             <div id="login_logout" className={style.login_logout}>
                 <div id='button_container' className={style.button_container}>
                     <button id="login" ref={buttonRef} onClick={() => handleAccessButton()}>{userName ? userName : "Accedi"}</button>
-                    <button id="chart">Carrello</button>
+                    <button id="cart" onClick={() => navigateToCart("/user/cart")} >Carrello</button>
                 </div>
                 <img id="store_map" src={negoziNextMappa} className={style.store_map} alt='vai a negozi'></img>
             </div>

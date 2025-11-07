@@ -1,8 +1,6 @@
 package com.ecommerce.main.sqlentity;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,7 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Product {
@@ -29,8 +26,7 @@ public class Product {
     private String productcode;
     private boolean discount;
     private int discountvalue;
-    @ManyToMany(mappedBy = "products")
-    private List<Cart> carts = new ArrayList<>();
+
 
     public Product() {
 
@@ -130,14 +126,6 @@ public class Product {
         this.discountvalue = discountvalue;
     }
 
-    public List<Cart> getCarts() {
-        return carts;
-    }
-
-    public void setCarts(List<Cart> carts) {
-        this.carts = carts;
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -154,7 +142,7 @@ public class Product {
         result = prime * result + ((productcode == null) ? 0 : productcode.hashCode());
         result = prime * result + (discount ? 1231 : 1237);
         result = prime * result + discountvalue;
-        result = prime * result + ((carts == null) ? 0 : carts.hashCode());
+       
         return result;
     }
 
@@ -202,11 +190,7 @@ public class Product {
             return false;
         if (discountvalue != other.discountvalue)
             return false;
-        if (carts == null) {
-            if (other.carts != null)
-                return false;
-        } else if (!carts.equals(other.carts))
-            return false;
+
         return true;
     }
 
@@ -214,7 +198,7 @@ public class Product {
     public String toString() {
         return "Product [id=" + id + ", category=" + category + ", brand=" + brand + ", name=" + name + ", description="
                 + description + ", price=" + price + ", image=" + Arrays.toString(image) + ", productcode="
-                + productcode + ", discount=" + discount + ", discountvalue=" + discountvalue + ", carts=" + carts
+                + productcode + ", discount=" + discount + ", discountvalue=" + discountvalue
                 + "]";
     }
 
