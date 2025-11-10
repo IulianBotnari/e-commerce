@@ -16,18 +16,17 @@ public class CartItems {
     private int id;
     @ManyToOne
     @JoinColumn(name = "cart_id", nullable =false)
-    private Cart cartId;
+    private Cart cart;
     @ManyToOne
     @JoinColumn(name = "product_id", nullable =false)
-    private Product productId;
-    private double quantity;
+    private Product product;
+    private int quantity;
     @Column(name="total_price")
     private double totalPrice;
 
-    public CartItems(Cart cartId, int id, Product productId, double quantity, double totalPrice) {
-        this.cartId = cartId;
-        this.id = id;
-        this.productId = productId;
+    public CartItems(Cart cart, Product product, int quantity, double totalPrice) {
+        this.cart = cart;
+        this.product = product;
         this.quantity = quantity;
         this.totalPrice = totalPrice;
     }
@@ -40,27 +39,27 @@ public class CartItems {
         this.id = id;
     }
 
-    public Cart getCartId() {
-        return cartId;
+    public Cart getcart() {
+        return cart;
     }
 
-    public void setCartId(Cart cartId) {
-        this.cartId = cartId;
+    public void setcart(Cart cart) {
+        this.cart = cart;
     }
 
-    public Product getProductId() {
-        return productId;
+    public Product getproduct() {
+        return product;
     }
 
-    public void setProductId(Product productId) {
-        this.productId = productId;
+    public void setproduct(Product product) {
+        this.product = product;
     }
 
-    public double getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(double quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
@@ -76,8 +75,8 @@ public class CartItems {
     public int hashCode() {
         int hash = 7;
         hash = 79 * hash + this.id;
-        hash = 79 * hash + this.cartId.hashCode();
-        hash = 79 * hash + this.productId.hashCode();
+        hash = 79 * hash + this.cart.hashCode();
+        hash = 79 * hash + this.product.hashCode();
         hash = 79 * hash + (int) (Double.doubleToLongBits(this.quantity) ^ (Double.doubleToLongBits(this.quantity) >>> 32));
         hash = 79 * hash + (int) (Double.doubleToLongBits(this.totalPrice) ^ (Double.doubleToLongBits(this.totalPrice) >>> 32));
         return hash;
@@ -98,10 +97,10 @@ public class CartItems {
         if (this.id != other.id) {
             return false;
         }
-        if (this.cartId != other.cartId) {
+        if (this.cart != other.cart) {
             return false;
         }
-        if (this.productId != other.productId) {
+        if (this.product != other.product) {
             return false;
         }
         if (Double.doubleToLongBits(this.quantity) != Double.doubleToLongBits(other.quantity)) {
@@ -115,8 +114,8 @@ public class CartItems {
         StringBuilder sb = new StringBuilder();
         sb.append("CartItems{");
         sb.append("id=").append(id);
-        sb.append(", cartId=").append(cartId);
-        sb.append(", productId=").append(productId);
+        sb.append(", cart=").append(cart);
+        sb.append(", product=").append(product);
         sb.append(", quantity=").append(quantity);
         sb.append(", totalPrice=").append(totalPrice);
         sb.append('}');

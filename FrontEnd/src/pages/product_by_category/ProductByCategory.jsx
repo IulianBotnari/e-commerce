@@ -69,7 +69,11 @@ export default function ProductByCategory() {
                         <p className={style.price}>{`${element.price - (element.price / 100 * element.discountvalue)} €`}</p>
                         <div className={`${style.separator}`}></div>
                         <p >Fino a esaurimento scorte</p>
-                        <button >Scopri di più</button>
+                        <div>
+                            <button className={style.scopri_di_piu}>Scopri di più</button>
+                            <button className={style.aggiungi_al_carrello}>Aggiungi al carrello</button>
+
+                        </div>
 
                     </div>
 
