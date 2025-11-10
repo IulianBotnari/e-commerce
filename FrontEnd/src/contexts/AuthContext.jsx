@@ -14,6 +14,8 @@ export function AuthContext({ children }) {
     const [userName, setUserName] = useState()
     // Stato per messaggi informativi da mostrare all'utente.
     const [infoPageMessage, setInfoPageMessage] = useState()
+    const [userId, setUserId] = useState()
+    console.log(accessToken);
 
     // Configurazione di un'istanza di Axios con la base URL e le credenziali.
     const authApi = axios.create({
@@ -81,7 +83,7 @@ export function AuthContext({ children }) {
     );
 
     // Oggetto che contiene tutti i valori da esporre tramite il contesto.
-    const values = { accessToken, setAccessToken, authApi, setUserName, userName, setInfoPageMessage, infoPageMessage }
+    const values = { accessToken, setAccessToken, authApi, setUserName, userName, setInfoPageMessage, infoPageMessage, setUserId, userId }
 
     // Fornisce i valori del contesto ai componenti figli.
     return (

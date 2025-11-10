@@ -41,6 +41,7 @@ public class JwtUtility {
      * @return La stringa del JWT firmato.
      */
     public String generateToken(String email, String role) {
+ 
         return Jwts.builder()
                 .subject(email)
                 .claim("role", role)

@@ -10,13 +10,16 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.ecommerce.main.jsonwebtoken.JwtFilter;
+
 /**
  * @fileoverview Classe di configurazione primaria per Spring Security.
  *
  * @class
- * Definisce la catena di filtri di sicurezza (SecurityFilterChain), le politiche di gestione delle sessioni
- * e le regole di autorizzazione (Authorization Access Control List).
- * Questa configurazione è progettata per un'API REST senza stato (stateless), utilizzando JWT per l'autenticazione.
+ *        Definisce la catena di filtri di sicurezza (SecurityFilterChain), le
+ *        politiche di gestione delle sessioni
+ *        e le regole di autorizzazione (Authorization Access Control List).
+ *        Questa configurazione è progettata per un'API REST senza stato
+ *        (stateless), utilizzando JWT per l'autenticazione.
  */
 @Configuration
 public class SecurityConfig {
@@ -25,7 +28,9 @@ public class SecurityConfig {
 
     /**
      * Costruttore che inietta il filtro JWT personalizzato.
-     * @param jwtFilter Il filtro personalizzato per l'estrazione e la validazione dei JWT.
+     * 
+     * @param jwtFilter Il filtro personalizzato per l'estrazione e la validazione
+     *                  dei JWT.
      */
     public SecurityConfig(JwtFilter jwtFilter) {
         this.jwtFilter = jwtFilter;
@@ -33,6 +38,7 @@ public class SecurityConfig {
 
     /**
      * Bean che configura la catena di filtri di sicurezza HTTP.
+     * 
      * @param httpSecurity L'oggetto di configurazione per HTTP Security.
      * @return Il {@link SecurityFilterChain} costruito.
      * @throws Exception
@@ -40,24 +46,35 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                // 1. Disabilita CSRF: Essendo un'API stateless che usa JWT (non sessioni), il CSRF non è necessario.
-                .csrf(csrf -> csrf.disable()) 
-                // 2. Configurazione CORS: definita in un altro punto o disabilitata se la sezione è vuota.
+                // 1. Disabilita CSRF: Essendo un'API stateless che usa JWT (non sessioni), il
+                // CSRF non è necessario.
+                .csrf(csrf -> csrf.disable())
+                // 2. Configurazione CORS: definita in un altro punto o disabilitata se la
+                // sezione è vuota.
                 .cors(cors -> {
                 })
                 // 3. Regole di Autorizzazione per gli Endpoint
                 .authorizeHttpRequests(auth -> auth
                         // Endpoint pubblici che non richiedono autenticazione (permitAll)
-                        .requestMatchers("/users/login", "/users/refresh", "/users/postuser", "/users/verify-credentials","/products/daydiscountoffer", "/products/newproduct","/products/productbycategory/**").permitAll()
+                        .requestMatchers("/users/login", "/users/refresh", "/users/postuser",
+                                "/users/verify-credentials", "/products/daydiscountoffer", "/products/newproduct",
+                                "/products/productbycategory/**")
+                        .permitAll()
                         // Endpoint accessibili solo a utenti con ruolo "user" (ROLE_user)
                         .requestMatchers("/user/**").hasRole("user")
+                        // Endpoint accessibili solo a utenti con ruolo "user" (ROLE_user)
+                        .requestMatchers("/cart/**").hasRole("user")
                         // Endpoint accessibili solo a utenti con ruolo "admin" (ROLE_admin)
-                        .requestMatchers("/products/postproduct", "/products/updateproduct","/products/deleteproduct/**").hasRole("admin") 
+                        .requestMatchers("/products/postproduct", "/products/updateproduct",
+                                "/products/deleteproduct/**")
+                        .hasRole("admin")
                         // Qualsiasi altra richiesta DEVE essere autenticata
                         .anyRequest().authenticated())
-                // 4. Gestione delle Sessioni: Imposta la politica su STATELESS. Le sessioni non vengono create né usate.
+                // 4. Gestione delle Sessioni: Imposta la politica su STATELESS. Le sessioni non
+                // vengono create né usate.
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                // 5. Aggiunta del Filtro JWT: Il nostro filtro personalizzato viene eseguito prima del filtro di autenticazione standard di Spring.
+                // 5. Aggiunta del Filtro JWT: Il nostro filtro personalizzato viene eseguito
+                // prima del filtro di autenticazione standard di Spring.
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
@@ -65,7 +82,9 @@ public class SecurityConfig {
 
     /**
      * Espone l'{@link AuthenticationManager} come Bean.
-     * Necessario per gestire il processo di autenticazione (es. verifica password nel Login).
+     * Necessario per gestire il processo di autenticazione (es. verifica password
+     * nel Login).
+     * 
      * @param config L'oggetto di configurazione per l'autenticazione.
      * @return L'istanza dell'AuthenticationManager.
      * @throws Exception

@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 import com.ecommerce.main.repository.CartItemsRepository;
 import com.ecommerce.main.repository.CartRepository;
 import com.ecommerce.main.repository.ProductRepository;
+import com.ecommerce.main.repository.UserRepository;
 import com.ecommerce.main.sqlentity.Cart;
 import com.ecommerce.main.sqlentity.CartItems;
 import com.ecommerce.main.sqlentity.Product;
+import com.ecommerce.main.sqlentity.User;
 
 @Service
 public class CartService {
@@ -24,13 +26,19 @@ public class CartService {
 
     @Autowired
     private CartItemsRepository cartItemsRepository;
+    @Autowired
+    private UserRepository userRepository;
 
 
-    public void addProductToCart(int cartId, int productId, double quantity){
-        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new RuntimeException("Cart not found"));
+    public void addProductToCart(int userId, int productId, double quantity){
+
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        Cart cart = new Cart(user);
 
         Product product = productRepository.findById(productId).orElseThrow(()-> new RuntimeException("Product not found"));
-
+        if (quantity == 0){
+            quantity = 1;
+        }
 
         Optional<CartItems> existingItemOpt = cartItemsRepository.findByCartAndProduct(cart, product);
 

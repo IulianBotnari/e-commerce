@@ -183,7 +183,8 @@ public class UserController {
                 .maxAge(7 * 24 * 60 * 60)
                 .build();
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
-        return ResponseEntity.ok(Map.of("accessToken", accessToken, "role", userByEmail.get().getRole()));
+        UserLoginResponse userData = new UserLoginResponse();
+        return ResponseEntity.ok(Map.of("accessToken", accessToken, "role", userByEmail.get().getRole(),"userId", userByEmail.get().getId()));
     }
 
     /**

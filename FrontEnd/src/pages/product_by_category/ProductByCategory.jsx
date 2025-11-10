@@ -18,7 +18,7 @@ import style from "./ProductByCategory.module.scss"
  */
 export default function ProductByCategory() {
 
-    const { authApi } = useAuthContext()
+    const { authApi, accessToken, userId } = useAuthContext()
 
     const category = useParams()
     const [products, setProducts] = useState([])
@@ -33,6 +33,21 @@ export default function ProductByCategory() {
         } catch (error) {
             console.error(error);
 
+        }
+    }
+
+    async function addProductToCart(userId, productId) {
+        if (accessToken) {
+            console.log(userId);
+
+            try {
+                const response = await authApi.post(`/cart/${userId}/add/${productId}/${0}`)
+                console.log(response.data);
+
+            } catch (error) {
+                console.error(console.error());
+
+            }
         }
     }
 
@@ -61,7 +76,7 @@ export default function ProductByCategory() {
         <main>
             <div className={style.product_by_category_container}>
                 {products.length > 0 ? products.map((element, index) => (
-                    <div className={style.product_by_category_card} key={index}>
+                    <div className={style.product_by_category_card} key={element.id}>
                         <span>{element.discountvalue}%</span>
                         <img src={`data:image/jpeg;base64,${element.image}`}></img>
                         <p className={style.short_description}>{handleStringLength(element.description)}</p>
@@ -71,7 +86,7 @@ export default function ProductByCategory() {
                         <p >Fino a esaurimento scorte</p>
                         <div>
                             <button className={style.scopri_di_piu}>Scopri di più</button>
-                            <button className={style.aggiungi_al_carrello}>Aggiungi al carrello</button>
+                            <button className={style.aggiungi_al_carrello} onClick={() => addProductToCart(userId, element.id)}>Aggiungi al carrello</button>
 
                         </div>
 

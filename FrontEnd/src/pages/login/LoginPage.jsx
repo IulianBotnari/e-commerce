@@ -23,7 +23,7 @@ export default function LoginPage() {
     const navigateToUserAccountPage = useNavigate()
     const navigateToAdminAccountPage = useNavigate()
     const [formData, setFormData] = useState()
-    const { accessToken, setAccessToken, authApi, setInfoPageMessage } = useAuthContext()
+    const { accessToken, setAccessToken, authApi, setInfoPageMessage, setUserId, userId } = useAuthContext()
     const [displayUserMessage, setDisplayUserMessage] = useState(false)
 
     function handleFormData(e) {
@@ -42,6 +42,9 @@ export default function LoginPage() {
 
         try {
             const response = await authApi.post("/users/login", formData)
+            setUserId(response.data.userId);
+            setAccessToken(response.data.accessToken)
+
             if (response.data) {
                 setAccessToken(response.data.accessToken)
                 if (response.data.role === "admin") {

@@ -1,16 +1,14 @@
 package com.ecommerce.main.sqlentity;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class User {
@@ -29,8 +27,8 @@ public class User {
     private Boolean is_indirizzo_same_spedizione;
     private String spedizione;
     private LocalDateTime lastaccess;
-    @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
-    private List<Cart> carts = new ArrayList<>();
+    @OneToOne(mappedBy="user", cascade = CascadeType.ALL)
+    private Cart cart;
     private HashSet<String> paymentmethods;
 
     private String role;
@@ -173,12 +171,12 @@ public class User {
         this.role = role;
     }
     
-        public List<Cart> getCarts() {
-            return carts;
+        public Cart getCart() {
+            return cart;
         }
     
-        public void setCarts(List<Cart> carts) {
-            this.carts = carts;
+        public void setCart(Cart carts) {
+            this.cart = carts;
         }
     
         
@@ -260,10 +258,10 @@ public class User {
                 return false;
         } else if (!lastaccess.equals(other.lastaccess))
             return false;
-        if (carts == null) {
-            if (other.carts != null)
+        if (cart == null) {
+            if (other.cart != null)
                 return false;
-        } else if (!carts.equals(other.carts))
+        } else if (!cart.equals(other.cart))
             return false;
         if (paymentmethods == null) {
             if (other.paymentmethods != null)
@@ -295,7 +293,7 @@ public class User {
                 + ((is_indirizzo_same_spedizione == null) ? 0 : is_indirizzo_same_spedizione.hashCode());
         result = prime * result + ((spedizione == null) ? 0 : spedizione.hashCode());
         result = prime * result + ((lastaccess == null) ? 0 : lastaccess.hashCode());
-        result = prime * result + ((carts == null) ? 0 : carts.hashCode());
+        result = prime * result + ((cart == null) ? 0 : cart.hashCode());
         result = prime * result + ((paymentmethods == null) ? 0 : paymentmethods.hashCode());
         result = prime * result + ((role == null) ? 0 : role.hashCode());
         return result;

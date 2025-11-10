@@ -37,13 +37,12 @@ public class CartController {
     }
     
 
-    @PostMapping("/{cartId}/add/{productId}")
+    @PostMapping("/{userId}/add/{productId}/quantity")
     public ResponseEntity<String> addProductToCart(
-            @PathVariable int cartId,
+            @PathVariable int userId,
             @PathVariable int productId,
-            @RequestParam double quantity) {
-
-        cartService.addProductToCart(cartId, productId, quantity);
+            @RequestParam("quantity") double quantity) {
+        cartService.addProductToCart(userId, productId, quantity);
         return ResponseEntity.ok("Prodotto aggiunto al carrello!");
     }
 

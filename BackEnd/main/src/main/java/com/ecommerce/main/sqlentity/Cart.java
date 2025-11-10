@@ -19,8 +19,7 @@ public class Cart {
     private User user;
     
 
-    public Cart(int id, User user) {
-        this.id = id;
+    public Cart(User user) {
         this.user = user;
     }
 
