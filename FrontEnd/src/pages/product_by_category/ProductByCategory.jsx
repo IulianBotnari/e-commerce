@@ -41,7 +41,7 @@ export default function ProductByCategory() {
             console.log(userId);
 
             try {
-                const response = await authApi.post(`/cart/${userId}/add/${productId}/${0}`)
+                const response = await authApi.post(`/cart/${userId}/add/${productId}/quantity?quantity=${0}`)
                 console.log(response.data);
 
             } catch (error) {

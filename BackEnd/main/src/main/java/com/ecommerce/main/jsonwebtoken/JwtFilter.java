@@ -64,17 +64,18 @@ public class JwtFilter extends OncePerRequestFilter {
             token = header.substring(7).trim();
             email = jwtUtility.extractUsername(token);
         }
+        System.out.println("token in jwtf "+token);
 
         // Se l'email è presente e non c'è autenticazione esistente
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            System.out.println(jwtUtility.validateToken(token)); // Debugging
             if (jwtUtility.validateToken(token)) {
                 role = jwtUtility.extractRole(token);
-
+                System.out.println("ruolo in jwtf " + role);
                 // Creazione dell'autorità basata sul ruolo
                 List<GrantedAuthority> authorities = Collections.singletonList(
                     new SimpleGrantedAuthority("ROLE_" + role)
                 );
+                System.out.println("Authorities in jwtf "+authorities);
 
                 // Creazione dell'oggetto di autenticazione e inserimento nel contesto di sicurezza
                 UsernamePasswordAuthenticationToken auth =

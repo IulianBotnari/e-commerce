@@ -23,24 +23,39 @@ public class CartService {
     @Autowired
     private ProductRepository productRepository;
 
-
     @Autowired
     private CartItemsRepository cartItemsRepository;
     @Autowired
     private UserRepository userRepository;
 
+    public Cart getCartByUserId(int userId){
+        
+        Cart userCart = cartRepository.findByUser_Id(userId);
+        return userCart;
+    }
 
-    public void addProductToCart(int userId, int productId, double quantity){
+    public void addProductToCart(int userId, int productId, double quantity) {
 
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        Cart cart = new Cart(user);
-
-        Product product = productRepository.findById(productId).orElseThrow(()-> new RuntimeException("Product not found"));
-        if (quantity == 0){
-            quantity = 1;
+        System.out.println(user.toString());
+        Cart cart = user.getCart();
+        if (cart == null) {
+            cart = new Cart(user);
+            cart = cartRepository.save(cart);
+            user.setCart(cart);
+            userRepository.save(user);
         }
 
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+        if (quantity == 0) {
+            quantity = 1;
+        }
+        System.out.println(product.toString());
+
         Optional<CartItems> existingItemOpt = cartItemsRepository.findByCartAndProduct(cart, product);
+
+        System.out.println(existingItemOpt.toString());
 
         if (existingItemOpt.isPresent()) {
             CartItems existingItem = existingItemOpt.get();
@@ -56,36 +71,35 @@ public class CartService {
     }
 
     public void removeProductFromCart(int cartId, int productId) {
-    Cart cart = cartRepository.findById(cartId)
-            .orElseThrow(() -> new RuntimeException("Cart not found"));
-    Product product = productRepository.findById(productId)
-            .orElseThrow(() -> new RuntimeException("Product not found"));
+        Cart cart = cartRepository.findById(cartId)
+                .orElseThrow(() -> new RuntimeException("Cart not found"));
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
 
-    CartItems cartItem = cartItemsRepository.findByCartAndProduct(cart, product)
-            .orElseThrow(() -> new RuntimeException("Product not found in cart"));
+        CartItems cartItem = cartItemsRepository.findByCartAndProduct(cart, product)
+                .orElseThrow(() -> new RuntimeException("Product not found in cart"));
 
-    cartItemsRepository.delete(cartItem);
-}
-
-public void updateProductQuantity(int cartId, int productId, double newQuantity) {
-    if (newQuantity <= 0) {
-        removeProductFromCart(cartId, productId);
-        return;
+        cartItemsRepository.delete(cartItem);
     }
 
-    Cart cart = cartRepository.findById(cartId)
-            .orElseThrow(() -> new RuntimeException("Cart not found"));
-    Product product = productRepository.findById(productId)
-            .orElseThrow(() -> new RuntimeException("Product not found"));
+    public void updateProductQuantity(int cartId, int productId, double newQuantity) {
+        if (newQuantity <= 0) {
+            removeProductFromCart(cartId, productId);
+            return;
+        }
 
-    CartItems cartItem = cartItemsRepository.findByCartAndProduct(cart, product)
-            .orElseThrow(() -> new RuntimeException("Product not found in cart"));
+        Cart cart = cartRepository.findById(cartId)
+                .orElseThrow(() -> new RuntimeException("Cart not found"));
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
 
-    cartItem.setQuantity((int)newQuantity);
-    cartItem.setTotalPrice(product.getPrice() * newQuantity);
+        CartItems cartItem = cartItemsRepository.findByCartAndProduct(cart, product)
+                .orElseThrow(() -> new RuntimeException("Product not found in cart"));
 
-    cartItemsRepository.save(cartItem);
-}
-    
-    
+        cartItem.setQuantity((int) newQuantity);
+        cartItem.setTotalPrice(product.getPrice() * newQuantity);
+
+        cartItemsRepository.save(cartItem);
+    }
+
 }

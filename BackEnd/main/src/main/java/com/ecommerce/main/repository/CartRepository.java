@@ -1,15 +1,14 @@
 package com.ecommerce.main.repository;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.ecommerce.main.sqlentity.Cart;
-import com.ecommerce.main.sqlentity.User;
 
 
 public interface  CartRepository extends JpaRepository<Cart, Integer>{
-
-    List<Cart> findByUserId(User user);
+   @Query(value ="select*from cart where user_id= :userId", nativeQuery=true)
+   Cart findByUser_Id(@Param("userId") int userId);
     
 }

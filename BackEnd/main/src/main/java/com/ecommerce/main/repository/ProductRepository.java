@@ -63,4 +63,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query(value = "select * from product where category = :category", nativeQuery = true)
     List<Product> getProductByCategory(@Param("category") String category);
 
+    
+
 }

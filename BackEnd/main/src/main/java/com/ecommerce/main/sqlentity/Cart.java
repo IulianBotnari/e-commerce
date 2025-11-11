@@ -15,9 +15,12 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable =false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
-    
+
+    public Cart() {
+
+    }
 
     public Cart(User user) {
         this.user = user;
@@ -40,28 +43,23 @@ public class Cart {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 89 * hash + this.id;
-        hash = 89 * hash + Objects.hashCode(this.user);
-        return hash;
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+        Cart other = (Cart) obj;
+        return id == other.id;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Cart other = (Cart) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        return Objects.equals(this.user, other.user);
+    public int hashCode() {
+        return Objects.hash(id);
     }
+
+    @Override
+    public String toString() {
+        return "Cart [id=" + id + ", user=" + user + ", getId()=" + getId() + ", getUser()=" + getUser();
+    }
+    
 }

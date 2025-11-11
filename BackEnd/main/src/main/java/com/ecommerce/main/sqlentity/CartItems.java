@@ -9,7 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class CartItems {
+public class CartItems{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +23,10 @@ public class CartItems {
     private int quantity;
     @Column(name="total_price")
     private double totalPrice;
+
+    public CartItems(){
+        
+    }
 
     public CartItems(Cart cart, Product product, int quantity, double totalPrice) {
         this.cart = cart;
@@ -39,15 +43,15 @@ public class CartItems {
         this.id = id;
     }
 
-    public Cart getcart() {
+    public Cart getCart() {
         return cart;
     }
 
-    public void setcart(Cart cart) {
+    public void setCart(Cart cart) {
         this.cart = cart;
     }
 
-    public Product getproduct() {
+    public Product getProduct() {
         return product;
     }
 

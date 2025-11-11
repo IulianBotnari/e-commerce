@@ -74,9 +74,7 @@ public class ProductController {
     public ResponseEntity getProductByCategory(@PathVariable ("category") String category) {
 
         List<Product> listByCategory = productRepository.getProductByCategory(category);
-        for (Product elem : listByCategory) {
-            System.out.println("-----" + elem.getBrand()); // Logging del brand a scopo di debug
-        }
+
         return  ResponseEntity.ofNullable(listByCategory);
 
     }
@@ -90,7 +88,6 @@ public class ProductController {
      */
     @GetMapping("/{id}")
     public ResponseEntity getProduct(@PathVariable("id") String code) {
-        System.out.println(code);
         Product product = productRepository.findByproductcode(code);
 
         if (product == null) {

@@ -4,10 +4,30 @@ import NavBar from "../../components/NavBar.jsx"
 import FooterLayout from "../../components/FooterLayout.jsx"
 import Arrow from "../../assets/icons/icons8-freccia-100.png"
 import { BiTrash } from "react-icons/bi";
+import { useAuthContext } from "../../contexts/AuthContext.jsx"
+import { useEffect } from "react"
 
 
 
 export default function CartPage() {
+    const { authApi } = useAuthContext()
+
+
+    async function getCartProducts() {
+
+        try {
+            const response = await authApi.get(`/cart/cartbyuser/${26}`)
+            console.log(response.data);
+
+        } catch (error) {
+            console.error(error);
+
+        }
+    }
+
+    useEffect(() => {
+        getCartProducts()
+    }, [])
 
 
 
@@ -56,7 +76,7 @@ export default function CartPage() {
                         <div>
                             <p>Richiedi anche tu la NEXTCARD!</p>
                             <p>Accumula punti per ogni tuo ordine: si trasfrmeranno in Biono Sconto per i successivi acquisti</p>
-                            <img src=""></img>
+                            <img src={null}></img>
                             <button>Richiedila Adesso</button>
                         </div>
                     </div>
