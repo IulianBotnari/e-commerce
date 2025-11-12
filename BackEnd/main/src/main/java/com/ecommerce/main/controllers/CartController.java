@@ -1,5 +1,6 @@
 package com.ecommerce.main.controllers;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +23,7 @@ import com.ecommerce.main.service.CartService;
 import com.ecommerce.main.sqlentity.Cart;
 import com.ecommerce.main.sqlentity.CartItems;
 import com.ecommerce.main.sqlentity.Product;
+
 
 @RestController
 @RequestMapping("/cart")
@@ -37,8 +40,13 @@ public class CartController {
     @GetMapping("/cartbyuser/{userId}")
     public ResponseEntity getCartProducts(@PathVariable int userId) {
         Cart userCart = cartService.getCartByUserId(userId);
+        if (userCart == null) {
+            return ResponseEntity.notFound().build();
+        }
         List<CartItems> cartItems = (List<CartItems>) cartItemsRepository.findByCart(userCart.getId());
-
+        if (cartItems == null) {
+            return ResponseEntity.notFound().build();
+        }
         List<CartItemsResponseDto> response = new ArrayList<>();
 
         for (CartItems cartItem : cartItems){
@@ -46,17 +54,36 @@ public class CartController {
             double totalPrice = product.getPrice() * cartItem.getQuantity();
             CartItemsResponseDto responseItem = new CartItemsResponseDto();
             responseItem.setProductId(product.getId());
+            responseItem.setCartItemId(cartItem.getId());
+            responseItem.setProductCode(product.getProductcode());
             responseItem.setName(product.getName());
             responseItem.setBrand(product.getBrand());
             responseItem.setCategory(product.getCategory());
+            responseItem.setDescription(product.getDescription());
             responseItem.setQuantity(cartItem.getQuantity());
             responseItem.setUnitPrice(product.getPrice());
+            responseItem.setImage(product.getImage());
             responseItem.setTotalPrice(totalPrice);
             response.add(responseItem);
         }
         
 
         return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/changequantity/{cartitemid}")
+    public ResponseEntity changeCartProductQuantity(@PathVariable String cartitemid, @RequestBody int quantity) throws SQLException {
+        System.out.println("Id del prodotto "+cartitemid);
+        System.out.println("Quantita passata "+quantity);
+        try {
+            cartService.changeCartProductQty(cartitemid,quantity);
+            
+        }catch (Exception e) {
+            System.err.println(e.getMessage());
+            return ResponseEntity.internalServerError().build();
+        }
+        
+        return ResponseEntity.accepted().build();
     }
 
     @PostMapping("/{userId}/add/{productId}/quantity")

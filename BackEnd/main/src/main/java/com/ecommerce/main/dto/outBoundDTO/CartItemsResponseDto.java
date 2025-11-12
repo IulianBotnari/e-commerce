@@ -2,11 +2,15 @@ package com.ecommerce.main.dto.outBoundDTO;
 
 public class CartItemsResponseDto {
     private int productId;
+    private int cartItemId;
+    private String productCode;
     private String name;
     private String category;
+    private String description;
     private String brand;
     private double unitPrice;
     private int quantity;
+    private byte[] image;
     private double totalPrice;
     
 
@@ -14,14 +18,18 @@ public class CartItemsResponseDto {
         
     }
 
-    public CartItemsResponseDto(int productId, String name, String category, String brand, double unitPrice, int quantity,
+    public CartItemsResponseDto(int productId, int cartItemId, String productCode, String name, String category,String description, String brand, double unitPrice, int quantity, byte[] image,
             double totalPrice) {
         this.productId = productId;
+        this.cartItemId = cartItemId;
+        this.productCode = productCode;
         this.name = name;
         this.category = category;
+        this.description = description;
         this.brand = brand;
         this.unitPrice = unitPrice;
         this.quantity = quantity;
+        this.image = image;
         this.totalPrice = totalPrice;
     }
 
@@ -79,6 +87,38 @@ public class CartItemsResponseDto {
 
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public String getProductCode() {
+        return productCode;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
+    }
+
+    public int getCartItemId() {
+        return cartItemId;
+    }
+
+    public void setCartItemId(int cartItemId) {
+        this.cartItemId = cartItemId;
     }
 
     

@@ -34,6 +34,15 @@ public class CartService {
         return userCart;
     }
 
+    public void changeCartProductQty(String cartItemId, int quantity){
+        int parsedCartId = Integer.parseInt(cartItemId);
+        CartItems cartItem = cartItemsRepository.findById(parsedCartId);
+ 
+        cartItem.setQuantity(quantity);
+        cartItem.setTotalPrice(quantity * cartItem.getProduct().getPrice());
+        cartItemsRepository.save(cartItem);
+    }
+
     public void addProductToCart(int userId, int productId, double quantity) {
 
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));

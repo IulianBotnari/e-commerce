@@ -5,31 +5,44 @@ import FooterLayout from "../../components/FooterLayout.jsx"
 import Arrow from "../../assets/icons/icons8-freccia-100.png"
 import { BiTrash } from "react-icons/bi";
 import { useAuthContext } from "../../contexts/AuthContext.jsx"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 
 
 export default function CartPage() {
-    const { authApi } = useAuthContext()
-
-
+    const { authApi, userId } = useAuthContext()
+    const [userCart, setUserCart] = useState()
     async function getCartProducts() {
-
         try {
-            const response = await authApi.get(`/cart/cartbyuser/${26}`)
-            console.log(response.data);
+            const response = await authApi.get(`/cart/cartbyuser/${userId}`)
+            console.log("Dati prodotti ", response.data);
+
+            setUserCart(response.data)
 
         } catch (error) {
             console.error(error);
+        }
+    }
 
+    async function changeQuantityProduct(cartItemId, quantity) {
+        try {
+            const response = await authApi.put(`/cart/changequantity/${cartItemId}`, quantity, {
+                headers: { "Content-Type": "application/json" }
+            })
+        } catch (error) {
+            console.error(error);
         }
     }
 
     useEffect(() => {
         getCartProducts()
     }, [])
-
-
+    async function handleQuantityChange(e) {
+        const { value } = e.target
+        const cartItemId = e.target.getAttribute("data-cartItemIdAttribute");
+        await changeQuantityProduct(cartItemId, value)
+        getCartProducts()
+    }
 
     return <>
         <HeaderLayout />
@@ -49,18 +62,21 @@ export default function CartPage() {
                             <p>PREZZO UNITARIO</p>
                             <p>PREZZO</p>
                         </div>
-                        <div className={style.row}>
-                            <div>
-                                <img src={Arrow} className={style.cart_img}></img>
+                        {userCart?.map((element, index) => (
+
+                            <div className={style.row} key={index}>
+                                <div>
+                                    <img src={`data:image/jpeg;base64,${element.image}`} className={style.cart_img}></img>
+                                </div>
+                                <p className={style.cart_product_code}>{element.productCode}</p>
+                                <p className={style.cart_description}>{element.description}</p>
+                                <div>
+                                    <input type="number" min={1} className={style.cart_quantity} defaultValue={element.quantity} data-cartItemIdAttribute={element.cartItemId} onChange={(e) => handleQuantityChange(e)}></input>
+                                </div>
+                                <p className={style.cart_unit_price}>{element.unitPrice}</p>
+                                <p className={style.total_product_price}>{element.totalPrice}<button className={style.delete_from_cart}><BiTrash style={{ color: "red", fontSize: "20px" }} /></button></p>
                             </div>
-                            <p className={style.cart_product_code}>20</p>
-                            <p className={style.cart_description}>HP CarePack Estensione di Garanzia a 2 Anni PIck Up/Return - Attivazione da parte di NEXT</p>
-                            <div>
-                                <input type="number" min={1} className={style.cart_quantity}></input>
-                            </div>
-                            <p className={style.cart_unit_price}>234.99</p>
-                            <p className={style.total_product_price}>239.99<button className={style.delete_from_cart}><BiTrash style={{ color: "red", fontSize: "20px" }} /></button></p>
-                        </div>
+                        ))}
 
                         <div className={style.vai_alla_cassa_container}>
                             <button>Vai alla cassa</button>
