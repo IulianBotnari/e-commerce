@@ -17,6 +17,7 @@ import searchIcon from '../assets/headerassets/search-icon.png'
 import style from './componentsStyle/HeaderLayout.module.scss'
 import { useNavigate } from 'react-router-dom'
 import { useAuthContext } from '../contexts/AuthContext'
+import { useGlobalContext } from '../contexts/GlobalContext'
 import { useRef } from 'react'
 
 
@@ -25,7 +26,13 @@ export default function HeaderLayout() {
     const navigateTo = useNavigate()
     const navigateToHome = useNavigate()
     const navigateToCart = useNavigate()
-    const { userName, authApi } = useAuthContext()
+    const { authApi } = useAuthContext()
+    const { cartLength } = useGlobalContext()
+    // console.log("headerlayout" + cartLength);
+
+    const userName = localStorage.getItem("userName")
+    let counterCartItems = 0
+
     const buttonRef = useRef()
 
     function handleAccessButton() {
@@ -63,8 +70,8 @@ export default function HeaderLayout() {
 
             <div id="login_logout" className={style.login_logout}>
                 <div id='button_container' className={style.button_container}>
-                    <button id="login" ref={buttonRef} onClick={() => handleAccessButton()}>{userName ? userName : "Accedi"}</button>
-                    <button id="cart" onClick={() => navigateToCart("/user/cart")} >Carrello</button>
+                    <button id="login" ref={buttonRef} onClick={() => handleAccessButton()}>{localStorage.getItem("userName") === "null" ? "Accedi" : localStorage.getItem("userName")}</button>
+                    <button id="cart" onClick={() => navigateToCart("/user/cart")} >Carrello (<span>{cartLength})</span></button>
                 </div>
                 <img id="store_map" src={negoziNextMappa} className={style.store_map} alt='vai a negozi'></img>
             </div>

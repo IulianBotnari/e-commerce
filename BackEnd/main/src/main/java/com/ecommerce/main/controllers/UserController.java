@@ -179,12 +179,12 @@ public class UserController {
         ResponseCookie cookie = ResponseCookie.from("refreshToken", refreshToken)
                 .httpOnly(true)
                 .secure(true)
+                .sameSite("Strict")
                 .path("/")
                 .maxAge(7 * 24 * 60 * 60)
                 .build();
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
-        UserLoginResponse userData = new UserLoginResponse();
-        return ResponseEntity.ok(Map.of("accessToken", accessToken, "role", userByEmail.get().getRole(),"userId", userByEmail.get().getId()));
+        return ResponseEntity.ok(Map.of("accessToken", accessToken, "role", userByEmail.get().getRole(),"userId", userByEmail.get().getId(),"userName",userByEmail.get().getName()));
     }
 
     /**

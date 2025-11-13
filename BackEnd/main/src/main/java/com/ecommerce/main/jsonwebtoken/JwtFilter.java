@@ -18,12 +18,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * @fileoverview Filtro di sicurezza personalizzato per l'estrazione e la validazione dei JSON Web Token (JWT).
+ * @fileoverview Filtro di sicurezza personalizzato per l'estrazione e la
+ *               validazione dei JSON Web Token (JWT).
  *
  * @class
- * Estende {@link OncePerRequestFilter} per garantire che il filtro venga eseguito una sola volta per ogni richiesta HTTP.
- * Questo filtro intercetta le richieste, estrae il JWT dall'header 'Authorization' e, se valido,
- * imposta l'oggetto di autenticazione nel contesto di sicurezza di Spring.
+ *        Estende {@link OncePerRequestFilter} per garantire che il filtro venga
+ *        eseguito una sola volta per ogni richiesta HTTP.
+ *        Questo filtro intercetta le richieste, estrae il JWT dall'header
+ *        'Authorization' e, se valido,
+ *        imposta l'oggetto di autenticazione nel contesto di sicurezza di
+ *        Spring.
  */
 @Component
 public class JwtFilter extends OncePerRequestFilter {
@@ -32,6 +36,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
     /**
      * Costruttore con iniezione di dipendenza per {@link JwtUtility}.
+     * 
      * @param jwtUtility Il servizio di utilità per la gestione dei JWT.
      */
     public JwtFilter(JwtUtility jwtUtility) {
@@ -40,26 +45,31 @@ public class JwtFilter extends OncePerRequestFilter {
 
     /**
      * Logica principale del filtro eseguita per ogni richiesta HTTP.
-     * 1. Estrae il token JWT dall'header 'Authorization' (se presente e nel formato "Bearer <token>").
-     * 2. Estrae l'email (username) e verifica che l'utente non sia già autenticato nel contesto.
-     * 3. Se il token è valido, estrae il ruolo, crea le autorità e imposta l'oggetto di autenticazione
-     * ({@link UsernamePasswordAuthenticationToken}) nel {@link SecurityContextHolder}.
+     * 1. Estrae il token JWT dall'header 'Authorization' (se presente e nel formato
+     * "Bearer <token>").
+     * 2. Estrae l'email (username) e verifica che l'utente non sia già autenticato
+     * nel contesto.
+     * 3. Se il token è valido, estrae il ruolo, crea le autorità e imposta
+     * l'oggetto di autenticazione
+     * ({@link UsernamePasswordAuthenticationToken}) nel
+     * {@link SecurityContextHolder}.
      * 4. Passa la richiesta al filtro successivo nella catena.
      *
-     * @param request La richiesta HTTP in ingresso.
+     * @param request  La richiesta HTTP in ingresso.
      * @param response La risposta HTTP.
-     * @param chain La catena di filtri.
+     * @param chain    La catena di filtri.
      * @throws ServletException, IOException
      */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-                throws ServletException, IOException {
+            throws ServletException, IOException {
         String header = request.getHeader("Authorization");
         String token = null;
         String email = null;
         String role = null;
 
         // Estrazione del token dall'header
+
         if (header != null && header.startsWith("Bearer ")) {
             token = header.substring(7).trim();
             email = jwtUtility.extractUsername(token);
@@ -71,12 +81,12 @@ public class JwtFilter extends OncePerRequestFilter {
                 role = jwtUtility.extractRole(token);
                 // Creazione dell'autorità basata sul ruolo
                 List<GrantedAuthority> authorities = Collections.singletonList(
-                    new SimpleGrantedAuthority("ROLE_" + role)
-                );
+                        new SimpleGrantedAuthority("ROLE_" + role));
 
-                // Creazione dell'oggetto di autenticazione e inserimento nel contesto di sicurezza
-                UsernamePasswordAuthenticationToken auth =
-                        new UsernamePasswordAuthenticationToken(email, null, authorities);
+                // Creazione dell'oggetto di autenticazione e inserimento nel contesto di
+                // sicurezza
+                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(email, null,
+                        authorities);
                 auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }

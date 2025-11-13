@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import { useAuthContext } from "../../contexts/AuthContext";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 import HeaderLayout from "../../components/HeaderLayout";
 import NavBar from "../../components/NavBar";
 import FooterLayout from "../../components/FooterLayout";
@@ -17,8 +18,9 @@ import style from "./ProductByCategory.module.scss"
  * @returns {JSX.Element} Il markup completo della pagina che mostra i prodotti filtrati.
  */
 export default function ProductByCategory() {
-
-    const { authApi, accessToken, userId } = useAuthContext()
+    const { cartLength, setCartLength } = useGlobalContext()
+    const { authApi } = useAuthContext()
+    const userId = localStorage.getItem("userId")
 
     const category = useParams()
     const [products, setProducts] = useState([])
@@ -28,7 +30,6 @@ export default function ProductByCategory() {
         try {
             const response = await authApi.get(`/products/productbycategory/${category.category}`)
             setProducts(response.data)
-            console.log(response.data);
 
         } catch (error) {
             console.error(error);
@@ -37,15 +38,21 @@ export default function ProductByCategory() {
     }
 
     async function addProductToCart(userId, productId) {
+        const accessToken = localStorage.getItem("accessToken")
+        console.log(accessToken);
+
         if (accessToken) {
             console.log(userId);
 
             try {
                 const response = await authApi.post(`/cart/${userId}/add/${productId}/quantity?quantity=${0}`)
+                setCartLength(cartLength + 1)
+                alert("Prodotto aggiunto al carrello!")
                 console.log(response.data);
 
             } catch (error) {
                 console.error(console.error());
+                alert("Devi loggarti per aggiungere al carrello!")
 
             }
         }
@@ -86,7 +93,7 @@ export default function ProductByCategory() {
                         <p >Fino a esaurimento scorte</p>
                         <div>
                             <button className={style.scopri_di_piu}>Scopri di più</button>
-                            <button className={style.aggiungi_al_carrello} onClick={() => addProductToCart(userId, element.id)}>Aggiungi al carrello</button>
+                            <button className={style.aggiungi_al_carrello} onClick={() => { addProductToCart(userId, element.id) }}>Aggiungi al carrello</button>
 
                         </div>
 

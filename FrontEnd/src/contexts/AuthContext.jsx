@@ -8,14 +8,10 @@ const context = createContext()
 
 export function AuthContext({ children }) {
 
-    // Stato per memorizzare l'Access Token JWT.
-    const [accessToken, setAccessToken] = useState()
-    // Stato per il nome utente autenticato.
-    const [userName, setUserName] = useState()
+
     // Stato per messaggi informativi da mostrare all'utente.
     const [infoPageMessage, setInfoPageMessage] = useState()
     const [userId, setUserId] = useState()
-    console.log(accessToken);
 
     // Configurazione di un'istanza di Axios con la base URL e le credenziali.
     const authApi = axios.create({
@@ -28,8 +24,9 @@ export function AuthContext({ children }) {
      * di Autorizzazione per tutte le chiamate API se un token è disponibile.
      */
     authApi.interceptors.request.use(async (config) => {
-        if (accessToken) {
-            config.headers.Authorization = `Bearer ${accessToken}`
+        const token = localStorage.getItem("accessToken");
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`
         }
 
         return config
@@ -64,10 +61,10 @@ export function AuthContext({ children }) {
                     const response = await authApi.post("/users/refresh", {});
 
                     // 2. Aggiorna lo stato con il nuovo token
-                    setAccessToken(response.data.accessToken);
+                    localStorage.setItem("accessToken", response.data.accessToken);
 
                     // 3. Imposta il nuovo token nell'header della richiesta fallita
-                    originalRequest.headers.Authorization = `Bearer ${response.data.accessToken}`;
+                    originalRequest.headers.Authorization = `Bearer ${localStorage.getItem("accessToken")}`;
 
                     // 4. Riprova la richiesta originale
                     return authApi.request(originalRequest);
@@ -83,7 +80,7 @@ export function AuthContext({ children }) {
     );
 
     // Oggetto che contiene tutti i valori da esporre tramite il contesto.
-    const values = { accessToken, setAccessToken, authApi, setUserName, userName, setInfoPageMessage, infoPageMessage, setUserId, userId }
+    const values = { authApi, setInfoPageMessage, infoPageMessage, setUserId, userId }
 
     // Fornisce i valori del contesto ai componenti figli.
     return (

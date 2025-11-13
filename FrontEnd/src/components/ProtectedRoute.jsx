@@ -11,10 +11,9 @@ import { useAuthContext } from "../contexts/AuthContext.jsx";
  */
 export default function ProtectedRoute({ children }) {
     // Recupera lo stato dell'autenticazione dal contesto.
-    const { accessToken } = useAuthContext();
 
     // Logica di protezione: se non c'è un accessToken, reindirizza l'utente.
-    if (!accessToken) {
+    if (!localStorage.getItem("accessToken")) {
         // Usa 'replace' per impedire all'utente di tornare alla pagina protetta con il tasto indietro.
         return <Navigate to="/infopage" replace />;
     }

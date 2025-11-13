@@ -204,7 +204,7 @@ export default function HomePage() {
     async function getOfferDayProducts() {
         try {
             const response = await authApi.get("/products/daydiscountoffer")
-            console.log("Offerte del giorno:", response.data);
+            // console.log("Offerte del giorno:", response.data);
             setOffertaDelGiorno(response.data)
         } catch (error) {
             console.error("Errore nel recupero delle offerte:", error);
@@ -219,7 +219,7 @@ export default function HomePage() {
     async function getNewProducts() {
         try {
             const response = await authApi.get("/products/newproduct")
-            console.log("Nuovi prodotti:", response.data);
+            // console.log("Nuovi prodotti:", response.data);
             setNewProducts(response.data)
         } catch (error) {
             console.error("Errore nel recupero dei nuovi prodotti:", error);

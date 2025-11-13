@@ -6,6 +6,7 @@ import style from '../login/LoginPage.module.scss'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useAuthContext } from '../../contexts/AuthContext'
+import { useGlobalContext } from '../../contexts/GlobalContext'
 
 /**
  * @fileoverview Componente funzionale per la pagina di Login (LoginPage).
@@ -23,7 +24,8 @@ export default function LoginPage() {
     const navigateToUserAccountPage = useNavigate()
     const navigateToAdminAccountPage = useNavigate()
     const [formData, setFormData] = useState()
-    const { accessToken, setAccessToken, authApi, setInfoPageMessage, setUserId, userId } = useAuthContext()
+    const { authApi, setInfoPageMessage } = useAuthContext()
+    const { getCartProducts } = useGlobalContext()
     const [displayUserMessage, setDisplayUserMessage] = useState(false)
 
     function handleFormData(e) {
@@ -42,17 +44,20 @@ export default function LoginPage() {
 
         try {
             const response = await authApi.post("/users/login", formData)
-            setUserId(response.data.userId);
-            setAccessToken(response.data.accessToken)
+            localStorage.setItem("userId", response.data.userId)
+            localStorage.setItem("userName", response.data.userName)
+            localStorage.setItem("accessToken", response.data.accessToken)
 
             if (response.data) {
-                setAccessToken(response.data.accessToken)
+                localStorage.setItem("accessToken", response.data.accessToken)
                 if (response.data.role === "admin") {
                     navigateToAdminAccountPage('/admin-home')
                 } else {
                     navigateToUserAccountPage('/user/user-account')
                 }
             }
+            getCartProducts()
+
         } catch (error) {
             setInfoPageMessage(error.message)
             if (displayUserMessage === false) {

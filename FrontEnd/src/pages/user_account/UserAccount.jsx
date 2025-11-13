@@ -5,6 +5,7 @@ import Footer from '../../components/FooterLayout.jsx'
 import trustPilotStar from '../../assets/icons/trustpilotstar.png'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuthContext } from '../../contexts/AuthContext.jsx'
+import { useGlobalContext } from '../../contexts/GlobalContext.jsx'
 import { useEffect, useState } from 'react'
 
 
@@ -20,6 +21,7 @@ import { useEffect, useState } from 'react'
 export default function userAccount() {
 
     const { accessToken, authApi, setUserName } = useAuthContext()
+    const { setCartLength } = useGlobalContext()
     const [userData, setUserData] = useState()
     const navigateToHome = useNavigate()
     const navigateToEditUser = useNavigate()
@@ -46,10 +48,12 @@ export default function userAccount() {
     async function logOut() {
         try {
             const response = await authApi.post('/users/logout')
-            console.log(response.data);
-            setUserName("")
             setUserData("")
             navigateToHome("/")
+            localStorage.setItem("accessToken", null)
+            localStorage.setItem("userName", null)
+            localStorage.setItem("userId", null)
+            setCartLength(0)
 
         } catch (error) {
             console.error("Qualcosa e andato storto", error);

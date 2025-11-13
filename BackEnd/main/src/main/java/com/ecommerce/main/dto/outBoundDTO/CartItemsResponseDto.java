@@ -3,6 +3,7 @@ package com.ecommerce.main.dto.outBoundDTO;
 public class CartItemsResponseDto {
     private int productId;
     private int cartItemId;
+    private int cartId;
     private String productCode;
     private String name;
     private String category;
@@ -18,10 +19,11 @@ public class CartItemsResponseDto {
         
     }
 
-    public CartItemsResponseDto(int productId, int cartItemId, String productCode, String name, String category,String description, String brand, double unitPrice, int quantity, byte[] image,
+    public CartItemsResponseDto(int productId, int cartItemId, int cartId, String productCode, String name, String category,String description, String brand, double unitPrice, int quantity, byte[] image,
             double totalPrice) {
         this.productId = productId;
         this.cartItemId = cartItemId;
+        this.cartId = cartId;
         this.productCode = productCode;
         this.name = name;
         this.category = category;
@@ -43,6 +45,14 @@ public class CartItemsResponseDto {
 
     public String getName() {
         return name;
+    }
+
+    public int getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(int cartId) {
+        this.cartId = cartId;
     }
 
     public void setName(String name) {
