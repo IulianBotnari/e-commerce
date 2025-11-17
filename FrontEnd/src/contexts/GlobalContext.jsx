@@ -13,6 +13,9 @@ export function GlobalContext({ children }) {
     // Stato che tiene traccia del numero totale di prodotti nel carrello
     const [cartLength, setCartLength] = useState(0)
 
+    // Setta il carrello del utente
+    const [userCart, setUserCart] = useState()
+
     // Verifica se le credenziali dell’utente sono ancora valide
     async function verifyCredential() {
         try {
@@ -44,7 +47,6 @@ export function GlobalContext({ children }) {
 
             // Effettua una chiamata API per ottenere i prodotti del carrello
             const response = await authApi.get(`/cart/cartbyuser/${userId}`)
-            console.log("Dati prodotti ", response.data);
 
             // Calcola la quantità totale dei prodotti nel carrello
             const array = response.data
@@ -53,7 +55,6 @@ export function GlobalContext({ children }) {
                 tempQuantity += element.quantity
             });
 
-            console.log("quantita totale prodotti", cartLength);
 
             // Aggiorna lo stato con la quantità totale di prodotti
             setCartLength(tempQuantity)
@@ -72,7 +73,7 @@ export function GlobalContext({ children }) {
 
     // Valori e funzioni che verranno condivisi tramite il contesto
     const values = {
-        cartLength, setCartLength, getCartProducts
+        cartLength, setCartLength, getCartProducts, setUserCart, userCart
     }
 
     // Ritorna il provider del contesto, rendendo i valori disponibili ai figli

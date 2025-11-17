@@ -7,6 +7,7 @@ import { BiTrash } from "react-icons/bi";
 import { useAuthContext } from "../../contexts/AuthContext.jsx"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { useGlobalContext } from "../../contexts/GlobalContext.jsx"
 
 
 
@@ -14,8 +15,12 @@ export default function CartPage() {
     // Ottieni l'oggetto authApi dal contesto di autenticazione
     const { authApi } = useAuthContext()
 
+    // Ottieni gli oggetti dal dal global context
+
+    const { userCart, setUserCart } = useGlobalContext()
+
     // Stato locale per memorizzare i prodotti nel carrello dell'utente
-    const [userCart, setUserCart] = useState()
+
 
     // Hook per navigare tra le pagine
     const navigate = useNavigate()
@@ -28,7 +33,6 @@ export default function CartPage() {
 
             // Effettua la chiamata API per ottenere il carrello associato all'utente
             const response = await authApi.get(`/cart/cartbyuser/${userId}`)
-            console.log("Dati prodotti ", response.data);
 
             // Aggiorna lo stato locale con i dati del carrello
             setUserCart(response.data)
@@ -114,8 +118,8 @@ export default function CartPage() {
                                 <div>
                                     <input type="number" min={1} className={style.cart_quantity} defaultValue={element.quantity} data-cartitemidattribute={element.cartItemId} onChange={(e) => handleQuantityChange(e)}></input>
                                 </div>
-                                <p className={style.cart_unit_price}>{element.unitPrice}</p>
-                                <p className={style.total_product_price}>{element.totalPrice}<button className={style.delete_from_cart} onClick={() => deleteItemFromCart(element.cartId, element.productId)}><BiTrash style={{ color: "red", fontSize: "20px" }} /></button></p>
+                                <p className={style.cart_unit_price}>{element.unitPrice.toFixed(2)}</p>
+                                <p className={style.total_product_price}>{(element.totalPrice - (element.totalPrice / 100 * element.discountValue)).toFixed(2)}<button className={style.delete_from_cart} onClick={() => deleteItemFromCart(element.cartId, element.productId)}><BiTrash style={{ color: "red", fontSize: "20px" }} /></button></p>
                             </div>
                         ))}
 
@@ -138,9 +142,9 @@ export default function CartPage() {
                         </div>
                     </div>
                 </div>
-            </div >
+            </div>
 
-        </main >
+        </main>
 
         <FooterLayout />
 

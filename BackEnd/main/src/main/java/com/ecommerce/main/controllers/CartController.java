@@ -78,6 +78,7 @@ public class CartController {
             responseItem.setDescription(product.getDescription());
             responseItem.setQuantity(cartItem.getQuantity());
             responseItem.setUnitPrice(product.getPrice());
+            responseItem.setDiscountValue(product.getDiscountvalue());
             responseItem.setImage(product.getImage());
             responseItem.setTotalPrice(totalPrice);
             response.add(responseItem);

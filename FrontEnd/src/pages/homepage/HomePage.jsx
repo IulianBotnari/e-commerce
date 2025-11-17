@@ -259,19 +259,19 @@ export default function HomePage() {
 
                         {offertaDelGiorno?.map((element, index) => (
 
-                            <>
-                                <div className={style.card} key={index} >
-                                    <span>{element.discountvalue}%</span>
-                                    <img src={`data:image/jpeg;base64,${element.image}`}></img>
-                                    <p className={style.short_description}>{handleStringLength(element.description)}</p>
-                                    <p className={style.original_price}>{`${element.price} €`}</p>
-                                    <p className={style.price}>{`${element.price - (element.price / 100 * element.discountvalue)} €`}</p>
-                                    <div className={`${style.separator}`}></div>
-                                    <p >Fino a esaurimento scorte</p>
-                                    <button >Scopri di più</button>
 
-                                </div>
-                            </>
+                            <div className={style.card} key={index} >
+                                <span>{element.discountvalue}%</span>
+                                <img src={`data:image/jpeg;base64,${element.image}`}></img>
+                                <p className={style.short_description}>{handleStringLength(element.description)}</p>
+                                <p className={style.original_price}>{`${element.price} €`}</p>
+                                <p className={style.price}>{`${element.price - (element.price / 100 * element.discountvalue)} €`}</p>
+                                <div className={`${style.separator}`}></div>
+                                <p >Fino a esaurimento scorte</p>
+                                <button >Scopri di più</button>
+
+                            </div>
+
                         ))}
 
 
@@ -300,15 +300,15 @@ export default function HomePage() {
                     <h3>Novita <Link><img src={plusIcon}></img></Link></h3>
                     <div id="novita_cards" className={style.novita_cards}>
                         {newProducts?.map((element, index) => (
-                            <>
-                                <div className={style.card} key={index}>
-                                    <img src={`data:image/jpeg;base64,${element.image}`}></img>
-                                    <p className={style.short_description}>{handleStringLength(element.description)}</p>
-                                    <p className={style.news_price}>{`${element.price - (element.price / 100 * element.discountvalue)} €`}</p>
-                                    <p >Fino a esaurimento scorte</p>
-                                    <button >Scopri di più</button>
-                                </div>
-                            </>
+
+                            <div className={style.card} key={index}>
+                                <img src={`data:image/jpeg;base64,${element.image}`}></img>
+                                <p className={style.short_description}>{handleStringLength(element.description)}</p>
+                                <p className={style.news_price}>{`${element.price - (element.price / 100 * element.discountvalue)} €`}</p>
+                                <p >Fino a esaurimento scorte</p>
+                                <button >Scopri di più</button>
+                            </div>
+
                         ))}
 
                     </div>

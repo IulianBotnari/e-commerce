@@ -24,7 +24,6 @@ export default function ProductByCategory() {
 
     const category = useParams()
     const [products, setProducts] = useState([])
-    console.log(category.category)
 
     async function getProductByCategory() {
         try {
@@ -42,16 +41,14 @@ export default function ProductByCategory() {
         console.log(accessToken);
 
         if (accessToken) {
-            console.log(userId);
 
             try {
                 const response = await authApi.post(`/cart/${userId}/add/${productId}/quantity?quantity=${0}`)
                 setCartLength(cartLength + 1)
                 alert("Prodotto aggiunto al carrello!")
-                console.log(response.data);
 
             } catch (error) {
-                console.error(console.error());
+                console.error(error);
                 alert("Devi loggarti per aggiungere al carrello!")
 
             }

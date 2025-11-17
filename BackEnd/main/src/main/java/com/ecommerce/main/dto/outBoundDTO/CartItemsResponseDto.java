@@ -10,6 +10,7 @@ public class CartItemsResponseDto {
     private String description;
     private String brand;
     private double unitPrice;
+    private int discountValue;
     private int quantity;
     private byte[] image;
     private double totalPrice;
@@ -19,7 +20,7 @@ public class CartItemsResponseDto {
         
     }
 
-    public CartItemsResponseDto(int productId, int cartItemId, int cartId, String productCode, String name, String category,String description, String brand, double unitPrice, int quantity, byte[] image,
+    public CartItemsResponseDto(int productId, int cartItemId, int cartId, String productCode, String name, String category,String description, String brand, double unitPrice, int discountValue,int quantity, byte[] image,
             double totalPrice) {
         this.productId = productId;
         this.cartItemId = cartItemId;
@@ -30,6 +31,7 @@ public class CartItemsResponseDto {
         this.description = description;
         this.brand = brand;
         this.unitPrice = unitPrice;
+        this.discountValue = discountValue;
         this.quantity = quantity;
         this.image = image;
         this.totalPrice = totalPrice;
@@ -129,6 +131,14 @@ public class CartItemsResponseDto {
 
     public void setCartItemId(int cartItemId) {
         this.cartItemId = cartItemId;
+    }
+
+    public int getDiscountValue() {
+        return discountValue;
+    }
+
+    public void setDiscountValue(int discountValue) {
+        this.discountValue = discountValue;
     }
 
     

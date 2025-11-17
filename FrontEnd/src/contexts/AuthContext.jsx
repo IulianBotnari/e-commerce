@@ -37,7 +37,7 @@ export function AuthContext({ children }) {
      * 1. Cattura gli errori di risposta.
      * 2. Se la risposta è 401 (Non Autorizzato) e non è già in corso un tentativo di retry:
      * a. Tenta di ottenere un nuovo Access Token usando l'endpoint /users/refresh.
-     * b. Aggiorna l'Access Token nello stato (setAccessToken).
+     * b. Aggiorna l'Access Token nello localStorage (setItem("accessToken", response.data.accessToken)).
      * c. Aggiorna l'header di Autorizzazione nella richiesta originale fallita.
      * d. Riprova la richiesta originale.
      * 3. Se il refresh fallisce, registra un errore e rigetta la Promessa.

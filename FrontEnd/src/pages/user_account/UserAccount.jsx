@@ -13,14 +13,14 @@ import { useEffect, useState } from 'react'
  * @fileoverview Componente funzionale per la gestione dell'Account Utente.
  * Carica i dati dell'utente loggato all'accesso tramite chiamata API (GET /users/logged-user-data)
  * e li visualizza. Fornisce anche la logica per effettuare il logout dell'utente.
- * Utilizza `useAuthContext` per accedere a `accessToken`, all'istanza API e alla funzione `setUserName`.
+ * Utilizza `useAuthContext` per accedere all'istanza API e alla funzione `setUserName`.
  *
  * @component
  * @returns {JSX.Element} Il markup completo della pagina Account Utente.
  */
 export default function userAccount() {
 
-    const { accessToken, authApi, setUserName } = useAuthContext()
+    const { authApi } = useAuthContext()
     const { setCartLength } = useGlobalContext()
     const [userData, setUserData] = useState()
     const navigateToHome = useNavigate()
@@ -32,7 +32,6 @@ export default function userAccount() {
         try {
             const response = await authApi.get('/users/logged-user-data')
             setUserData(response.data)
-            setUserName(response.data.name)
 
 
         } catch (error) {
