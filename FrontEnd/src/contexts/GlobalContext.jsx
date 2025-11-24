@@ -29,7 +29,7 @@ export function GlobalContext({ children }) {
             console.log(error.status);
 
             // Se la verifica fallisce, rimuove i dati dell’utente salvati
-            setUserData("")
+            setUserCart("")
             localStorage.setItem("accessToken", null)
             localStorage.setItem("userName", null)
             localStorage.setItem("userId", null)

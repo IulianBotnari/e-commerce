@@ -19,6 +19,9 @@ export default function CartPage() {
 
     const { userCart, setUserCart } = useGlobalContext()
 
+    console.log("Carrello utente", userCart);
+    
+
     // Stato locale per memorizzare i prodotti nel carrello dell'utente
 
 
@@ -107,7 +110,7 @@ export default function CartPage() {
                             <p>PREZZO UNITARIO</p>
                             <p>PREZZO</p>
                         </div>
-                        {userCart?.map((element, index) => (
+                        {userCart ?userCart.cart_items.map((element, index) => (
 
                             <div className={style.row} key={index}>
                                 <div>
@@ -121,7 +124,7 @@ export default function CartPage() {
                                 <p className={style.cart_unit_price}>{element.unitPrice.toFixed(2)}</p>
                                 <p className={style.total_product_price}>{(element.totalPrice - (element.totalPrice / 100 * element.discountValue)).toFixed(2)}<button className={style.delete_from_cart} onClick={() => deleteItemFromCart(element.cartId, element.productId)}><BiTrash style={{ color: "red", fontSize: "20px" }} /></button></p>
                             </div>
-                        ))}
+                        )):""}
 
                         <div className={style.vai_alla_cassa_container}>
                             <button onClick={() => navigate('/user/cart/checkout')}>Vai alla cassa</button>
