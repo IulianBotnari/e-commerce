@@ -11,7 +11,7 @@ import logoShop from '../../assets/headerassets/negozi-next-mappa.jpg' // Mappa 
 
 // Icone social e assistenza
 import faceBook from '../../assets/assistenza/facebook.png'
-import youTube from '../../assets/assistenza/youTube.png'
+import youTube from '../../assets/assistenza/youtube.png'
 import instagram from '../../assets/assistenza/instagram.png'
 import tikTok from '../../assets/assistenza/tiktok.png'
 import linkedin from '../../assets/assistenza/linkedin.png'

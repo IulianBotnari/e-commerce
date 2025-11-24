@@ -20,4 +20,7 @@ public interface CartItemsRepository extends JpaRepository<CartItems, Integer>{
 
     CartItems findById(int id);
 
+    @Query(value = "select SUM(total_price) from cart_items", nativeQuery=true)
+    double getTotalSumOfCart();
+
 }

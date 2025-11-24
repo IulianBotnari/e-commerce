@@ -12,9 +12,49 @@ import { FaCcMastercard } from "react-icons/fa6";
 import { BsBank } from "react-icons/bs";
 import { useAuthContext } from "../../contexts/AuthContext"
 import { useGlobalContext } from "../../contexts/GlobalContext"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 export default function CheckOutPage() {
-    const [radioSelected, setRadioSelected] = useState("Negozio di Limbiate")
+    const [ritiroRadioSelect, setRitiroRadioSelect] = useState("Negozio di Limbiate")
+    const [choosedPayment, setChoosedPayment] = useState("Presso negozio")
+    const [displayPayments, setDisplayPayments] = useState()
+    const [displayInStorePayment, setDisplayInStorePayment] = useState("block")
+    const [displayPaymentCardData, setDysplayPaymentCardData] = useState("none")
+    const [displayPaymentBankData, setDysplayPaymentBankData] = useState("none")
+    const { userCart } = useGlobalContext()
+    console.log("user cart in checkOutPage", userCart);
+
+
+    function handleShippingAddress() {
+        if (ritiroRadioSelect === "Consegna tramite Corriere") {
+            setDisplayPayments("block")
+            setDisplayInStorePayment("none")
+        } else {
+            setDisplayPayments("none")
+            setDisplayInStorePayment("block")
+        }
+    }
+
+    function handlePaymentSelection() {
+        if (choosedPayment === "carta") {
+            setDysplayPaymentCardData("block")
+            setDysplayPaymentBankData("none")
+        } else if (choosedPayment === "bonifico") {
+            setDysplayPaymentBankData("block")
+            setDysplayPaymentCardData("none")
+        } else {
+            setDysplayPaymentBankData("none")
+            setDysplayPaymentCardData("none")
+        }
+    }
+
+
+    useEffect(() => {
+        handleShippingAddress()
+    }, [ritiroRadioSelect])
+
+    useEffect(() => {
+        handlePaymentSelection()
+    }, [choosedPayment])
 
     return <>
         <HeaderLayout />
@@ -40,8 +80,8 @@ export default function CheckOutPage() {
                             <input
                                 type="radio"
                                 value="Negozio di Limbiate"
-                                checked={"Negozio di Limbiate" === radioSelected}
-                                onChange={(e) => setRadioSelected(e.target.value)}
+                                checked={"Negozio di Limbiate" === ritiroRadioSelect}
+                                onChange={(e) => setRitiroRadioSelect(e.target.value)}
                             ></input>
                             <label>Negozio di Limbiate</label>
 
@@ -50,8 +90,8 @@ export default function CheckOutPage() {
                             <input
                                 type="radio"
                                 value="Negozio di Cantù"
-                                checked={"Negozio di Cantù" === radioSelected}
-                                onChange={(e) => setRadioSelected(e.target.value)}
+                                checked={"Negozio di Cantù" === ritiroRadioSelect}
+                                onChange={(e) => setRitiroRadioSelect(e.target.value)}
                             ></input>
                             <label>Negozio di Cantù</label>
 
@@ -60,8 +100,8 @@ export default function CheckOutPage() {
                             <input
                                 type="radio"
                                 value="Negozio di Monza"
-                                checked={"Negozio di Monza" === radioSelected}
-                                onChange={(e) => setRadioSelected(e.target.value)}
+                                checked={"Negozio di Monza" === ritiroRadioSelect}
+                                onChange={(e) => setRitiroRadioSelect(e.target.value)}
                             ></input>
                             <label>Negozio di Monza</label>
 
@@ -70,8 +110,8 @@ export default function CheckOutPage() {
                             <input
                                 type="radio"
                                 value="Negozio di Milano Via Vitruvio"
-                                checked={"Negozio di Milano Via Vitruvio" === radioSelected}
-                                onChange={(e) => setRadioSelected(e.target.value)}
+                                checked={"Negozio di Milano Via Vitruvio" === ritiroRadioSelect}
+                                onChange={(e) => setRitiroRadioSelect(e.target.value)}
                             ></input>
                             <label>Negozio di Milano Via Vitruvio</label>
 
@@ -80,8 +120,8 @@ export default function CheckOutPage() {
                             <input
                                 type="radio"
                                 value="Negozio di Como"
-                                checked={"Negozio di Como" === radioSelected}
-                                onChange={(e) => setRadioSelected(e.target.value)}
+                                checked={"Negozio di Como" === ritiroRadioSelect}
+                                onChange={(e) => setRitiroRadioSelect(e.target.value)}
                             ></input>
                             <label>Negozio di Como</label>
 
@@ -90,8 +130,8 @@ export default function CheckOutPage() {
                             <input
                                 type="radio"
                                 value="Negozio di Seregno"
-                                checked={"Negozio di Seregno" === radioSelected}
-                                onChange={(e) => setRadioSelected(e.target.value)}
+                                checked={"Negozio di Seregno" === ritiroRadioSelect}
+                                onChange={(e) => setRitiroRadioSelect(e.target.value)}
                             ></input>
                             <label>Negozio di Seregno</label>
 
@@ -100,8 +140,8 @@ export default function CheckOutPage() {
                             <input
                                 type="radio"
                                 value="Negozio di Milano Via Procaccini"
-                                checked={"Negozio di Milano Via Procaccini" === radioSelected}
-                                onChange={(e) => setRadioSelected(e.target.value)}
+                                checked={"Negozio di Milano Via Procaccini" === ritiroRadioSelect}
+                                onChange={(e) => setRitiroRadioSelect(e.target.value)}
                             ></input>
                             <label>Negozio di Milano Via Procaccini</label>
 
@@ -111,14 +151,14 @@ export default function CheckOutPage() {
                             <input
                                 type="radio"
                                 value="Consegna tramite Corriere"
-                                checked={"Consegna tramite Corriere" === radioSelected}
-                                onChange={(e) => setRadioSelected(e.target.value)}
+                                checked={"Consegna tramite Corriere" === ritiroRadioSelect}
+                                onChange={(e) => setRitiroRadioSelect(e.target.value)}
                             ></input>
                             <label>Consegna tramite Corriere</label>
 
                         </div>
 
-                        <div className={style.indirizzo_di_spedizione_card}>
+                        <div className={style.indirizzo_di_spedizione_card} style={{ display: `${displayPaymentCardData}` }} >
                             <div>
                                 <p>Indirizzo di spedizione</p>
                                 <p>Consegnata a:</p>
@@ -141,47 +181,84 @@ export default function CheckOutPage() {
                             <span><FaEuroSign /></span>
                         </div>
                         <p>Pagamenti possibili in base al tipo di cosnsegna</p>
-                        <div>
-
-                            <input type="checkbox"></input>
+                        <div className={style.presso_negozio} style={{ display: `${displayInStorePayment}` }}>
+                            <input type="checkbox" checked readOnly></input>
                             <label>Presso negozio</label>
                         </div>
 
-                        <div className={style.payment_methods_card}>
-                            <div>
-                                <input
-                                    type="radio"
-                                    value="paypal"
-                                // checked={radioSelected === "Megozio di Milano Via Procaccini"}
-                                ></input>
-                                <label>Pagamento tramite paypal</label>
-                                <span><FaCcPaypal /></span>
+                        <div className={style.payment_methods_card} style={{ display: `${displayPayments}` }}>
 
-                            </div>
                             <div>
                                 <input
                                     type="radio"
                                     value="carta"
-                                // checked={radioSelected === "Megozio di Milano Via Procaccini"}
+                                    checked={choosedPayment === "carta"}
+                                    onChange={(e) => setChoosedPayment(e.target.value)}
                                 ></input>
                                 <label>Carta di credito</label>
                                 <span><FaCcVisa /><FaCcMastercard /></span>
-
                             </div>
                             <div>
                                 <input
                                     type="radio"
                                     value="bonifico"
-                                // checked={radioSelected === "Megozio di Milano Via Procaccini"}
+                                    checked={choosedPayment === "bonifico"}
+                                    onChange={(e) => setChoosedPayment(e.target.value)}
                                 ></input>
                                 <label>Bonifico bancario anticipato</label>
                                 <span><BsBank /></span>
-
                             </div>
-                            <hr></hr>
-                            <p>Note</p>
-                            <textarea rows="4"></textarea>
                         </div>
+                        <hr></hr>
+
+                        <form className={style.card_data_form} style={{ display: `${displayPaymentCardData}` }}>
+                            <div className={style.card_holder}>
+                                <label for="cc-name">Titolare carta</label>
+                                <input type="text" required />
+                            </div>
+                            <div className={style.card_number}>
+                                <label for="cc-number">Numero carta</label>
+                                <input type="text" maxlength="4" required /><span> / </span>
+                                <input type="text" maxlength="4" required /><span> / </span>
+                                <input type="text" maxlength="4" required /><span> / </span>
+                                <input type="text" maxlength="4" required />
+                            </div>
+                            <div className={style.card_expire}>
+                                <label for="cc-exp">Scadenza (MM/AA) </label>
+                                <input type="text" maxlength="2" required /><span> / </span>
+                                <input type="text" maxlength="2" required />
+                            </div>
+                            <div className={style.card_cvc}>
+                                <label for="cc-cvc">CVC / CVV</label>
+                                <input maxlength="3" required />
+                            </div>
+                            <div className={style.save_card}>
+                                <label for="save-card">Salva metodo di pagamento</label>
+                                <input type="checkbox" />
+                            </div>
+                        </form>
+
+                        <form className={style.bank_data_form}>
+                            <div className={style.bank_accoount_holder}>
+                                <label>Titolare conto</label>
+                                <input type="text"></input>
+                            </div>
+                            <div className={style.bank_name}>
+                                <label>Nome istituto</label>
+                                <input type="text"></input>
+                            </div>
+                            <div className={style.bank_account_number}>
+                                <label>IBAN: </label>
+                                <input type="text" maxLength="27"></input>
+                            </div>
+
+                            <div className={style.save_card}>
+                                <label for="save-card">Salva metodo di pagamento</label>
+                                <input type="checkbox" />
+                            </div>
+                        </form>
+                        <p>Note</p>
+                        <textarea rows="4"></textarea>
 
                     </div>
                     <div className={style.process_order_col}>
@@ -189,12 +266,34 @@ export default function CheckOutPage() {
                             <div className={style.circle}>
                                 <span className={style.number}>3</span>
                             </div>
-                            <span className={style.ritiro_consegna_title}>Ritiro/Consegna</span>
+                            <span className={style.ritiro_consegna_title}>Riepilogo Carrello</span>
                             <span><FaShoppingCart /></span>
                         </div>
+                        <div className={style.riepilogo_carrello}>
+                            <div className={style.riepilogo_carrello_header}>
+                                <p>Prodotto</p>
+                                <p>Qty</p>
+                                <p>Euro</p>
+                            </div>
+
+                            {userCart != null ? userCart.cart_items.map((element, index) => (
+
+                                <div className={style.riepilogo_carrello_details} key={index}>
+                                    <div>
+                                        <img src={`data:image/jpeg;Base64,${element.image}`}></img>
+                                        <p>{element.description}</p>
+                                    </div>
+                                    <p>{element.quantity}</p>
+                                    <p>{element.totalPrice.toFixed(2)}</p>
+                                </div>
+                            )) : ""}
+                            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                <p>TOT.IVA inclusa</p>
+                                <p>{userCart != null ? userCart.total_price.toFixed(2) : ""}</p>
+                            </div>
+                            <button className={style.order_button}>Procedi con l'ordine</button>
+                        </div>
                     </div>
-                    <div className={style.pagamento}></div>
-                    <div className={style.riepilogo_carrello}></div>
                 </div>
 
 

@@ -47,9 +47,11 @@ export function GlobalContext({ children }) {
 
             // Effettua una chiamata API per ottenere i prodotti del carrello
             const response = await authApi.get(`/cart/cartbyuser/${userId}`)
+            console.log(response.data);
+
 
             // Calcola la quantità totale dei prodotti nel carrello
-            const array = response.data
+            const array = response.data.cart_items
             let tempQuantity = 0
             array.forEach(element => {
                 tempQuantity += element.quantity

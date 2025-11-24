@@ -3,6 +3,7 @@ package com.ecommerce.main.controllers;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -83,8 +84,10 @@ public class CartController {
             responseItem.setTotalPrice(totalPrice);
             response.add(responseItem);
         }
+
+        double totalCartPrice = cartItemsRepository.getTotalSumOfCart();
         // Restituisce la lista dei prodotti nel carrello
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(Map.of("cart_items", response, "total_price", totalCartPrice));
     }
 
     /**
