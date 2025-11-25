@@ -56,6 +56,7 @@ public class SecurityConfig {
                 // 3. Regole di Autorizzazione per gli Endpoint
                 .authorizeHttpRequests(auth -> auth
                         // Endpoint pubblici che non richiedono autenticazione (permitAll)
+                        .requestMatchers("/actuator/health", "/actuator/info").permitAll()
                         .requestMatchers("/users/login", "/users/refresh", "/users/postuser",
                                 "/users/verify-credentials", "/products/daydiscountoffer", "/products/newproduct",
                                 "/products/productbycategory/**")
