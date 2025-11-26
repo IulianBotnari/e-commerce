@@ -31,7 +31,7 @@ export function GlobalContext({ children }) {
             // Se la verifica fallisce, rimuove i dati dell’utente salvati
             setUserCart("")
             localStorage.setItem("accessToken", null)
-            localStorage.setItem("userName", null)
+            localStorage.setItem("userName", "null")
             localStorage.setItem("userId", null)
 
             // Reimposta il numero di prodotti del carrello a 0

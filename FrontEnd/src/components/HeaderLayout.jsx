@@ -70,7 +70,7 @@ export default function HeaderLayout() {
 
             <div id="login_logout" className={style.login_logout}>
                 <div id='button_container' className={style.button_container}>
-                    <button id="login" ref={buttonRef} onClick={() => handleAccessButton()}>{localStorage.getItem("userName") === null ? "Accedi" : localStorage.getItem("userName")}</button>
+                    <button id="login" ref={buttonRef} onClick={() => handleAccessButton()}>{localStorage.getItem("userName") === "null" ? "Accedi" : localStorage.getItem("userName")}</button>
                     <button id="cart" onClick={() => navigateToCart("/user/cart")} >Carrello (<span>{cartLength})</span></button>
                 </div>
                 <img id="store_map" src={negoziNextMappa} className={style.store_map} alt='vai a negozi'></img>
