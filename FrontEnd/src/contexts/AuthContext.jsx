@@ -15,7 +15,7 @@ export function AuthContext({ children }) {
 
     // Configurazione di un'istanza di Axios con la base URL e le credenziali.
     const authApi = axios.create({
-        baseURL: "http://localhost:8080",
+        baseURL: "http://13.48.84.246:8080",
         withCredentials: true
     })
 
